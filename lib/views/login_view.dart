@@ -65,7 +65,7 @@ class _LoginViewState extends State<LoginView> {
                     },
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
-                      labelText: 'Email',
+                      labelText: 'E-mail',
                       border: OutlineInputBorder(),
                     ),
                   ),
