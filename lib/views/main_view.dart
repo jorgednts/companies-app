@@ -29,7 +29,9 @@ class _MainViewState extends State<MainView> {
         actions: [
           IconButton(
             icon: Icon(Icons.search),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushReplacementNamed('/result');
+            },
           ),
         ],
       ),
