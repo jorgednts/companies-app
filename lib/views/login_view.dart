@@ -94,7 +94,7 @@ class _LoginViewState extends State<LoginView> {
                   padding: const EdgeInsets.only(right: 20, left: 20),
                   child: ElevatedButton(
                     onPressed: () {
-
+                      Navigator.of(context).pushReplacementNamed('/main');
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Color(0xff57bbbc),

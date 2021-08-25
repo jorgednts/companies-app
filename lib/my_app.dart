@@ -11,7 +11,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light(),
-      home: LoginView(),
       initialRoute: '/',
       routes: {
         '/': (context) => LoginView(),
