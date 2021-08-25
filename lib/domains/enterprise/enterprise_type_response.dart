@@ -1,7 +1,7 @@
 class EnterpriseTypeResponse{
-  final String? _enterprise_type_name;
+  String? _enterpriseTypeName;
 
-  EnterpriseTypeResponse(this._enterprise_type_name);
+  EnterpriseTypeResponse(this._enterpriseTypeName);
 
-  String? get enterprise_type_name => _enterprise_type_name;
+  String? get enterpriseTypeName => _enterpriseTypeName;
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ioasys_app/domains/user/email_status.dart';
 import 'package:ioasys_app/domains/user/user.dart';
 
+
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
 

@@ -1,13 +1,13 @@
 import 'package:ioasys_app/domains/enterprise/enterprise_type_response.dart';
 
 class EnterpriseResponse {
-  final String? _enterprise_name;
-  final String? _photo;
-  final String? _description;
-  final String? _country;
-  final EnterpriseTypeResponse? _enterpriseTypeResponse;
+  String? _enterpriseName;
+  String? _photo;
+  String? _description;
+  String? _country;
+  EnterpriseTypeResponse? _enterpriseTypeResponse;
 
-  EnterpriseResponse(this._enterprise_name, this._photo, this._description,
+  EnterpriseResponse(this._enterpriseName, this._photo, this._description,
       this._country, this._enterpriseTypeResponse);
 
   EnterpriseTypeResponse? get enterpriseTypeResponse => _enterpriseTypeResponse;
@@ -18,5 +18,5 @@ class EnterpriseResponse {
 
   String? get photo => _photo;
 
-  String? get enterprise_name => _enterprise_name;
+  String? get enterpriseName => _enterpriseName;
 }

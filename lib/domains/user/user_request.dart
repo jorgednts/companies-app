@@ -1,6 +1,6 @@
 class UserRequest {
-  final String _userRequestEmail;
-  final String _userRequestPassword;
+  String _userRequestEmail;
+  String _userRequestPassword;
 
   UserRequest(this._userRequestEmail, this._userRequestPassword);
 
