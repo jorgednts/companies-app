@@ -1,8 +1,8 @@
-class User {
+class UserRequest {
   String _userRequestEmail;
   String _userRequestPassword;
 
-  User(this._userRequestEmail, this._userRequestPassword);
+  UserRequest(this._userRequestEmail, this._userRequestPassword);
 
   String get userRequestPassword => _userRequestPassword;
 

@@ -1,3 +1,5 @@
+import 'package:ioasys_app/domains/user/email_status.dart';
+
 class User {
   String _userEmail;
   String _userPassword;
