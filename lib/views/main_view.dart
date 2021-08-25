@@ -8,6 +8,10 @@ class MainView extends StatefulWidget {
 }
 
 class _MainViewState extends State<MainView> {
+  var _successfulRequestResult = false;
+  var _informationForUserToStartSearch = 'Clique na busca para iniciar';
+  var _informationForUserNoResult = 'Nenhuma empresa foi encontrada para a busca realizada';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +20,7 @@ class _MainViewState extends State<MainView> {
           backgroundColor: Color(0xffee4c77),
           title: Center(
             child: Image.asset(
-              'assets/images/logo.png',
+              'assets/images/logo_nav.png',
               width: 98,
               height: 22,
               alignment: FractionalOffset.center,
@@ -29,6 +33,20 @@ class _MainViewState extends State<MainView> {
           ),
         ],
       ),
+      body: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                if(_successfulRequestResult) SizedBox() else Container(
+                    child: Text(_informationForUserToStartSearch, style: TextStyle(fontSize: 18),)),
+              ],
+            )
+          ),
+      ) ,
     );
   }
 }
