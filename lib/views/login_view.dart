@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ioasys_app/domains/user/email_status.dart';
+import 'package:ioasys_app/domains/user/user.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -8,8 +10,11 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  String _userEmail = '';
-  String _userPassword = '';
+  TextEditingController _userEmailInputController = TextEditingController();
+  TextEditingController _userPasswordInputController = TextEditingController();
+  late String _emailVerification;
+  final _formKeyEmail = GlobalKey<FormState>();
+  final _formKeyPassword = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -59,14 +64,39 @@ class _LoginViewState extends State<LoginView> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 20, left: 20),
-                  child: TextField(
-                    onChanged: (text) {
-                      _userEmail = text;
-                    },
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                      labelText: 'E-mail',
-                      border: OutlineInputBorder(),
+                  child: Form(
+                    key: _formKeyEmail,
+                    child: TextFormField(
+                      controller: _userEmailInputController,
+                      validator: (userEmail) {
+                        if (User.validateUserEmail(userEmail) ==
+                            EmailStatus.INVALID) {
+                          _emailVerification =
+                              'Digite um email válido. Ex: abc@abc.com.br';
+                          return _emailVerification;
+                        } else if (User.validateUserEmail(userEmail) ==
+                            EmailStatus.EMPTY) {
+                          _emailVerification = 'Preencha o campo';
+                          return _emailVerification;
+                        } else {
+                          return null;
+                        }
+                      },
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                        labelText: 'E-mail',
+                        labelStyle: TextStyle(color: Colors.grey),
+                        prefixIcon: Icon(
+                          Icons.email,
+                          color: Color(0xffee4c77),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey),
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey),
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -75,15 +105,34 @@ class _LoginViewState extends State<LoginView> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 20, left: 20),
-                  child: TextField(
-                    onChanged: (text) {
-                      _userPassword = text;
-                    },
-                    keyboardType: TextInputType.number,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      labelText: 'Senha',
-                      border: OutlineInputBorder(),
+                  child: Form(
+                    key: _formKeyPassword,
+                    child: TextFormField(
+                      controller: _userPasswordInputController,
+                      validator: (userPassword) {
+                        if (userPassword == null) {
+                          return 'Preencha o campo';
+                        } else if (userPassword.length < 8) {
+                          return 'A senha deve conter pelo menos 8 caracteres';
+                        } else {
+                          return null;
+                        }
+                      },
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        labelText: 'Senha',
+                        labelStyle: TextStyle(color: Colors.grey),
+                        prefixIcon: Icon(
+                          Icons.password,
+                          color: Color(0xffee4c77),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey),
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey),
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -94,14 +143,19 @@ class _LoginViewState extends State<LoginView> {
                   padding: const EdgeInsets.only(right: 20, left: 20),
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).pushReplacementNamed('/main');
+                      _formKeyEmail.currentState!.validate();
+                      _formKeyPassword.currentState!.validate();
+                      //Navigator.of(context).pushReplacementNamed('/main');
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Color(0xff57bbbc),
                     ),
                     child: Container(
                       width: double.infinity,
-                      child: Text('ENTRAR', textAlign: TextAlign.center,),
+                      child: Text(
+                        'ENTRAR',
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
                 ),

@@ -1,5 +1,5 @@
 class EnterpriseType{
-  late String _enterprise_type_name;
+  final String _enterprise_type_name;
 
   EnterpriseType(this._enterprise_type_name);
 
