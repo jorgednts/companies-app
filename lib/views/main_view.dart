@@ -30,7 +30,7 @@ class _MainViewState extends State<MainView> {
           IconButton(
             icon: Icon(Icons.search),
             onPressed: () {
-              Navigator.of(context).pushReplacementNamed('/result');
+              Navigator.of(context).pushNamed('/result');
             },
           ),
         ],
