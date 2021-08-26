@@ -146,7 +146,7 @@ class _LoginViewState extends State<LoginView> {
                     onPressed: () {
                       _formKeyEmail.currentState!.validate();
                       _formKeyPassword.currentState!.validate();
-                      //Navigator.of(context).pushReplacementNamed('/main');
+                      Navigator.of(context).pushReplacementNamed('/main');
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Color(0xff57bbbc),
