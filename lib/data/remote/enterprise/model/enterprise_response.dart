@@ -1,4 +1,6 @@
-import 'package:ioasys_app/domains/enterprise/enterprise_type_response.dart';
+
+
+import 'package:ioasys_app/data/remote/enterprise/model/enterprise_type_response.dart';
 
 class EnterpriseResponse {
   String? _enterpriseName;

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ioasys_app/views/login_view.dart';
-import 'package:ioasys_app/views/main_view.dart';
-import 'package:ioasys_app/views/result_view.dart';
+import 'package:ioasys_app/view/login_view/login_view.dart';
+import 'package:ioasys_app/view/main_view/main_view.dart';
+import 'package:ioasys_app/view/result_view/result_view.dart';
+
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);

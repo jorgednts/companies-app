@@ -1,16 +1,17 @@
-import 'package:ioasys_app/domains/enterprise/enterprise_type.dart';
 
-class Enterprise {
+import 'package:ioasys_app/domain/enterprise/enterprise_type_model.dart';
+
+class EnterpriseModel {
   String _enterpriseName;
   String _photo;
   String _description;
   String _country;
-  EnterpriseType _enterpriseType;
+  EnterpriseTypeModel _enterpriseType;
 
-  Enterprise(this._enterpriseName, this._photo, this._description,
+  EnterpriseModel(this._enterpriseName, this._photo, this._description,
       this._country, this._enterpriseType);
 
-  EnterpriseType get enterpriseType => _enterpriseType;
+  EnterpriseTypeModel get enterpriseType => _enterpriseType;
 
   String get country => _country;
 

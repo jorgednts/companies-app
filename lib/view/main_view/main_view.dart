@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ioasys_app/constants/constants_images.dart';
 
 
 class MainView extends StatefulWidget {
@@ -64,7 +65,7 @@ class _MainViewState extends State<MainView> {
         backgroundColor: Color(0xffee4c77),
         title: Center(
           child: Image.asset(
-            'assets/images/logo_nav.png',
+            ConstantsImages.imageLogoInAppBar,
             width: 98,
             height: 22,
             alignment: FractionalOffset.center,

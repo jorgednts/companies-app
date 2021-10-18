@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ioasys_app/domains/user/email_status.dart';
-import 'package:ioasys_app/domains/user/user.dart';
+import 'package:ioasys_app/constants/constants_images.dart';
+import 'package:ioasys_app/domain/user/email_status.dart';
+import 'package:ioasys_app/domain/user/user_model.dart';
+
 
 
 class LoginView extends StatefulWidget {
@@ -33,7 +35,7 @@ class _LoginViewState extends State<LoginView> {
                   height: 30,
                 ),
                 Image.asset(
-                  'assets/images/logo.png',
+                  ConstantsImages.imageLogo,
                   width: 160,
                   height: 50,
                 ),
@@ -70,12 +72,12 @@ class _LoginViewState extends State<LoginView> {
                     child: TextFormField(
                       controller: _userEmailInputController,
                       validator: (userEmail) {
-                        if (User.validateUserEmail(userEmail) ==
+                        if (UserModel.validateUserEmail(userEmail) ==
                             EmailStatus.INVALID) {
                           _emailVerification =
                               'Digite um email válido. Ex: abc@abc.com.br';
                           return _emailVerification;
-                        } else if (User.validateUserEmail(userEmail) ==
+                        } else if (UserModel.validateUserEmail(userEmail) ==
                             EmailStatus.EMPTY) {
                           _emailVerification = 'Preencha o campo';
                           return _emailVerification;
