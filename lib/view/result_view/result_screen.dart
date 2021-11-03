@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class ResultView extends StatefulWidget {
-  const ResultView({Key? key}) : super(key: key);
+class ResultScreen extends StatefulWidget {
+  const ResultScreen({Key? key}) : super(key: key);
 
   @override
-  _ResultViewState createState() => _ResultViewState();
+  _ResultScreenState createState() => _ResultScreenState();
 }
 
-class _ResultViewState extends State<ResultView> {
+class _ResultScreenState extends State<ResultScreen> {
   var _enterpriseName = 'Nome da empresa';
   var _enterpriseDescription = 'Descrição da empresa';
 

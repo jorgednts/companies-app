@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:ioasys_app/constants/constants_images.dart';
 
 
-class MainView extends StatefulWidget {
-  const MainView({Key? key}) : super(key: key);
+class MainScreen extends StatefulWidget {
+  const MainScreen({Key? key}) : super(key: key);
 
   @override
-  _MainViewState createState() => _MainViewState();
+  _MainScreenState createState() => _MainScreenState();
 }
 
-class _MainViewState extends State<MainView> {
+class _MainScreenState extends State<MainScreen> {
   var _successfulRequestResult = true;
   var _informationForUserToStartSearch = 'Clique na busca para iniciar';
   var _informationForUserNoResult = 'Nenhuma empresa foi encontrada para a busca realizada';

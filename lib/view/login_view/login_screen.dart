@@ -5,14 +5,14 @@ import 'package:ioasys_app/domain/user/user_model.dart';
 
 
 
-class LoginView extends StatefulWidget {
-  const LoginView({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  _LoginViewState createState() => _LoginViewState();
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _LoginScreenState extends State<LoginScreen> {
   TextEditingController _userEmailInputController = TextEditingController();
   TextEditingController _userPasswordInputController = TextEditingController();
   late String _emailVerification;
