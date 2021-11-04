@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ioasys_app/constants/constants_images.dart';
 
-
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
 
@@ -10,35 +9,34 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  var _successfulRequestResult = true;
-  var _informationForUserToStartSearch = 'Clique na busca para iniciar';
-  var _informationForUserNoResult = 'Nenhuma empresa foi encontrada para a busca realizada';
+  bool _successfulRequestResult = true;
+  final _informationForUserToStartSearch = 'Clique na busca para iniciar';
 
   List<Company> recoverCompanyList() {
-    List<Company> list = [];
-    Company company1 = Company(
-        'assets/images/enterprise.png', 'Título 1', 'Tipo 1', 'País 1');
-    Company company2 = Company(
-        'assets/images/enterprise.png', 'Título 2', 'Tipo 2', 'País 2');
-    Company company3 = Company(
-        'assets/images/enterprise.png', 'Título 3', 'Tipo 3', 'País 3');
-    Company company4 = Company(
-        'assets/images/enterprise.png', 'Título 4', 'Tipo 4', 'País 4');
-    Company company5 = Company(
-        'assets/images/enterprise.png', 'Título 5', 'Tipo 5', 'País 5');
-    Company company6 = Company(
-        'assets/images/enterprise.png', 'Título 6', 'Tipo 6', 'País 6');
-    Company company7 = Company(
-        'assets/images/enterprise.png', 'Título 7', 'Tipo 7', 'País 7');
-    Company company8 = Company(
-        'assets/images/enterprise.png', 'Título 8', 'Tipo 8', 'País 8');
-    Company company9 = Company(
-        'assets/images/enterprise.png', 'Título 9', 'Tipo 9', 'País 9');
-    Company company10 = Company(
+    var list = <Company>[];
+    final company1 =
+        Company('assets/images/enterprise.png', 'Título 1', 'Tipo 1', 'País 1');
+    final company2 =
+        Company('assets/images/enterprise.png', 'Título 2', 'Tipo 2', 'País 2');
+    final company3 =
+        Company('assets/images/enterprise.png', 'Título 3', 'Tipo 3', 'País 3');
+    final company4 =
+        Company('assets/images/enterprise.png', 'Título 4', 'Tipo 4', 'País 4');
+    final company5 =
+        Company('assets/images/enterprise.png', 'Título 5', 'Tipo 5', 'País 5');
+    final company6 =
+        Company('assets/images/enterprise.png', 'Título 6', 'Tipo 6', 'País 6');
+    final company7 =
+        Company('assets/images/enterprise.png', 'Título 7', 'Tipo 7', 'País 7');
+    final company8 =
+        Company('assets/images/enterprise.png', 'Título 8', 'Tipo 8', 'País 8');
+    final company9 =
+        Company('assets/images/enterprise.png', 'Título 9', 'Tipo 9', 'País 9');
+    final company10 = Company(
         'assets/images/enterprise.png', 'Título 10', 'Tipo 10', 'País 1,');
-    Company company11 = Company(
+    final company11 = Company(
         'assets/images/enterprise.png', 'Título 11', 'Tipo 11', 'País 11');
-    Company company12 = Company(
+    final company12 = Company(
         'assets/images/enterprise.png', 'Título 12', 'Tipo 12', 'País 12');
     list.add(company1);
     list.add(company2);
@@ -60,9 +58,9 @@ class _MainScreenState extends State<MainScreen> {
     var list = recoverCompanyList();
 
     return Scaffold(
-      backgroundColor: Color(0xffebe9d7),
+      backgroundColor: const Color(0xffebe9d7),
       appBar: AppBar(
-        backgroundColor: Color(0xffee4c77),
+        backgroundColor: const Color(0xffee4c77),
         title: Center(
           child: Image.asset(
             ConstantsImages.imageLogoInAppBar,
@@ -73,7 +71,7 @@ class _MainScreenState extends State<MainScreen> {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.search),
+            icon: const Icon(Icons.search),
             onPressed: () {
               Navigator.of(context).pushNamed('/result');
             },
@@ -85,27 +83,25 @@ class _MainScreenState extends State<MainScreen> {
           child: Center(
             child: Column(
               children: [
-                if(_successfulRequestResult) Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: SizedBox(
-                    height: MediaQuery
-                        .of(context)
-                        .size
-                        .height,
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width,
-                    child: ListView.builder(
-                      itemCount: list.length,
-                      itemBuilder: (context, index){
-                        return Card(
+                if (_successfulRequestResult)
+                  Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height,
+                      width: MediaQuery.of(context).size.width,
+                      child: ListView.builder(
+                        itemCount: list.length,
+                        itemBuilder: (context, index) => Card(
                           color: Colors.white,
                           child: Row(
                             children: [
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Image.asset(list[index].image, height: 100, width: 200,),
+                                child: Image.asset(
+                                  list[index].image,
+                                  height: 100,
+                                  width: 200,
+                                ),
                               ),
                               Column(
                                 children: [
@@ -116,13 +112,16 @@ class _MainScreenState extends State<MainScreen> {
                               ),
                             ],
                           ),
-                        );
-                      },),
-                  ),
-                ) else
+                        ),
+                      ),
+                    ),
+                  )
+                else
                   Container(
-                      child: Text(_informationForUserToStartSearch,
-                        style: TextStyle(fontSize: 18),)),
+                      child: Text(
+                    _informationForUserToStartSearch,
+                    style: const TextStyle(fontSize: 18),
+                  )),
               ],
             ),
           ),
@@ -133,18 +132,11 @@ class _MainScreenState extends State<MainScreen> {
 }
 
 class Company {
-  String _image;
-  String _name;
-  String _type;
-  String _country;
+  Company(this.image, this.name, this.type, this.country);
 
-  Company(this._image, this._name, this._type, this._country);
+  final  String image;
+  final String name;
+  final String type;
+  final String country;
 
-  String get country => _country;
-
-  String get type => _type;
-
-  String get name => _name;
-
-  String get image => _image;
 }

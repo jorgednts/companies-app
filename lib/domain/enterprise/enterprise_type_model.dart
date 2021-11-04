@@ -1,7 +1,6 @@
 class EnterpriseTypeModel{
-  String _enterpriseTypeName;
+  EnterpriseTypeModel(this.enterpriseTypeName);
 
-  EnterpriseTypeModel(this._enterpriseTypeName);
+  final String enterpriseTypeName;
 
-  String get enterpriseTypeName => _enterpriseTypeName;
 }

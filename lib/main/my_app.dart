@@ -10,8 +10,7 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+  Widget build(BuildContext context) => MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light(),
       localizationsDelegates: const [
@@ -23,10 +22,9 @@ class MyApp extends StatelessWidget {
       supportedLocales: S.delegate.supportedLocales,
       initialRoute: '/',
       routes: {
-        '/': (context) => LoginScreen(),
-        '/main': (context) => MainScreen(),
-        '/result': (context) => ResultScreen(),
+        '/': (context) => const LoginScreen(),
+        '/main': (context) => const MainScreen(),
+        '/result': (context) => const ResultScreen(),
       },
     );
-  }
 }
