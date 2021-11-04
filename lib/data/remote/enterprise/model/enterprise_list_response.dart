@@ -1,12 +1,17 @@
 
-
 import 'package:ioasys_app/data/remote/enterprise/model/enterprise_response.dart';
+import 'package:json_annotation/json_annotation.dart';
+part 'enterprise_list_response.g.dart';
 
+@JsonSerializable(fieldRename: FieldRename.snake)
 class EnterpriseListResponse {
-  List<EnterpriseResponse>? _enterprises;
+  EnterpriseListResponse(this.enterprises);
 
-  EnterpriseListResponse(this._enterprises);
+  factory EnterpriseListResponse.fromJson(Map<String, dynamic> json) =>
+      _$EnterpriseListResponseFromJson(json);
 
-  List<EnterpriseResponse>? get enterprises => _enterprises;
+  final List<EnterpriseResponse>? enterprises;
+
+  Map<String, dynamic> toJson() => _$EnterpriseListResponseToJson(this);
 
 }
