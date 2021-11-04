@@ -1,5 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:ioasys_app/bloc/user/login_bloc.dart';
 import 'package:ioasys_app/constants/constants_images.dart';
+import 'package:ioasys_app/data/remote/user/remote_data_source/user_remote_data_source.dart';
+import 'package:ioasys_app/data/repository/user_repository/user_data_repository.dart';
+import 'package:ioasys_app/data/repository/user_repository/user_repository.dart';
 import 'package:ioasys_app/domain/user/email_status.dart';
 import 'package:ioasys_app/domain/user/user_model.dart';
 import 'package:ioasys_app/generated/l10n.dart';
@@ -18,6 +23,17 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController();
   final _formKeyEmail = GlobalKey<FormState>();
   final _formKeyPassword = GlobalKey<FormState>();
+  late UserRemoteDataSource _userRemoteDataSource;
+  late UserDataRepository _userDataRepository;
+  late LoginBloc _loginBloc;
+
+  @override
+  void initState() {
+    super.initState();
+    _userRemoteDataSource = UserRemoteDataSource(Dio());
+    _userDataRepository = UserRepository(_userRemoteDataSource);
+    _loginBloc = LoginBloc(_userDataRepository);
+  }
 
   @override
   Widget build(BuildContext context) =>

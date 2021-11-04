@@ -6,7 +6,7 @@ import 'package:ioasys_app/domain/user/user_model.dart';
 import 'package:ioasys_app/domain/user/user_tokens.dart';
 import 'package:ioasys_app/data/mapper/model_to_remote.dart';
 
-class UserRepository implements UserDataRepository{
+class UserRepository implements UserDataRepository {
   UserRepository(this._userRemoteDataSource);
   final UserRemoteDataSource _userRemoteDataSource;
 
