@@ -49,6 +49,86 @@ class S {
   static S? maybeOf(BuildContext context) {
     return Localizations.of<S>(context, S);
   }
+
+  /// `Welcome to companies`
+  String get loginScreenWelcomeText {
+    return Intl.message(
+      'Welcome to companies',
+      name: 'loginScreenWelcomeText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lorem ipsum dolor sit amet, contetur adipiscing elit. Nunc accumsan.`
+  String get loginScreenIntroductionText {
+    return Intl.message(
+      'Lorem ipsum dolor sit amet, contetur adipiscing elit. Nunc accumsan.',
+      name: 'loginScreenIntroductionText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `E-mail`
+  String get loginScreenFormEmailLabelText {
+    return Intl.message(
+      'E-mail',
+      name: 'loginScreenFormEmailLabelText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password`
+  String get loginScreenFormPasswordLabelText {
+    return Intl.message(
+      'Password',
+      name: 'loginScreenFormPasswordLabelText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sing in`
+  String get loginScreenButtonText {
+    return Intl.message(
+      'Sing in',
+      name: 'loginScreenButtonText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter a valid email address. Ex: abc@abc.com.br`
+  String get loginScreenFormInvalidEmail {
+    return Intl.message(
+      'Enter a valid email address. Ex: abc@abc.com.br',
+      name: 'loginScreenFormInvalidEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fill the field`
+  String get loginScreenEmptyFormText {
+    return Intl.message(
+      'Fill the field',
+      name: 'loginScreenEmptyFormText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password must contain at least 8 characters`
+  String get loginScreenFormInvalidPassword {
+    return Intl.message(
+      'Password must contain at least 8 characters',
+      name: 'loginScreenFormInvalidPassword',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

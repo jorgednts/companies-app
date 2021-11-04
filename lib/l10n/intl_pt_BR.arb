@@ -1,1 +1,11 @@
-{}
+{
+  "@@ locale": "pt_BR",
+  "loginScreenWelcomeText": "Bem vindo ao empresas",
+  "loginScreenIntroductionText": "Lorem ipsum dolor sit amet, contetur adipiscing elit. Nunc accumsan.",
+  "loginScreenFormEmailLabelText": "E-mail",
+  "loginScreenFormPasswordLabelText": "Senha",
+  "loginScreenButtonText": "Entrar",
+  "loginScreenFormInvalidEmail": "Digite um email válido. Ex: abc@abc.com.br",
+  "loginScreenEmptyFormText": "Preencha o campo",
+  "loginScreenFormInvalidPassword": "A senha deve conter pelo menos 8 caracteres"
+}

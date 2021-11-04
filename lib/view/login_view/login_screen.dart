@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ioasys_app/constants/constants_images.dart';
 import 'package:ioasys_app/domain/user/email_status.dart';
 import 'package:ioasys_app/domain/user/user_model.dart';
-
-
+import 'package:ioasys_app/generated/l10n.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -15,7 +14,6 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController _userEmailInputController = TextEditingController();
   TextEditingController _userPasswordInputController = TextEditingController();
-  late String _emailVerification;
   final _formKeyEmail = GlobalKey<FormState>();
   final _formKeyPassword = GlobalKey<FormState>();
 
@@ -45,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Padding(
                   padding: const EdgeInsets.only(right: 20, left: 20),
                   child: Text(
-                    'BEM VINDO AO \n EMPRESAS',
+                    S.of(context).loginScreenWelcomeText.toUpperCase(),
                     style: TextStyle(
                       fontSize: 20,
                     ),
@@ -58,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Padding(
                   padding: const EdgeInsets.only(right: 20, left: 20),
                   child: Text(
-                    'Lorem ipsum dolor sit amet, contetur adipiscing elit. Nunc accumsan.',
+                    S.of(context).loginScreenIntroductionText,
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -74,20 +72,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       validator: (userEmail) {
                         if (UserModel.validateUserEmail(userEmail) ==
                             EmailStatus.INVALID) {
-                          _emailVerification =
-                              'Digite um email válido. Ex: abc@abc.com.br';
-                          return _emailVerification;
+                          return S.of(context).loginScreenFormInvalidEmail;
                         } else if (UserModel.validateUserEmail(userEmail) ==
                             EmailStatus.EMPTY) {
-                          _emailVerification = 'Preencha o campo';
-                          return _emailVerification;
+                          return S.of(context).loginScreenEmptyFormText;
                         } else {
                           return null;
                         }
                       },
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
-                        labelText: 'E-mail',
+                        labelText: S.of(context).loginScreenFormEmailLabelText,
                         labelStyle: TextStyle(color: Colors.grey),
                         prefixIcon: Icon(
                           Icons.email,
@@ -114,16 +109,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       controller: _userPasswordInputController,
                       validator: (userPassword) {
                         if (userPassword == null) {
-                          return 'Preencha o campo';
+                          return S.of(context).loginScreenEmptyFormText;
                         } else if (userPassword.length < 8) {
-                          return 'A senha deve conter pelo menos 8 caracteres';
+                          return S.of(context).loginScreenFormInvalidPassword;
                         } else {
                           return null;
                         }
                       },
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                        labelText: 'Senha',
+                        labelText:
+                            S.of(context).loginScreenFormPasswordLabelText,
                         labelStyle: TextStyle(color: Colors.grey),
                         prefixIcon: Icon(
                           Icons.password,
@@ -156,7 +152,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Container(
                       width: double.infinity,
                       child: Text(
-                        'ENTRAR',
+                        S.of(context).loginScreenButtonText,
                         textAlign: TextAlign.center,
                       ),
                     ),

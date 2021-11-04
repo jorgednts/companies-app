@@ -1,1 +1,11 @@
-{}
+{
+  "@@ locale": "es",
+  "loginScreenWelcomeText": "Bienvenidos a empresas",
+  "loginScreenIntroductionText": "Lorem ipsum dolor sit amet, contetur adipiscing elit. Nunc accumsan.",
+  "loginScreenFormEmailLabelText": "E-mail",
+  "loginScreenFormPasswordLabelText": "Contraseña",
+  "loginScreenButtonText": "Iniciar sesión",
+  "loginScreenFormInvalidEmail": "Introduzca una dirección de correo electrónico válida. Ej: abc@abc.com.br\n",
+  "loginScreenEmptyFormText": "Completar el campo",
+  "loginScreenFormInvalidPassword": "La contraseña debe contener al menos 8 caracteres"
+}

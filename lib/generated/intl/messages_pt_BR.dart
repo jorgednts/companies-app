@@ -20,5 +20,21 @@ class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'pt_BR';
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-  static Map<String, Function> _notInlinedMessages(_) => <String, Function>{};
+  static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "loginScreenButtonText": MessageLookupByLibrary.simpleMessage("Entrar"),
+        "loginScreenEmptyFormText":
+            MessageLookupByLibrary.simpleMessage("Preencha o campo"),
+        "loginScreenFormEmailLabelText":
+            MessageLookupByLibrary.simpleMessage("E-mail"),
+        "loginScreenFormInvalidEmail": MessageLookupByLibrary.simpleMessage(
+            "Digite um email válido. Ex: abc@abc.com.br"),
+        "loginScreenFormInvalidPassword": MessageLookupByLibrary.simpleMessage(
+            "A senha deve conter pelo menos 8 caracteres"),
+        "loginScreenFormPasswordLabelText":
+            MessageLookupByLibrary.simpleMessage("Senha"),
+        "loginScreenIntroductionText": MessageLookupByLibrary.simpleMessage(
+            "Lorem ipsum dolor sit amet, contetur adipiscing elit. Nunc accumsan."),
+        "loginScreenWelcomeText":
+            MessageLookupByLibrary.simpleMessage("Bem vindo ao empresas")
+      };
 }
