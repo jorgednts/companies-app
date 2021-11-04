@@ -1,12 +1,20 @@
+import 'package:json_annotation/json_annotation.dart';
+part 'user_request.g.dart';
 
-
+@JsonSerializable(fieldRename: FieldRename.snake)
 class UserRequest {
-  String _userRequestEmail;
-  String _userRequestPassword;
+  final String email;
+  final String password;
 
-  UserRequest(this._userRequestEmail, this._userRequestPassword);
+  UserRequest(this.email, this.password);
 
-  String get userRequestPassword => _userRequestPassword;
+  factory UserRequest.fromJson(Map<String, dynamic> json) =>
+      _$UserRequestFromJson(json);
 
-  String get userRequestEmail => _userRequestEmail;
+  String get passwordUserRequest => password;
+
+  String get emailUserRequest => email;
+
+  Map<String, dynamic> toJson() => _$UserRequestToJson(this);
+
 }
