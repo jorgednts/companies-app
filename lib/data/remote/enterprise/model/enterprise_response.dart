@@ -1,24 +1,21 @@
-
-
 import 'package:ioasys_app/data/remote/enterprise/model/enterprise_type_response.dart';
+import 'package:json_annotation/json_annotation.dart';
+part 'enterprise_response.g.dart';
 
+@JsonSerializable(fieldRename: FieldRename.snake)
 class EnterpriseResponse {
-  String? _enterpriseName;
-  String? _photo;
-  String? _description;
-  String? _country;
-  EnterpriseTypeResponse? _enterpriseTypeResponse;
+  EnterpriseResponse(this.enterpriseName, this.photo, this.description,
+      this.country, this.enterpriseTypeResponse);
 
-  EnterpriseResponse(this._enterpriseName, this._photo, this._description,
-      this._country, this._enterpriseTypeResponse);
+  factory EnterpriseResponse.fromJson(Map<String, dynamic> json) =>
+      _$EnterpriseResponseFromJson(json);
 
-  EnterpriseTypeResponse? get enterpriseTypeResponse => _enterpriseTypeResponse;
+  final String? enterpriseName;
+  final String? photo;
+  final String? description;
+  final String? country;
+  final EnterpriseTypeResponse? enterpriseTypeResponse;
 
-  String? get country => _country;
+  Map<String, dynamic> toJson() => _$EnterpriseResponseToJson(this);
 
-  String? get description => _description;
-
-  String? get photo => _photo;
-
-  String? get enterpriseName => _enterpriseName;
 }

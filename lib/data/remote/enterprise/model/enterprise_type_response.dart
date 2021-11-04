@@ -1,7 +1,15 @@
+import 'package:json_annotation/json_annotation.dart';
+part'enterprise_type_response.g.dart';
+
+@JsonSerializable(fieldRename: FieldRename.snake)
 class EnterpriseTypeResponse{
-  String? _enterpriseTypeName;
+  EnterpriseTypeResponse(this.enterpriseTypeName);
 
-  EnterpriseTypeResponse(this._enterpriseTypeName);
+  factory EnterpriseTypeResponse.fromJson(Map<String, dynamic> json) =>
+      _$EnterpriseTypeResponseFromJson(json);
 
-  String? get enterpriseTypeName => _enterpriseTypeName;
+  final String enterpriseTypeName;
+
+  Map<String, dynamic> toJson() => _$EnterpriseTypeResponseToJson(this);
+
 }
