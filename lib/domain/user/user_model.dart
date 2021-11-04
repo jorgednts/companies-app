@@ -1,8 +1,10 @@
-
 import 'package:ioasys_app/domain/user/email_status.dart';
 
 class UserModel {
-  UserModel(this.email, this.password);
+  UserModel(
+    this.email,
+    this.password,
+  );
 
   final String email;
   final String password;

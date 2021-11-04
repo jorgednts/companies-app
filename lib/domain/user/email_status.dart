@@ -1,5 +1,5 @@
-enum EmailStatus{
+enum EmailStatus {
   valid,
   invalid,
-  empty
+  empty,
 }

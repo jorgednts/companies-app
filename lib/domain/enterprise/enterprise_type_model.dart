@@ -1,6 +1,7 @@
-class EnterpriseTypeModel{
-  EnterpriseTypeModel(this.enterpriseTypeName);
+class EnterpriseTypeModel {
+  EnterpriseTypeModel(
+    this.enterpriseTypeName,
+  );
 
   final String enterpriseTypeName;
-
 }

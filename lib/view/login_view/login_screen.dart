@@ -13,14 +13,15 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _userEmailInputController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _userPasswordInputController =
-      TextEditingController();
+  TextEditingController();
   final _formKeyEmail = GlobalKey<FormState>();
   final _formKeyPassword = GlobalKey<FormState>();
 
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(BuildContext context) =>
+      Scaffold(
         backgroundColor: const Color(0xffebe9d7),
         body: SizedBox.expand(
           child: SingleChildScrollView(
@@ -40,7 +41,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 Padding(
                   padding: const EdgeInsets.only(right: 20, left: 20),
                   child: Text(
-                    S.of(context).loginScreenWelcomeText.toUpperCase(),
+                    S
+                        .of(context)
+                        .loginScreenWelcomeText
+                        .toUpperCase(),
                     style: const TextStyle(
                       fontSize: 20,
                     ),
@@ -53,7 +57,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 Padding(
                   padding: const EdgeInsets.only(right: 20, left: 20),
                   child: Text(
-                    S.of(context).loginScreenIntroductionText,
+                    S
+                        .of(context)
+                        .loginScreenIntroductionText,
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -69,17 +75,23 @@ class _LoginScreenState extends State<LoginScreen> {
                       validator: (userEmail) {
                         if (UserModel.validateUserEmail(userEmail) ==
                             EmailStatus.invalid) {
-                          return S.of(context).loginScreenFormInvalidEmail;
+                          return S
+                              .of(context)
+                              .loginScreenFormInvalidEmail;
                         } else if (UserModel.validateUserEmail(userEmail) ==
                             EmailStatus.empty) {
-                          return S.of(context).loginScreenEmptyFormText;
+                          return S
+                              .of(context)
+                              .loginScreenEmptyFormText;
                         } else {
                           return null;
                         }
                       },
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
-                        labelText: S.of(context).loginScreenFormEmailLabelText,
+                        labelText: S
+                            .of(context)
+                            .loginScreenFormEmailLabelText,
                         labelStyle: const TextStyle(color: Colors.grey),
                         prefixIcon: const Icon(
                           Icons.email,
@@ -106,9 +118,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       controller: _userPasswordInputController,
                       validator: (userPassword) {
                         if (userPassword == null) {
-                          return S.of(context).loginScreenEmptyFormText;
+                          return S
+                              .of(context)
+                              .loginScreenEmptyFormText;
                         } else if (userPassword.length < 8) {
-                          return S.of(context).loginScreenFormInvalidPassword;
+                          return S
+                              .of(context)
+                              .loginScreenFormInvalidPassword;
                         } else {
                           return null;
                         }
@@ -116,7 +132,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         labelText:
-                            S.of(context).loginScreenFormPasswordLabelText,
+                        S
+                            .of(context)
+                            .loginScreenFormPasswordLabelText,
                         labelStyle: const TextStyle(color: Colors.grey),
                         prefixIcon: const Icon(
                           Icons.password,
@@ -143,7 +161,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           _formKeyEmail.currentState?.validate() ?? false;
                       final isValidPassword =
                           _formKeyPassword.currentState?.validate() ?? false;
-                      if(isValidEmail && isValidPassword) {
+                      if (isValidEmail && isValidPassword) {
+                        final userModel = UserModel(
+                            _userEmailInputController.text.toString(),
+                            _userPasswordInputController.text.toString());
                         Navigator.of(context).pushReplacementNamed('/main');
                       }
                     },
@@ -153,7 +174,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Container(
                       width: double.infinity,
                       child: Text(
-                        S.of(context).loginScreenButtonText,
+                        S
+                            .of(context)
+                            .loginScreenButtonText,
                         textAlign: TextAlign.center,
                       ),
                     ),
