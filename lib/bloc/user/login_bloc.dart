@@ -4,6 +4,7 @@ import 'package:ioasys_app/domain/user/password_status.dart';
 import 'package:ioasys_app/domain/user/user_model.dart';
 import 'package:ioasys_app/domain/user/user_tokens.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:ioasys_app/extensions/string_extensions.dart';
 
 class LoginBloc {
   LoginBloc(
@@ -16,7 +17,7 @@ class LoginBloc {
 
   Stream<EmailStatus> get isValidEmail => _isValidEmailPublishSubject.stream;
 
-  final _isValidPasswordPublishSubject = PublishSubject<PasswordStatus>();
+  final _isValidPasswordPublishSubject = BehaviorSubject<PasswordStatus>();
 
   Stream<PasswordStatus> get isValidPassword =>
       _isValidPasswordPublishSubject.stream;
@@ -29,23 +30,26 @@ class LoginBloc {
 
   Stream<UserTokens> get userTokens => _userTokensPublishSubject.stream;
 
-  final _authorizedLoginPublishSubject = PublishSubject<bool>();
+  final _authorizedLoginPublishSubject = BehaviorSubject<bool>();
 
   Stream<bool> get authorizedLogin =>
       _authorizedLoginPublishSubject.stream;
 
   Future<void> doLogin(UserModel userModel) async {
+    _authorizedLoginPublishSubject.add(false);
     _loadingPublishSubject.add(true);
     final isValidateEmail = validateEmail(userModel.email);
     final isValidatePassword = validatePassword(userModel.password);
     if (isValidateEmail == EmailStatus.valid &&
         isValidatePassword == PasswordStatus.valid) {
       try {
-        final userTokens = await _userDataRepository.doLogin(userModel);
-        _authorizedLoginPublishSubject.add(true);
-        _userTokensPublishSubject.add(userTokens);
+        final status = await _userDataRepository.doLogin(userModel);
+        if(status == 200){
+          _authorizedLoginPublishSubject.add(true);
+        } else {
+          _authorizedLoginPublishSubject.add(false);
+        }
       } catch (e) {
-        _authorizedLoginPublishSubject.add(false);
         throw Exception();
       }
     }
@@ -67,13 +71,13 @@ class LoginBloc {
   }
 
   PasswordStatus validatePassword(String? password) {
-    if(password == null){
+    if(password == null || password.isBlank()){
       _isValidPasswordPublishSubject.add(PasswordStatus.empty);
-      return PasswordStatus.invalid;
+      return PasswordStatus.empty;
     } else {
       if (password.length < 8) {
         _isValidPasswordPublishSubject.add(PasswordStatus.invalid);
-        return PasswordStatus.empty;
+        return PasswordStatus.invalid;
       } else {
         _isValidPasswordPublishSubject.add(PasswordStatus.valid);
         return PasswordStatus.valid;
