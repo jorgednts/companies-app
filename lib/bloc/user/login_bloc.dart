@@ -17,7 +17,7 @@ class LoginBloc {
 
   Stream<EmailStatus> get isValidEmail => _isValidEmailPublishSubject.stream;
 
-  final _isValidPasswordPublishSubject = BehaviorSubject<PasswordStatus>();
+  final _isValidPasswordPublishSubject = PublishSubject<PasswordStatus>();
 
   Stream<PasswordStatus> get isValidPassword =>
       _isValidPasswordPublishSubject.stream;
@@ -30,7 +30,7 @@ class LoginBloc {
 
   Stream<UserTokens> get userTokens => _userTokensPublishSubject.stream;
 
-  final _authorizedLoginPublishSubject = BehaviorSubject<bool>();
+  final _authorizedLoginPublishSubject = PublishSubject<bool>();
 
   Stream<bool> get authorizedLogin =>
       _authorizedLoginPublishSubject.stream;

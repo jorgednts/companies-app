@@ -86,31 +86,32 @@ class _MainScreenState extends State<MainScreen> {
                 if (_successfulRequestResult)
                   Padding(
                     padding: const EdgeInsets.all(12),
-                    child: SizedBox(
-                      height: MediaQuery.of(context).size.height,
-                      width: MediaQuery.of(context).size.width,
+                    child: SizedBox.expand(
                       child: ListView.builder(
                         itemCount: list.length,
-                        itemBuilder: (context, index) => Card(
-                          color: Colors.white,
-                          child: Row(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Image.asset(
-                                  list[index].image,
-                                  height: 100,
-                                  width: 200,
+                        itemBuilder: (context, index) => Padding(
+                          padding: const EdgeInsets.all(4),
+                          child: Card(
+                            color: Colors.white,
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Image.asset(
+                                    list[index].image,
+                                    height: 100,
+                                    width: 200,
+                                  ),
                                 ),
-                              ),
-                              Column(
-                                children: [
-                                  Text(list[index].name),
-                                  Text(list[index].type),
-                                  Text(list[index].country),
-                                ],
-                              ),
-                            ],
+                                Column(
+                                  children: [
+                                    Text(list[index].name),
+                                    Text(list[index].type),
+                                    Text(list[index].country),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
