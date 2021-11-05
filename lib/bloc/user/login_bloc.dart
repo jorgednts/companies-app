@@ -26,10 +26,11 @@ class LoginBloc {
   final _loadingPublishSubject = PublishSubject<bool>();
   Stream<bool> get isLoading => _loadingPublishSubject.stream;
 
-  final _userTokensPublishSubject = PublishSubject<UserTokens>();
-  Stream<UserTokens> get userTokens => _userTokensPublishSubject.stream;
+  final _userTokens = PublishSubject<UserTokens>();
+  Stream<UserTokens> get userTokens => _userTokens.stream;
 
-  final _requestLoginResponsePublishSubject = PublishSubject<RequestStatus>();
+  final _requestLoginResponsePublishSubject =
+      PublishSubject<RequestStatus>();
   Stream<RequestStatus> get requestLoginResponse =>
       _requestLoginResponsePublishSubject.stream;
 
@@ -41,8 +42,8 @@ class LoginBloc {
         isValidatePassword == PasswordStatus.valid) {
       try {
         final userTokensResponse = await _userDataRepository.doLogin(userModel);
-        _userTokensPublishSubject.add(userTokensResponse);
         _requestLoginResponsePublishSubject.add(RequestStatus.success);
+        _userTokens.add(userTokensResponse);
       } on UnauthorizedStatusCodeException {
         _requestLoginResponsePublishSubject.add(RequestStatus.unauthorized);
         throw UnauthorizedStatusCodeException();
@@ -91,7 +92,7 @@ class LoginBloc {
     _isValidEmailPublishSubject.close();
     _isValidPasswordPublishSubject.close();
     _loadingPublishSubject.close();
-    _userTokensPublishSubject.close();
     _requestLoginResponsePublishSubject.close();
+    _userTokens.close();
   }
 }

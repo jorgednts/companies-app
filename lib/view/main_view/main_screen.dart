@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:ioasys_app/constants/constants_images.dart';
+import 'package:ioasys_app/domain/user/user_tokens.dart';
+import 'package:ioasys_app/view/result_view/result_screen.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
+  const MainScreen({
+    required this.userTokens,
+    Key? key,
+  }) : super(key: key);
+  final UserTokens userTokens;
 
   @override
   _MainScreenState createState() => _MainScreenState();
@@ -73,7 +79,10 @@ class _MainScreenState extends State<MainScreen> {
           IconButton(
             icon: const Icon(Icons.search),
             onPressed: () {
-              Navigator.of(context).pushNamed('/result');
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ResultScreen()),
+              );
             },
           ),
         ],
@@ -137,9 +146,8 @@ class _MainScreenState extends State<MainScreen> {
 class Company {
   Company(this.image, this.name, this.type, this.country);
 
-  final  String image;
+  final String image;
   final String name;
   final String type;
   final String country;
-
 }

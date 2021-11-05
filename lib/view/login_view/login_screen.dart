@@ -9,7 +9,9 @@ import 'package:ioasys_app/data/repository/user_repository/user_repository.dart'
 import 'package:ioasys_app/domain/user/email_status.dart';
 import 'package:ioasys_app/domain/user/password_status.dart';
 import 'package:ioasys_app/domain/user/user_model.dart';
+import 'package:ioasys_app/domain/user/user_tokens.dart';
 import 'package:ioasys_app/generated/l10n.dart';
+import 'package:ioasys_app/view/main_view/main_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -28,6 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
   late UserRemoteDataSource _userRemoteDataSource;
   late UserDataRepository _userDataRepository;
   late LoginBloc _loginBloc;
+  late UserTokens _userTokens;
 
   @override
   void initState() {
@@ -47,8 +50,15 @@ class _LoginScreenState extends State<LoginScreen> {
   void _setupStream() {
     _loginBloc.requestLoginResponse.listen((event) {
       if (event == RequestStatus.success) {
-        Navigator.of(context).pushReplacementNamed('/main');
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => MainScreen(userTokens: _userTokens)),
+        );
       }
+    });
+    _loginBloc.userTokens.listen((event) {
+      _userTokens = event;
     });
   }
 
