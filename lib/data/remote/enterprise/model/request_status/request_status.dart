@@ -1,5 +1,6 @@
 enum RequestStatus {
   success,
   unauthorized,
-  error,
+  genericError,
+  networkError,
 }
