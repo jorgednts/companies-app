@@ -1,3 +1,4 @@
+import 'package:ioasys_app/data/remote/enterprise/model/exception/unauthorized_status_code_exception.dart';
 import 'package:ioasys_app/data/repository/user_repository/user_data_repository.dart';
 import 'package:ioasys_app/domain/user/email_status.dart';
 import 'package:ioasys_app/domain/user/password_status.dart';
@@ -14,26 +15,22 @@ class LoginBloc {
   final UserDataRepository _userDataRepository;
 
   final _isValidEmailPublishSubject = PublishSubject<EmailStatus>();
-
   Stream<EmailStatus> get isValidEmail => _isValidEmailPublishSubject.stream;
 
   final _isValidPasswordPublishSubject = PublishSubject<PasswordStatus>();
-
   Stream<PasswordStatus> get isValidPassword =>
       _isValidPasswordPublishSubject.stream;
 
   final _loadingPublishSubject = PublishSubject<bool>();
-
   Stream<bool> get isLoading => _loadingPublishSubject.stream;
 
   final _userTokensPublishSubject = PublishSubject<UserTokens>();
-
   Stream<UserTokens> get userTokens => _userTokensPublishSubject.stream;
 
   final _authorizedLoginPublishSubject = PublishSubject<bool>();
-
   Stream<bool> get authorizedLogin =>
       _authorizedLoginPublishSubject.stream;
+
 
   Future<void> doLogin(UserModel userModel) async {
     _authorizedLoginPublishSubject.add(false);
@@ -43,14 +40,12 @@ class LoginBloc {
     if (isValidateEmail == EmailStatus.valid &&
         isValidatePassword == PasswordStatus.valid) {
       try {
-        final status = await _userDataRepository.doLogin(userModel);
-        if(status == 200){
-          _authorizedLoginPublishSubject.add(true);
-        } else {
-          _authorizedLoginPublishSubject.add(false);
-        }
-      } catch (e) {
-        throw Exception();
+        final userTokensResponse = await _userDataRepository.doLogin(userModel);
+        _userTokensPublishSubject.add(userTokensResponse);
+      } on UnauthorizedStatusCodeException {
+        throw UnauthorizedStatusCodeException();
+      } catch (e){
+        Exception();
       }
     }
   }

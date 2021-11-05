@@ -1,0 +1,1 @@
+ class UnauthorizedStatusCodeException implements Exception{}

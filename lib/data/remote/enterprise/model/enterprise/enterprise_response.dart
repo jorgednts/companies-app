@@ -1,4 +1,4 @@
-import 'package:ioasys_app/data/remote/enterprise/model/enterprise_type_response.dart';
+import 'package:ioasys_app/data/remote/enterprise/model/enterprise/enterprise_type_response.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'enterprise_response.g.dart';

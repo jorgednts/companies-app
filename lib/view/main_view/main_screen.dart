@@ -86,7 +86,9 @@ class _MainScreenState extends State<MainScreen> {
                 if (_successfulRequestResult)
                   Padding(
                     padding: const EdgeInsets.all(12),
-                    child: SizedBox.expand(
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height,
+                      width: MediaQuery.of(context).size.width,
                       child: ListView.builder(
                         itemCount: list.length,
                         itemBuilder: (context, index) => Padding(
