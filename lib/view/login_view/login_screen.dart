@@ -51,15 +51,31 @@ class _LoginScreenState extends State<LoginScreen> {
     _loginBloc.requestLoginResponse.listen((event) {
       if (event == RequestStatus.success) {
         Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-              builder: (context) => MainScreen(userTokens: _userTokens)),
-            (route) => false
-        );
-      }
+            context,
+            MaterialPageRoute(
+                builder: (context) => MainScreen(userTokens: _userTokens)),
+            (route) => false);
+      } else if (event == RequestStatus.networkError) {
+      } else if (event == RequestStatus.unauthorized) {
+      } else {}
     });
     _loginBloc.userTokens.listen((event) {
       _userTokens = event;
+    });
+    _loginBloc.isLoading.listen((event) {
+      if (event) {
+        showDialog(
+          context: context,
+          builder: (context) => const Center(
+            child:  CircularProgressIndicator(
+              color: Colors.blue,
+              backgroundColor: Colors.transparent,
+            ),
+          ),
+        );
+      } else {
+        Navigator.pop(context);
+      }
     });
   }
 
