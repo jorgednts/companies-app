@@ -50,10 +50,11 @@ class _LoginScreenState extends State<LoginScreen> {
   void _setupStream() {
     _loginBloc.requestLoginResponse.listen((event) {
       if (event == RequestStatus.success) {
-        Navigator.push(
+        Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
               builder: (context) => MainScreen(userTokens: _userTokens)),
+            (route) => false
         );
       }
     });
