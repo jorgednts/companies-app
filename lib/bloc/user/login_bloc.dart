@@ -29,6 +29,11 @@ class LoginBloc {
 
   Stream<UserTokens> get userTokens => _userTokensPublishSubject.stream;
 
+  final _authorizedLoginPublishSubject = PublishSubject<bool>();
+
+  Stream<bool> get authorizedLogin =>
+      _authorizedLoginPublishSubject.stream;
+
   Future<void> doLogin(UserModel userModel) async {
     _loadingPublishSubject.add(true);
     final isValidateEmail = validateEmail(userModel.email);
@@ -37,8 +42,10 @@ class LoginBloc {
         isValidatePassword == PasswordStatus.valid) {
       try {
         final userTokens = await _userDataRepository.doLogin(userModel);
+        _authorizedLoginPublishSubject.add(true);
         _userTokensPublishSubject.add(userTokens);
       } catch (e) {
+        _authorizedLoginPublishSubject.add(false);
         throw Exception();
       }
     }
@@ -60,15 +67,17 @@ class LoginBloc {
   }
 
   PasswordStatus validatePassword(String? password) {
-    if (password == null) {
+    if(password == null){
       _isValidPasswordPublishSubject.add(PasswordStatus.empty);
-      return PasswordStatus.empty;
-    } else if (password.length < 8) {
-      _isValidPasswordPublishSubject.add(PasswordStatus.invalid);
       return PasswordStatus.invalid;
     } else {
-      _isValidPasswordPublishSubject.add(PasswordStatus.valid);
-      return PasswordStatus.valid;
+      if (password.length < 8) {
+        _isValidPasswordPublishSubject.add(PasswordStatus.invalid);
+        return PasswordStatus.empty;
+      } else {
+        _isValidPasswordPublishSubject.add(PasswordStatus.valid);
+        return PasswordStatus.valid;
+      }
     }
   }
 
@@ -77,5 +86,6 @@ class LoginBloc {
     _isValidPasswordPublishSubject.close();
     _loadingPublishSubject.close();
     _userTokensPublishSubject.close();
+    _authorizedLoginPublishSubject.close();
   }
 }

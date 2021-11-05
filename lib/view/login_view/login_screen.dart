@@ -34,12 +34,21 @@ class _LoginScreenState extends State<LoginScreen> {
     _userRemoteDataSource = UserRemoteDataSource(Dio());
     _userDataRepository = UserRepository(_userRemoteDataSource);
     _loginBloc = LoginBloc(_userDataRepository);
+    _setupStream();
   }
 
   @override
   void dispose() {
     _loginBloc.dispose();
     super.dispose();
+  }
+
+  void _setupStream() {
+    _loginBloc.authorizedLogin.listen((event) {
+      if (event) {
+        Navigator.of(context).pushReplacementNamed('/main');
+      }
+    });
   }
 
   @override
@@ -174,7 +183,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             _userEmailInputController.text.toString(),
                             _userPasswordInputController.text.toString());
                         _loginBloc.doLogin(userModel);
-                        // Navigator.of(context).pushReplacementNamed('/main');
                       }
                     },
                     style: ElevatedButton.styleFrom(
