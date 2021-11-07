@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:ioasys_app/data/remote/user/model/exception/gerenic_error_status_code_exception.dart';
-import 'package:ioasys_app/data/remote/user/model/exception/unauthorized_status_code_exception.dart';
+import 'package:ioasys_app/data/remote/shared/exception/gerenic_error_status_code_exception.dart';
+import 'package:ioasys_app/data/remote/shared/exception/unauthorized_status_code_exception.dart';
 import 'package:ioasys_app/data/remote/user/model/user/user_request.dart';
 import 'package:ioasys_app/domain/user/user_tokens.dart';
 

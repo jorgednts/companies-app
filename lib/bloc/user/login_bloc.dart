@@ -1,7 +1,7 @@
-
-import 'package:ioasys_app/data/remote/user/model/exception/gerenic_error_status_code_exception.dart';
-import 'package:ioasys_app/data/remote/user/model/exception/unauthorized_status_code_exception.dart';
-import 'package:ioasys_app/data/remote/user/model/view_state/view_state.dart';
+import 'package:ioasys_app/constants/constants_login.dart';
+import 'package:ioasys_app/data/remote/shared/exception/gerenic_error_status_code_exception.dart';
+import 'package:ioasys_app/data/remote/shared/exception/unauthorized_status_code_exception.dart';
+import 'package:ioasys_app/data/remote/shared/view_state/view_state.dart';
 import 'package:ioasys_app/data/repository/user_repository/user_data_repository.dart';
 import 'package:ioasys_app/domain/user/email_status.dart';
 import 'package:ioasys_app/domain/user/password_status.dart';
@@ -17,18 +17,20 @@ class LoginBloc {
   final UserDataRepository _userDataRepository;
 
   final _isValidEmail = PublishSubject<EmailStatus>();
+
   Stream<EmailStatus> get isValidEmail => _isValidEmail.stream;
 
   final _isValidPassword = PublishSubject<PasswordStatus>();
-  Stream<PasswordStatus> get isValidPassword =>
-      _isValidPassword.stream;
+
+  Stream<PasswordStatus> get isValidPassword => _isValidPassword.stream;
 
   final _loading = PublishSubject<bool>();
+
   Stream<bool> get isLoading => _loading.stream;
 
   final _loginViewState = PublishSubject<ViewState>();
-  Stream<ViewState> get loginViewState =>
-      _loginViewState.stream;
+
+  Stream<ViewState> get loginViewState => _loginViewState.stream;
 
   Future<void> doLogin(UserModel userModel) async {
     final isValidateEmail = validateEmail(userModel.email);
@@ -73,7 +75,7 @@ class LoginBloc {
       _isValidPassword.add(PasswordStatus.empty);
       return PasswordStatus.empty;
     } else {
-      if (password.length < 8) {
+      if (password.length < ConstantsLogin.minimumPasswordLength) {
         _isValidPassword.add(PasswordStatus.invalid);
         return PasswordStatus.invalid;
       } else {
