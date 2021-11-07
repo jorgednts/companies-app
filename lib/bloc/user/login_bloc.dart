@@ -41,22 +41,19 @@ class LoginBloc {
         isValidatePassword == PasswordStatus.valid) {
       _loading.add(true);
       try {
-        final userTokensResponse = await _userDataRepository.doLogin(userModel);
+        final userTokens = await _userDataRepository.doLogin(userModel);
         _loading.add(false);
         _loginViewState.add(ViewState.success);
-        _userTokens.add(userTokensResponse);
+        _userTokens.add(userTokens);
       } on UnauthorizedStatusCodeException {
         _loading.add(false);
         _loginViewState.add(ViewState.unauthorized);
-        throw UnauthorizedStatusCodeException();
       } on GenericErrorStatusCodeException {
         _loading.add(false);
         _loginViewState.add(ViewState.genericError);
-        throw GenericErrorStatusCodeException();
       } catch (e) {
         _loading.add(false);
         _loginViewState.add(ViewState.networkError);
-        Exception();
       }
     }
   }

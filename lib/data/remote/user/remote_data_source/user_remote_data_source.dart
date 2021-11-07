@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:ioasys_app/data/remote/enterprise/model/exception/gerenic_error_status_code_exception.dart';
 import 'package:ioasys_app/data/remote/enterprise/model/exception/unauthorized_status_code_exception.dart';
@@ -21,19 +23,21 @@ class UserRemoteDataSource {
       final uid = response.headers.value('uid');
       final client = response.headers.value('client');
 
-      if (response.statusCode == 200) {
-        if (accessToken != null && uid != null && client != null) {
-          return UserTokens(accessToken, uid, client);
-        } else {
-          throw GenericErrorStatusCodeException();
-        }
-      } else if (response.statusCode == 401) {
-        throw UnauthorizedStatusCodeException();
+      if (accessToken != null && uid != null && client != null) {
+        return UserTokens(accessToken, uid, client);
       } else {
         throw GenericErrorStatusCodeException();
       }
-    } on DioError {
-      throw Exception();
+    } on DioError catch (dioError, _) {
+      if (dioError.type == DioErrorType.response) {
+        if (dioError.response?.statusCode == HttpStatus.unauthorized) {
+          throw UnauthorizedStatusCodeException();
+        } else {
+          throw GenericErrorStatusCodeException();
+        }
+      } else {
+        throw Exception();
+      }
     }
   }
 }
