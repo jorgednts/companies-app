@@ -35,27 +35,27 @@ class LoginBloc {
       _loginViewState.stream;
 
   Future<void> doLogin(UserModel userModel) async {
-    _loading.add(true);
     final isValidateEmail = validateEmail(userModel.email);
     final isValidatePassword = validatePassword(userModel.password);
     if (isValidateEmail == EmailStatus.valid &&
         isValidatePassword == PasswordStatus.valid) {
+      _loading.add(true);
       try {
         final userTokensResponse = await _userDataRepository.doLogin(userModel);
+        _loading.add(false);
         _loginViewState.add(ViewState.success);
         _userTokens.add(userTokensResponse);
-        _loading.add(false);
       } on UnauthorizedStatusCodeException {
-        _loginViewState.add(ViewState.unauthorized);
         _loading.add(false);
+        _loginViewState.add(ViewState.unauthorized);
         throw UnauthorizedStatusCodeException();
       } on GenericErrorStatusCodeException {
-        _loginViewState.add(ViewState.genericError);
         _loading.add(false);
+        _loginViewState.add(ViewState.genericError);
         throw GenericErrorStatusCodeException();
       } catch (e) {
-        _loginViewState.add(ViewState.networkError);
         _loading.add(false);
+        _loginViewState.add(ViewState.networkError);
         Exception();
       }
     }

@@ -81,21 +81,17 @@ class _LoginScreenState extends State<LoginScreen> {
       _userTokens = event;
     });
     _loginBloc.isLoading.listen((event) {
-      BuildContext? dialogContext;
       if (event) {
         showDialog(
             context: context,
-            builder: (context) {
-              dialogContext = context;
-              return const Center(
+            builder: (context) => const Center(
                 child: CircularProgressIndicator(
                   color: Colors.blue,
                   backgroundColor: Colors.transparent,
                 ),
-              );
-            });
-      } else if (dialogContext != null) {
-        Navigator.pop(dialogContext);
+              ));
+      } else  {
+        Navigator.pop(context);
       }
     });
   }
