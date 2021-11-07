@@ -11,7 +11,7 @@ class EnterpriseTypeResponse {
   factory EnterpriseTypeResponse.fromJson(Map<String, dynamic> json) =>
       _$EnterpriseTypeResponseFromJson(json);
 
-  final String enterpriseTypeName;
+  final String? enterpriseTypeName;
 
   Map<String, dynamic> toJson() => _$EnterpriseTypeResponseToJson(this);
 }

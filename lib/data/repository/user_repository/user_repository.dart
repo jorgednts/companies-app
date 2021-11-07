@@ -5,7 +5,9 @@ import 'package:ioasys_app/domain/user/user_model.dart';
 import 'package:ioasys_app/domain/user/user_tokens.dart';
 
 class UserRepository implements UserDataRepository {
-  UserRepository(this._userRemoteDataSource);
+  UserRepository(
+    this._userRemoteDataSource,
+  );
 
   final UserRemoteDataSource _userRemoteDataSource;
 

@@ -12,7 +12,7 @@ class EnterpriseListResponse {
   factory EnterpriseListResponse.fromJson(Map<String, dynamic> json) =>
       _$EnterpriseListResponseFromJson(json);
 
-  final List<EnterpriseResponse>? enterprises;
+  final List<EnterpriseResponse> enterprises;
 
   Map<String, dynamic> toJson() => _$EnterpriseListResponseToJson(this);
 }
