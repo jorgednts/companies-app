@@ -1,14 +1,13 @@
 
-import 'package:ioasys_app/data/remote/enterprise/model/exception/gerenic_error_status_code_exception.dart';
-import 'package:ioasys_app/data/remote/enterprise/model/exception/unauthorized_status_code_exception.dart';
-import 'package:ioasys_app/data/remote/enterprise/model/view_state/view_state.dart';
+import 'package:ioasys_app/data/remote/user/model/exception/gerenic_error_status_code_exception.dart';
+import 'package:ioasys_app/data/remote/user/model/exception/unauthorized_status_code_exception.dart';
+import 'package:ioasys_app/data/remote/user/model/view_state/view_state.dart';
 import 'package:ioasys_app/data/repository/user_repository/user_data_repository.dart';
 import 'package:ioasys_app/domain/user/email_status.dart';
 import 'package:ioasys_app/domain/user/password_status.dart';
 import 'package:ioasys_app/domain/user/user_model.dart';
-import 'package:ioasys_app/domain/user/user_tokens.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:ioasys_app/extensions/string_extensions.dart';
+import 'package:rxdart/rxdart.dart';
 
 class LoginBloc {
   LoginBloc(
@@ -27,9 +26,6 @@ class LoginBloc {
   final _loading = PublishSubject<bool>();
   Stream<bool> get isLoading => _loading.stream;
 
-  final _userTokens = PublishSubject<UserTokens>();
-  Stream<UserTokens> get userTokens => _userTokens.stream;
-
   final _loginViewState = PublishSubject<ViewState>();
   Stream<ViewState> get loginViewState =>
       _loginViewState.stream;
@@ -43,17 +39,16 @@ class LoginBloc {
       try {
         final userTokens = await _userDataRepository.doLogin(userModel);
         _loading.add(false);
-        _loginViewState.add(ViewState.success);
-        _userTokens.add(userTokens);
+        _loginViewState.add(SuccessState(userTokens));
       } on UnauthorizedStatusCodeException {
         _loading.add(false);
-        _loginViewState.add(ViewState.unauthorized);
+        _loginViewState.add(UnauthorizedErrorState());
       } on GenericErrorStatusCodeException {
         _loading.add(false);
-        _loginViewState.add(ViewState.genericError);
+        _loginViewState.add(GenericErrorState());
       } catch (e) {
         _loading.add(false);
-        _loginViewState.add(ViewState.networkError);
+        _loginViewState.add(NetworkErrorState());
       }
     }
   }
@@ -93,6 +88,5 @@ class LoginBloc {
     _isValidPassword.close();
     _loading.close();
     _loginViewState.close();
-    _userTokens.close();
   }
 }

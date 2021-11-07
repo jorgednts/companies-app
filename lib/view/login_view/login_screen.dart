@@ -2,14 +2,13 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:ioasys_app/bloc/user/login_bloc.dart';
 import 'package:ioasys_app/constants/constants_images.dart';
-import 'package:ioasys_app/data/remote/enterprise/model/view_state/view_state.dart';
+import 'package:ioasys_app/data/remote/user/model/view_state/view_state.dart';
 import 'package:ioasys_app/data/remote/user/remote_data_source/user_remote_data_source.dart';
 import 'package:ioasys_app/data/repository/user_repository/user_data_repository.dart';
 import 'package:ioasys_app/data/repository/user_repository/user_repository.dart';
 import 'package:ioasys_app/domain/user/email_status.dart';
 import 'package:ioasys_app/domain/user/password_status.dart';
 import 'package:ioasys_app/domain/user/user_model.dart';
-import 'package:ioasys_app/domain/user/user_tokens.dart';
 import 'package:ioasys_app/generated/l10n.dart';
 import 'package:ioasys_app/view/main_view/main_screen.dart';
 
@@ -30,7 +29,6 @@ class _LoginScreenState extends State<LoginScreen> {
   late UserRemoteDataSource _userRemoteDataSource;
   late UserDataRepository _userDataRepository;
   late LoginBloc _loginBloc;
-  late UserTokens _userTokens;
 
   @override
   void initState() {
@@ -63,34 +61,33 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _setupStreams() {
-    _loginBloc.loginViewState.listen((event) {
-      if (event == ViewState.success) {
+    _loginBloc.loginViewState.listen((viewState) {
+      if (viewState is SuccessState) {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => MainScreen(userTokens: _userTokens)));
-      } else if (event == ViewState.networkError) {
+                builder: (context) =>
+                    MainScreen(userTokens: viewState.userTokens)));
+      } else if (viewState is NetworkErrorState) {
         _showAlertDialog('Falha na conexão. Tente novamente');
-      } else if (event == ViewState.unauthorized) {
+      } else if (viewState is UnauthorizedErrorState) {
         _showAlertDialog('Credenciais inválidas. Tente novamente');
       } else {
         _showAlertDialog('Ocorreu um erro. Tente novamente');
       }
     });
-    _loginBloc.userTokens.listen((event) {
-      _userTokens = event;
-    });
-    _loginBloc.isLoading.listen((event) {
-      if (event) {
+
+    _loginBloc.isLoading.listen((isLoading) {
+      if (isLoading) {
         showDialog(
             context: context,
             builder: (context) => const Center(
-                child: CircularProgressIndicator(
-                  color: Colors.blue,
-                  backgroundColor: Colors.transparent,
-                ),
-              ));
-      } else  {
+                  child: CircularProgressIndicator(
+                    color: Colors.blue,
+                    backgroundColor: Colors.transparent,
+                  ),
+                ));
+      } else {
         Navigator.pop(context);
       }
     });
