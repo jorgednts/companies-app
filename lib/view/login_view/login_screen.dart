@@ -69,11 +69,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 builder: (context) =>
                     MainScreen(userTokens: viewState.userTokens)));
       } else if (viewState is NetworkErrorState) {
-        _showAlertDialog('Falha na conexão. Tente novamente');
+        _showAlertDialog(S.of(context).alertDialogMessageNetworkError);
       } else if (viewState is UnauthorizedErrorState) {
-        _showAlertDialog('Credenciais inválidas. Tente novamente');
+        _showAlertDialog(S.of(context).alertDialogMessageUnauthorizedAuth);
       } else {
-        _showAlertDialog('Ocorreu um erro. Tente novamente');
+        _showAlertDialog(S.of(context).alertDialogMessageGenericError);
       }
     });
 

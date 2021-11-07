@@ -149,6 +149,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Connection fail. Try again`
+  String get alertDialogMessageNetworkError {
+    return Intl.message(
+      'Connection fail. Try again',
+      name: 'alertDialogMessageNetworkError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Occurred error. Try again`
+  String get alertDialogMessageGenericError {
+    return Intl.message(
+      'Occurred error. Try again',
+      name: 'alertDialogMessageGenericError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid credentials. Try again`
+  String get alertDialogMessageUnauthorizedAuth {
+    return Intl.message(
+      'Invalid credentials. Try again',
+      name: 'alertDialogMessageUnauthorizedAuth',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

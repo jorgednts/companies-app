@@ -9,5 +9,8 @@
   "loginScreenEmptyFormText": "Completar el campo",
   "loginScreenFormInvalidPassword": "La contraseña debe contener al menos 8 caracteres",
   "alertDialogTitle": "Ops",
-  "alertDialogButton": "Ok"
+  "alertDialogButton": "Ok",
+  "alertDialogMessageNetworkError": "Conexión fallida. Inténtalo de nuevo",
+  "alertDialogMessageGenericError": "Ocurrio un error. Inténtalo de nuevo",
+  "alertDialogMessageUnauthorizedAuth": "Credenciales no válidas. Inténtalo de nuevo"
 }

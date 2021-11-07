@@ -22,6 +22,13 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "alertDialogButton": MessageLookupByLibrary.simpleMessage("Ok"),
+        "alertDialogMessageGenericError": MessageLookupByLibrary.simpleMessage(
+            "Ocurrio un error. Inténtalo de nuevo"),
+        "alertDialogMessageNetworkError": MessageLookupByLibrary.simpleMessage(
+            "Conexión fallida. Inténtalo de nuevo"),
+        "alertDialogMessageUnauthorizedAuth":
+            MessageLookupByLibrary.simpleMessage(
+                "Credenciales no válidas. Inténtalo de nuevo"),
         "alertDialogTitle": MessageLookupByLibrary.simpleMessage("Ops"),
         "loginScreenButtonText":
             MessageLookupByLibrary.simpleMessage("Iniciar sesión"),
