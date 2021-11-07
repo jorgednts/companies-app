@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:ioasys_app/bloc/user/login_bloc.dart';
 import 'package:ioasys_app/constants/constants_images.dart';
-import 'package:ioasys_app/data/remote/enterprise/model/request_status/request_status.dart';
+import 'package:ioasys_app/data/remote/enterprise/model/view_state/view_state.dart';
 import 'package:ioasys_app/data/remote/user/remote_data_source/user_remote_data_source.dart';
 import 'package:ioasys_app/data/repository/user_repository/user_data_repository.dart';
 import 'package:ioasys_app/data/repository/user_repository/user_repository.dart';
@@ -38,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
     _userRemoteDataSource = UserRemoteDataSource(Dio());
     _userDataRepository = UserRepository(_userRemoteDataSource);
     _loginBloc = LoginBloc(_userDataRepository);
-    _setupStream();
+    _setupStreams();
   }
 
   @override
@@ -47,34 +47,55 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-  void _setupStream() {
-    _loginBloc.requestLoginResponse.listen((event) {
-      if (event == RequestStatus.success) {
-        Navigator.pushAndRemoveUntil(
+  void _showAlertDialog(String message) {
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: Text(S.of(context).alertDialogTitle),
+              content: Text(message),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text(S.of(context).alertDialogButton),
+                ),
+              ],
+            ));
+  }
+
+  void _setupStreams() {
+    _loginBloc.loginViewState.listen((event) {
+      if (event == ViewState.success) {
+        Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => MainScreen(userTokens: _userTokens)),
-            (route) => false);
-      } else if (event == RequestStatus.networkError) {
-      } else if (event == RequestStatus.unauthorized) {
-      } else {}
+                builder: (context) => MainScreen(userTokens: _userTokens)));
+      } else if (event == ViewState.networkError) {
+        _showAlertDialog('Falha na conexão. Tente novamente');
+      } else if (event == ViewState.unauthorized) {
+        _showAlertDialog('Credenciais inválidas. Tente novamente');
+      } else {
+        _showAlertDialog('Ocorreu um erro. Tente novamente');
+      }
     });
     _loginBloc.userTokens.listen((event) {
       _userTokens = event;
     });
     _loginBloc.isLoading.listen((event) {
+      BuildContext? dialogContext;
       if (event) {
         showDialog(
-          context: context,
-          builder: (context) => const Center(
-            child:  CircularProgressIndicator(
-              color: Colors.blue,
-              backgroundColor: Colors.transparent,
-            ),
-          ),
-        );
-      } else {
-        Navigator.pop(context);
+            context: context,
+            builder: (context) {
+              dialogContext = context;
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.blue,
+                  backgroundColor: Colors.transparent,
+                ),
+              );
+            });
+      } else if (dialogContext != null) {
+        Navigator.pop(dialogContext);
       }
     });
   }
@@ -219,7 +240,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Container(
                       width: double.infinity,
                       child: Text(
-                        S.of(context).loginScreenButtonText,
+                        S.of(context).loginScreenButtonText.toUpperCase(),
                         textAlign: TextAlign.center,
                       ),
                     ),

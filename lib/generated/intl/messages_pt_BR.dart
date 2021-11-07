@@ -21,6 +21,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "alertDialogButton": MessageLookupByLibrary.simpleMessage("Ok"),
+        "alertDialogTitle": MessageLookupByLibrary.simpleMessage("Ops"),
         "loginScreenButtonText": MessageLookupByLibrary.simpleMessage("Entrar"),
         "loginScreenEmptyFormText":
             MessageLookupByLibrary.simpleMessage("Preencha o campo"),

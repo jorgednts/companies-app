@@ -7,5 +7,7 @@
   "loginScreenButtonText": "Iniciar sesión",
   "loginScreenFormInvalidEmail": "Introduzca una dirección de correo electrónico válida. Ej: abc@abc.com.br\n",
   "loginScreenEmptyFormText": "Completar el campo",
-  "loginScreenFormInvalidPassword": "La contraseña debe contener al menos 8 caracteres"
+  "loginScreenFormInvalidPassword": "La contraseña debe contener al menos 8 caracteres",
+  "alertDialogTitle": "Ops",
+  "alertDialogButton": "Ok"
 }

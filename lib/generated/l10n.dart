@@ -129,6 +129,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Ops`
+  String get alertDialogTitle {
+    return Intl.message(
+      'Ops',
+      name: 'alertDialogTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ok`
+  String get alertDialogButton {
+    return Intl.message(
+      'Ok',
+      name: 'alertDialogButton',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

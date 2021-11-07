@@ -1,6 +1,6 @@
 
 
-enum RequestStatus {
+enum ViewState {
   success,
   unauthorized,
   genericError,

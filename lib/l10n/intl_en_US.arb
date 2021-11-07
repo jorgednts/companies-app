@@ -7,5 +7,7 @@
   "loginScreenButtonText": "Sing in",
   "loginScreenFormInvalidEmail": "Enter a valid email address. Ex: abc@abc.com.br",
   "loginScreenEmptyFormText": "Fill the field",
-  "loginScreenFormInvalidPassword": "Password must contain at least 8 characters"
+  "loginScreenFormInvalidPassword": "Password must contain at least 8 characters",
+  "alertDialogTitle": "Ops",
+  "alertDialogButton": "Ok"
 }
