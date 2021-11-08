@@ -8,6 +8,8 @@ class GenericErrorState implements MainViewState {}
 
 class NetworkErrorState implements MainViewState {}
 
+class NoEnterprisesResultState implements MainViewState {}
+
 class SuccessState implements MainViewState {
   SuccessState(
     this.enterprises,
