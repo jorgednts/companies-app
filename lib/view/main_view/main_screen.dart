@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:ioasys_app/bloc/enterprise/async_snapshot_response_view.dart';
 import 'package:ioasys_app/bloc/enterprise/main_bloc.dart';
 import 'package:ioasys_app/data/remote/enterprise/remote_data_source/enterprise_remote_data_source.dart';
-import 'package:ioasys_app/data/remote/shared/view_state/main_view_state.dart';
 import 'package:ioasys_app/data/repository/enterprise_repository/enterprise_data_repository.dart';
 import 'package:ioasys_app/data/repository/enterprise_repository/enterprise_repository.dart';
 import 'package:ioasys_app/domain/user/user_tokens.dart';
