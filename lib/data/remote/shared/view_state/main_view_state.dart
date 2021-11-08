@@ -6,7 +6,7 @@ class LoadingState implements MainViewState{}
 
 class InitialState implements MainViewState{}
 
-class NoResult implements MainViewState{}
+class NoResult implements MainViewState {}
 
 class GenericErrorState implements MainViewState {}
 
