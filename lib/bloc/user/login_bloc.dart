@@ -1,7 +1,7 @@
 import 'package:ioasys_app/constants/constants_login.dart';
 import 'package:ioasys_app/data/remote/shared/exception/gerenic_error_status_code_exception.dart';
 import 'package:ioasys_app/data/remote/shared/exception/unauthorized_status_code_exception.dart';
-import 'package:ioasys_app/data/remote/shared/view_state/view_state.dart';
+import 'package:ioasys_app/data/remote/shared/view_state/login_view_state.dart';
 import 'package:ioasys_app/data/repository/user_repository/user_data_repository.dart';
 import 'package:ioasys_app/domain/user/email_status.dart';
 import 'package:ioasys_app/domain/user/password_status.dart';
@@ -28,9 +28,9 @@ class LoginBloc {
 
   Stream<bool> get isLoading => _loading.stream;
 
-  final _loginViewState = PublishSubject<ViewState>();
+  final _loginViewState = PublishSubject<LoginViewState>();
 
-  Stream<ViewState> get loginViewState => _loginViewState.stream;
+  Stream<LoginViewState> get loginViewState => _loginViewState.stream;
 
   Future<void> doLogin(UserModel userModel) async {
     final isValidateEmail = validateEmail(userModel.email);
