@@ -22,13 +22,6 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "alertDialogButton": MessageLookupByLibrary.simpleMessage("Ok"),
-        "alertDialogMessageGenericError": MessageLookupByLibrary.simpleMessage(
-            "Ocurrio un error. Inténtalo de nuevo"),
-        "alertDialogMessageNetworkError": MessageLookupByLibrary.simpleMessage(
-            "Conexión fallida. Inténtalo de nuevo"),
-        "alertDialogMessageUnauthorizedAuth":
-            MessageLookupByLibrary.simpleMessage(
-                "Credenciales no válidas. Inténtalo de nuevo"),
         "alertDialogTitle": MessageLookupByLibrary.simpleMessage("Ops"),
         "loginScreenButtonText":
             MessageLookupByLibrary.simpleMessage("Iniciar sesión"),
@@ -48,7 +41,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Bienvenidos a empresas"),
         "mainScreenHintTextAppBar":
             MessageLookupByLibrary.simpleMessage("Buscar"),
+        "mainScreenInitialStateMessage": MessageLookupByLibrary.simpleMessage(
+            "Haga clic en buscar para comenzar"),
         "mainScreenNoEnterpriseResult": MessageLookupByLibrary.simpleMessage(
-            "No se encontraron empresas para una búsqueda realizada.")
+            "No se encontraron empresas para una búsqueda realizada."),
+        "messageGenericError": MessageLookupByLibrary.simpleMessage(
+            "Ocurrio un error. Inténtalo de nuevo"),
+        "messageNetworkError": MessageLookupByLibrary.simpleMessage(
+            "Conexión fallida. Inténtalo de nuevo"),
+        "messageUnauthorizedAuth": MessageLookupByLibrary.simpleMessage(
+            "Credenciales no válidas. Inténtalo de nuevo")
       };
 }

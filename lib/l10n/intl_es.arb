@@ -10,9 +10,10 @@
   "loginScreenFormInvalidPassword": "La contraseña debe contener al menos 8 caracteres",
   "alertDialogTitle": "Ops",
   "alertDialogButton": "Ok",
-  "alertDialogMessageNetworkError": "Conexión fallida. Inténtalo de nuevo",
-  "alertDialogMessageGenericError": "Ocurrio un error. Inténtalo de nuevo",
-  "alertDialogMessageUnauthorizedAuth": "Credenciales no válidas. Inténtalo de nuevo",
+  "messageNetworkError": "Conexión fallida. Inténtalo de nuevo",
+  "messageGenericError": "Ocurrio un error. Inténtalo de nuevo",
+  "messageUnauthorizedAuth": "Credenciales no válidas. Inténtalo de nuevo",
   "mainScreenNoEnterpriseResult": "No se encontraron empresas para una búsqueda realizada.",
-  "mainScreenHintTextAppBar": "Buscar"
+  "mainScreenHintTextAppBar": "Buscar",
+  "mainScreenInitialStateMessage": "Haga clic en buscar para comenzar"
 }

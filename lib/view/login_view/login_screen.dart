@@ -214,11 +214,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 builder: (context) =>
                     MainScreen(userTokens: viewState.userTokens)));
       } else if (viewState is NetworkErrorState) {
-        _showAlertDialog(S.of(context).alertDialogMessageNetworkError);
+        _showAlertDialog(S.of(context).messageNetworkError);
       } else if (viewState is UnauthorizedErrorState) {
-        _showAlertDialog(S.of(context).alertDialogMessageUnauthorizedAuth);
+        _showAlertDialog(S.of(context).messageUnauthorizedAuth);
       } else {
-        _showAlertDialog(S.of(context).alertDialogMessageGenericError);
+        _showAlertDialog(S.of(context).messageGenericError);
       }
     });
   }

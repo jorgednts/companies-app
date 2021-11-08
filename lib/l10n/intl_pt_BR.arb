@@ -10,9 +10,10 @@
   "loginScreenFormInvalidPassword": "A senha deve conter pelo menos 8 caracteres",
   "alertDialogTitle": "Ops",
   "alertDialogButton": "Ok",
-  "alertDialogMessageNetworkError": "Falha na conexão. Tente novamente",
-  "alertDialogMessageGenericError": "Ocorreu um erro. Tente novamente",
-  "alertDialogMessageUnauthorizedAuth": "Credenciais inválidas. Tente novamente",
+  "messageNetworkError": "Falha na conexão. Tente novamente",
+  "messageGenericError": "Ocorreu um erro. Tente novamente",
+  "messageUnauthorizedAuth": "Credenciais inválidas. Tente novamente",
   "mainScreenNoEnterpriseResult": "Nenhuma empresa foi encontrada para a busca realizada.",
-  "mainScreenHintTextAppBar": "Pesquisar"
+  "mainScreenHintTextAppBar": "Pesquisar",
+  "mainScreenInitialStateMessage": "Clique na busca para iniciar"
 }

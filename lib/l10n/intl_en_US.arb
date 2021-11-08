@@ -10,9 +10,10 @@
   "loginScreenFormInvalidPassword": "Password must contain at least 8 characters",
   "alertDialogTitle": "Ops",
   "alertDialogButton": "Ok",
-  "alertDialogMessageNetworkError": "Connection fail. Try again",
-  "alertDialogMessageGenericError": "Occurred error. Try again",
-  "alertDialogMessageUnauthorizedAuth": "Invalid credentials. Try again",
+  "messageNetworkError": "Connection fail. Try again",
+  "messageGenericError": "Occurred error. Try again",
+  "messageUnauthorizedAuth": "Invalid credentials. Try again",
   "mainScreenNoEnterpriseResult": "No companies were found for a search performed.",
-  "mainScreenHintTextAppBar": "Search"
+  "mainScreenHintTextAppBar": "Search",
+  "mainScreenInitialStateMessage": "Click on search to start"
 }

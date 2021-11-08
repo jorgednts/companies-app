@@ -22,13 +22,6 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "alertDialogButton": MessageLookupByLibrary.simpleMessage("Ok"),
-        "alertDialogMessageGenericError":
-            MessageLookupByLibrary.simpleMessage("Occurred error. Try again"),
-        "alertDialogMessageNetworkError":
-            MessageLookupByLibrary.simpleMessage("Connection fail. Try again"),
-        "alertDialogMessageUnauthorizedAuth":
-            MessageLookupByLibrary.simpleMessage(
-                "Invalid credentials. Try again"),
         "alertDialogTitle": MessageLookupByLibrary.simpleMessage("Ops"),
         "loginScreenButtonText":
             MessageLookupByLibrary.simpleMessage("Sing in"),
@@ -48,7 +41,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Welcome to companies"),
         "mainScreenHintTextAppBar":
             MessageLookupByLibrary.simpleMessage("Search"),
+        "mainScreenInitialStateMessage":
+            MessageLookupByLibrary.simpleMessage("Click on search to start"),
         "mainScreenNoEnterpriseResult": MessageLookupByLibrary.simpleMessage(
-            "No companies were found for a search performed.")
+            "No companies were found for a search performed."),
+        "messageGenericError":
+            MessageLookupByLibrary.simpleMessage("Occurred error. Try again"),
+        "messageNetworkError":
+            MessageLookupByLibrary.simpleMessage("Connection fail. Try again"),
+        "messageUnauthorizedAuth": MessageLookupByLibrary.simpleMessage(
+            "Invalid credentials. Try again")
       };
 }

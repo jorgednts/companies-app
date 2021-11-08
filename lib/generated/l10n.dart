@@ -151,30 +151,30 @@ class S {
   }
 
   /// `Connection fail. Try again`
-  String get alertDialogMessageNetworkError {
+  String get messageNetworkError {
     return Intl.message(
       'Connection fail. Try again',
-      name: 'alertDialogMessageNetworkError',
+      name: 'messageNetworkError',
       desc: '',
       args: [],
     );
   }
 
   /// `Occurred error. Try again`
-  String get alertDialogMessageGenericError {
+  String get messageGenericError {
     return Intl.message(
       'Occurred error. Try again',
-      name: 'alertDialogMessageGenericError',
+      name: 'messageGenericError',
       desc: '',
       args: [],
     );
   }
 
   /// `Invalid credentials. Try again`
-  String get alertDialogMessageUnauthorizedAuth {
+  String get messageUnauthorizedAuth {
     return Intl.message(
       'Invalid credentials. Try again',
-      name: 'alertDialogMessageUnauthorizedAuth',
+      name: 'messageUnauthorizedAuth',
       desc: '',
       args: [],
     );
@@ -195,6 +195,16 @@ class S {
     return Intl.message(
       'Search',
       name: 'mainScreenHintTextAppBar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Click on search to start`
+  String get mainScreenInitialStateMessage {
+    return Intl.message(
+      'Click on search to start',
+      name: 'mainScreenInitialStateMessage',
       desc: '',
       args: [],
     );
