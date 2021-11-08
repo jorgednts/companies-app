@@ -32,12 +32,12 @@ class _ResultScreenState extends State<ResultScreen> {
                 padding: const EdgeInsets.only(right: 20, left: 20),
                 child: FadeInImage(
                   height: 100,
-                  width: 80,
+                  width: 180,
                   image: NetworkImage(widget.enterpriseModel.photo),
                   placeholder: const AssetImage(ConstantsImages.imageLoading),
                   imageErrorBuilder: (context, error, stackTrace) =>
                       Image.asset(ConstantsImages.imageError,
-                          height: 100, width: 80, fit: BoxFit.fitWidth),
+                          height: 100, width: 180, fit: BoxFit.fitWidth),
                   fit: BoxFit.fitWidth,
                 ),
               ),

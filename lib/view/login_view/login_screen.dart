@@ -45,52 +45,9 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-  void _showAlertDialog(String message) {
-    showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-              title: Text(S.of(context).alertDialogTitle),
-              content: Text(message),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: Text(S.of(context).alertDialogButton),
-                ),
-              ],
-            ));
-  }
-
   void _setupStreams() {
-    _loginBloc.loginViewState.listen((viewState) {
-      if (viewState is SuccessState) {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    MainScreen(userTokens: viewState.userTokens)));
-      } else if (viewState is NetworkErrorState) {
-        _showAlertDialog(S.of(context).alertDialogMessageNetworkError);
-      } else if (viewState is UnauthorizedErrorState) {
-        _showAlertDialog(S.of(context).alertDialogMessageUnauthorizedAuth);
-      } else {
-        _showAlertDialog(S.of(context).alertDialogMessageGenericError);
-      }
-    });
-
-    _loginBloc.isLoading.listen((isLoading) {
-      if (isLoading) {
-        showDialog(
-            context: context,
-            builder: (context) => const Center(
-                  child: CircularProgressIndicator(
-                    color: Colors.blue,
-                    backgroundColor: Colors.transparent,
-                  ),
-                ));
-      } else {
-        Navigator.pop(context);
-      }
-    });
+    _setupStreamViewState();
+    _setupStreamIsLoading();
   }
 
   @override
@@ -247,4 +204,54 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       );
+
+  void _setupStreamViewState() {
+    _loginBloc.loginViewState.listen((viewState) {
+      if (viewState is SuccessState) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    MainScreen(userTokens: viewState.userTokens)));
+      } else if (viewState is NetworkErrorState) {
+        _showAlertDialog(S.of(context).alertDialogMessageNetworkError);
+      } else if (viewState is UnauthorizedErrorState) {
+        _showAlertDialog(S.of(context).alertDialogMessageUnauthorizedAuth);
+      } else {
+        _showAlertDialog(S.of(context).alertDialogMessageGenericError);
+      }
+    });
+  }
+
+  void _setupStreamIsLoading() {
+    _loginBloc.isLoading.listen((isLoading) {
+      if (isLoading) {
+        showDialog(
+            context: context,
+            builder: (context) => const Center(
+                  child: CircularProgressIndicator(
+                    color: Colors.blue,
+                    backgroundColor: Colors.transparent,
+                  ),
+                ));
+      } else {
+        Navigator.pop(context);
+      }
+    });
+  }
+
+  void _showAlertDialog(String message) {
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: Text(S.of(context).alertDialogTitle),
+              content: Text(message),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text(S.of(context).alertDialogButton),
+                ),
+              ],
+            ));
+  }
 }

@@ -37,7 +37,7 @@ class _MainScreenState extends State<MainScreen> {
     _enterpriseDataRepository =
         EnterpriseRepository(_enterpriseRemoteDataSource);
     _mainBloc = MainBloc(_enterpriseDataRepository);
-    _setupStreams();
+    _setupStreamIsLoading();
   }
 
   @override
@@ -46,7 +46,19 @@ class _MainScreenState extends State<MainScreen> {
     super.dispose();
   }
 
-  void _setupStreams() {
+  void _setupStreamViewState() {
+    _mainBloc.mainViewState.listen((viewState) {
+      if (viewState is SuccessState) {
+        _enterpriseList = viewState.enterprises;
+      } else if (viewState is GenericErrorState) {
+        _showAlertDialog(S.of(context).alertDialogMessageGenericError);
+      } else {
+        _showAlertDialog(S.of(context).alertDialogMessageNetworkError);
+      }
+    });
+  }
+
+  void _setupStreamIsLoading() {
     _mainBloc.isLoading.listen((isLoading) {
       if (isLoading) {
         showDialog(
@@ -61,30 +73,6 @@ class _MainScreenState extends State<MainScreen> {
         Navigator.pop(context);
       }
     });
-    _mainBloc.mainViewState.listen((viewState) {
-      if (viewState is SuccessState) {
-        _enterpriseList = viewState.enterprises;
-      } else if (viewState is GenericErrorState) {
-        _showAlertDialog(S.of(context).alertDialogMessageGenericError);
-      } else {
-        _showAlertDialog(S.of(context).alertDialogMessageNetworkError);
-      }
-    });
-  }
-
-  void _showAlertDialog(String message) {
-    showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-              title: Text(S.of(context).alertDialogTitle),
-              content: Text(message),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: Text(S.of(context).alertDialogButton),
-                ),
-              ],
-            ));
   }
 
   @override
@@ -110,11 +98,16 @@ class _MainScreenState extends State<MainScreen> {
                 color: Colors.white,
               ),
               onPressed: () {
-                _mainBloc.getEnterpriseList(
-                    _enterpriseNameToSearchController.text.toString(),
-                    widget.userTokens.accessToken,
-                    widget.userTokens.uid,
-                    widget.userTokens.client);
+                final typedEnterpriseName =
+                    _enterpriseNameToSearchController.text.toString();
+                if(typedEnterpriseName.isNotEmpty){
+                  _mainBloc.getEnterpriseList(
+                      typedEnterpriseName,
+                      widget.userTokens.accessToken,
+                      widget.userTokens.uid,
+                      widget.userTokens.client);
+                  _setupStreamViewState();
+                }
               },
             ),
           ),
@@ -123,4 +116,19 @@ class _MainScreenState extends State<MainScreen> {
       body: _enterpriseList.isNotEmpty
           ? EnterpriseList(enterpriseList: _enterpriseList)
           : const EmptyEnterpriseList());
+
+  void _showAlertDialog(String message) {
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: Text(S.of(context).alertDialogTitle),
+              content: Text(message),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text(S.of(context).alertDialogButton),
+                ),
+              ],
+            ));
+  }
 }

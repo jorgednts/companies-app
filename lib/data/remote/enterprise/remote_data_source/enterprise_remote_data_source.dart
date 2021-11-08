@@ -25,6 +25,7 @@ class EnterpriseRemoteDataSource {
           },
         ),
       );
+      print(response.data);
       return EnterpriseListResponse.fromJson(response.data);
     } on DioError catch (dioError, _) {
       if (dioError.type == DioErrorType.response) {
