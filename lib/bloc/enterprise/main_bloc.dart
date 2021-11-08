@@ -20,11 +20,7 @@ class MainBloc {
     try {
       final enterpriseList = await _enterpriseDataRepository.getEnterpriseList(
           enterpriseName, accessToken, uid, client);
-      if(enterpriseList.isNotEmpty){
-        yield SuccessState(enterpriseList);
-      } else {
-        yield NoResult();
-      }
+      yield SuccessState(enterpriseList);
     } on GenericErrorStatusCodeException {
       yield GenericErrorState();
     } catch (e) {

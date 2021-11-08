@@ -11,12 +11,10 @@ class EmptyEnterpriseList extends StatelessWidget {
   Widget build(BuildContext context) => Container(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 40, 20, 40),
-          child: Center(
-            child: Text(
-              message,
-              style: const TextStyle(fontSize: 18, color: Colors.grey),
-              textAlign: TextAlign.center,
-            ),
+          child: Text(
+            message,
+            style: const TextStyle(fontSize: 18, color: Colors.grey),
+            textAlign: TextAlign.center,
           ),
         ),
       );
