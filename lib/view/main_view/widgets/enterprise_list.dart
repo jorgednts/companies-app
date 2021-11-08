@@ -53,8 +53,11 @@ class EnterpriseList extends StatelessWidget {
                         Text(
                           enterpriseList[index].enterpriseName,
                           style: const TextStyle(
-                              fontWeight: FontWeight.normal, fontSize: 10),
+                              fontWeight: FontWeight.bold, fontSize: 12),
                           textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(
+                          height: 2,
                         ),
                         Text(
                           enterpriseList[index]
@@ -62,6 +65,9 @@ class EnterpriseList extends StatelessWidget {
                               .enterpriseTypeName,
                           style: const TextStyle(
                               fontWeight: FontWeight.normal, fontSize: 10),
+                        ),
+                        const SizedBox(
+                          height: 2,
                         ),
                         Text(
                           enterpriseList[index].country,
