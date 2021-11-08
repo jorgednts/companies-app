@@ -1,27 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:ioasys_app/constants/constants_images.dart';
+import 'package:ioasys_app/domain/enterprise/enterprise_model.dart';
 
 class ResultScreen extends StatefulWidget {
-  const ResultScreen({Key? key}) : super(key: key);
+  const ResultScreen({
+    required this.enterpriseModel,
+    Key? key,
+  }) : super(key: key);
+  final EnterpriseModel enterpriseModel;
 
   @override
   _ResultScreenState createState() => _ResultScreenState();
 }
 
 class _ResultScreenState extends State<ResultScreen> {
-  final _enterpriseName = 'Nome da empresa';
-  final _enterpriseDescription = 'Descrição da empresa';
-
   @override
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: const Color(0xffee4c77),
-          title: Text(_enterpriseName),
+          title: Text(widget.enterpriseModel.enterpriseName),
         ),
         body: SingleChildScrollView(
-            child: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
+            child: SizedBox.expand(
           child: Column(
             children: [
               const SizedBox(
@@ -29,10 +30,15 @@ class _ResultScreenState extends State<ResultScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 20, left: 20),
-                child: Image.asset(
-                  'assets/images/enterprise.png',
-                  height: 200,
-                  width: 400,
+                child: FadeInImage(
+                  height: 100,
+                  width: 80,
+                  image: NetworkImage(widget.enterpriseModel.photo),
+                  placeholder: const AssetImage(ConstantsImages.imageLoading),
+                  imageErrorBuilder: (context, error, stackTrace) =>
+                      Image.asset(ConstantsImages.imageError,
+                          height: 100, width: 80, fit: BoxFit.fitWidth),
+                  fit: BoxFit.fitWidth,
                 ),
               ),
               const SizedBox(
@@ -41,7 +47,7 @@ class _ResultScreenState extends State<ResultScreen> {
               Padding(
                 padding: const EdgeInsets.only(right: 20, left: 20),
                 child: Text(
-                  _enterpriseDescription,
+                  widget.enterpriseModel.description,
                   style: const TextStyle(fontSize: 16),
                   textAlign: TextAlign.justify,
                 ),

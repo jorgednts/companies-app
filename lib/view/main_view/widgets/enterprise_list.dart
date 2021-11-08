@@ -19,7 +19,10 @@ class EnterpriseList extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const ResultScreen()),
+                MaterialPageRoute(
+                    builder: (context) => ResultScreen(
+                          enterpriseModel: enterpriseList[index],
+                        )),
               );
             },
             child: Card(
