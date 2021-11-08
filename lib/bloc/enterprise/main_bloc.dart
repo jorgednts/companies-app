@@ -14,7 +14,7 @@ class MainBloc {
 
   Stream<bool> get isLoading => _loading.stream;
 
-  final _mainViewState = PublishSubject<MainViewState>();
+  final _mainViewState = BehaviorSubject<MainViewState>();
 
   Stream<MainViewState> get mainViewState => _mainViewState.stream;
 
@@ -25,7 +25,7 @@ class MainBloc {
       final enterpriseList = await _enterpriseDataRepository.getEnterpriseList(
           enterpriseName, accessToken, uid, client);
       _loading.add(false);
-        _mainViewState.add(SuccessState(enterpriseList));
+      _mainViewState.add(SuccessState(enterpriseList));
     } on GenericErrorStatusCodeException {
       _loading.add(false);
       _mainViewState.add(GenericErrorState());
