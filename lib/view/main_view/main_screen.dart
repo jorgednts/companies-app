@@ -28,7 +28,7 @@ class _MainScreenState extends State<MainScreen> {
   late EnterpriseRemoteDataSource _enterpriseRemoteDataSource;
   late EnterpriseDataRepository _enterpriseDataRepository;
   late MainBloc _mainBloc;
-  late List<EnterpriseModel> _enterpriseList;
+  List<EnterpriseModel> _enterpriseList = [];
 
   @override
   void initState() {
@@ -122,6 +122,5 @@ class _MainScreenState extends State<MainScreen> {
       ),
       body: _enterpriseList.isNotEmpty
           ? EnterpriseList(enterpriseList: _enterpriseList)
-          : const EmptyEnterpriseList(
-            ));
+          : const EmptyEnterpriseList());
 }

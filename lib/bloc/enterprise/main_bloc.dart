@@ -14,7 +14,7 @@ class MainBloc {
 
   Stream<bool> get isLoading => _loading.stream;
 
-  final _mainViewState = BehaviorSubject<MainViewState>();
+  final _mainViewState = PublishSubject<MainViewState>();
 
   Stream<MainViewState> get mainViewState => _mainViewState.stream;
 
