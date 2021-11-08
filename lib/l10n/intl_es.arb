@@ -12,5 +12,7 @@
   "alertDialogButton": "Ok",
   "alertDialogMessageNetworkError": "Conexión fallida. Inténtalo de nuevo",
   "alertDialogMessageGenericError": "Ocurrio un error. Inténtalo de nuevo",
-  "alertDialogMessageUnauthorizedAuth": "Credenciales no válidas. Inténtalo de nuevo"
+  "alertDialogMessageUnauthorizedAuth": "Credenciales no válidas. Inténtalo de nuevo",
+  "mainScreenNoEnterpriseResult": "No se encontraron empresas para una búsqueda realizada.",
+  "mainScreenHintTextAppBar": "Buscar"
 }

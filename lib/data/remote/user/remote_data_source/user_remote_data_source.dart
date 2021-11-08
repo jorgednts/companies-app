@@ -24,7 +24,7 @@ class UserRemoteDataSource {
       final client = response.headers.value('client');
 
       if (accessToken != null && uid != null && client != null) {
-        return UserTokens(accessToken, uid, client);
+        return UserTokens(accessToken, client, uid);
       } else {
         throw GenericErrorStatusCodeException();
       }

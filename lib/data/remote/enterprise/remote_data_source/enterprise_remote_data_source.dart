@@ -13,15 +13,16 @@ class EnterpriseRemoteDataSource {
   Future<EnterpriseListResponse> getEnterpriseList(String enterpriseName,
       String accessToken, String uid, String client) async {
     try {
-      final response = await _dio.get('${_baseUrl}enterprises',
-          queryParameters: {'name': enterpriseName},
-          options: Options(
-            headers: {
-              'access-token': accessToken,
-              'uid': uid,
-              'client': client
-            },
-          ));
+      final response =
+          await _dio.get('${_baseUrl}enterprises?name=$enterpriseName',
+              queryParameters: {'name': enterpriseName},
+              options: Options(
+                headers: {
+                  'access-token': accessToken,
+                  'client': client,
+                  'uid': uid,
+                },
+              ));
       return EnterpriseListResponse.fromJson(response.data);
     } on DioError catch (dioError, _) {
       if (dioError.type == DioErrorType.response) {

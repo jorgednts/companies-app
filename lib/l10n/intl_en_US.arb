@@ -12,5 +12,7 @@
   "alertDialogButton": "Ok",
   "alertDialogMessageNetworkError": "Connection fail. Try again",
   "alertDialogMessageGenericError": "Occurred error. Try again",
-  "alertDialogMessageUnauthorizedAuth": "Invalid credentials. Try again"
+  "alertDialogMessageUnauthorizedAuth": "Invalid credentials. Try again",
+  "mainScreenNoEnterpriseResult": "No companies were found for a search performed.",
+  "mainScreenHintTextAppBar": "Search"
 }

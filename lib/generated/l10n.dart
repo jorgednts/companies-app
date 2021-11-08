@@ -179,6 +179,26 @@ class S {
       args: [],
     );
   }
+
+  /// `No companies were found for a search performed.`
+  String get mainScreenNoEnterpriseResult {
+    return Intl.message(
+      'No companies were found for a search performed.',
+      name: 'mainScreenNoEnterpriseResult',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search`
+  String get mainScreenHintTextAppBar {
+    return Intl.message(
+      'Search',
+      name: 'mainScreenHintTextAppBar',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

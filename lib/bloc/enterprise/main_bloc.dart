@@ -25,11 +25,7 @@ class MainBloc {
       final enterpriseList = await _enterpriseDataRepository.getEnterpriseList(
           enterpriseName, accessToken, uid, client);
       _loading.add(false);
-      if (enterpriseList.isNotEmpty) {
         _mainViewState.add(SuccessState(enterpriseList));
-      } else {
-        _mainViewState.add(NoEnterprisesResultState());
-      }
     } on GenericErrorStatusCodeException {
       _loading.add(false);
       _mainViewState.add(GenericErrorState());

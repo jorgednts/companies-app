@@ -2,8 +2,6 @@ import 'package:ioasys_app/domain/user/user_tokens.dart';
 
 abstract class LoginViewState {}
 
-class LoadingState implements LoginViewState {}
-
 class GenericErrorState implements LoginViewState {}
 
 class UnauthorizedErrorState implements LoginViewState {}

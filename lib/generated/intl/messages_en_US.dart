@@ -45,6 +45,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "loginScreenIntroductionText": MessageLookupByLibrary.simpleMessage(
             "Lorem ipsum dolor sit amet, contetur adipiscing elit. Nunc accumsan."),
         "loginScreenWelcomeText":
-            MessageLookupByLibrary.simpleMessage("Welcome to companies")
+            MessageLookupByLibrary.simpleMessage("Welcome to companies"),
+        "mainScreenHintTextAppBar":
+            MessageLookupByLibrary.simpleMessage("Search"),
+        "mainScreenNoEnterpriseResult": MessageLookupByLibrary.simpleMessage(
+            "No companies were found for a search performed.")
       };
 }
