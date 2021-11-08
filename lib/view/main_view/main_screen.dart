@@ -9,7 +9,7 @@ import 'package:ioasys_app/domain/enterprise/enterprise_model.dart';
 import 'package:ioasys_app/domain/user/user_tokens.dart';
 import 'package:ioasys_app/generated/l10n.dart';
 import 'package:ioasys_app/view/main_view/widgets/enterprise_list.dart';
-import 'package:ioasys_app/view/main_view/widgets/message.dart';
+import 'package:ioasys_app/view/main_view/widgets/empty_enterprise_list.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({
@@ -122,7 +122,6 @@ class _MainScreenState extends State<MainScreen> {
       ),
       body: _enterpriseList.isNotEmpty
           ? EnterpriseList(enterpriseList: _enterpriseList)
-          : const Message(
-              message: '',
+          : const EmptyEnterpriseList(
             ));
 }
