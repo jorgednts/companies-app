@@ -32,14 +32,14 @@ class EnterpriseList extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: FadeInImage(
-                      height: 80,
-                      width: 140,
+                      height: 100,
+                      width: 80,
                       image: NetworkImage(enterpriseList[index].photo),
                       placeholder:
                           const AssetImage(ConstantsImages.imageLoading),
                       imageErrorBuilder: (context, error, stackTrace) =>
                           Image.asset(ConstantsImages.imageError,
-                              height: 80, width: 140, fit: BoxFit.fitWidth),
+                              height: 100, width: 80, fit: BoxFit.fitWidth),
                       fit: BoxFit.fitWidth,
                     ),
                   ),

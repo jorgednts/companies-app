@@ -22,7 +22,9 @@ class _ResultScreenState extends State<ResultScreen> {
           title: Text(widget.enterpriseModel.enterpriseName),
         ),
         body: SingleChildScrollView(
-            child: SizedBox.expand(
+            child: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
           child: Column(
             children: [
               const SizedBox(
@@ -31,13 +33,13 @@ class _ResultScreenState extends State<ResultScreen> {
               Padding(
                 padding: const EdgeInsets.only(right: 20, left: 20),
                 child: FadeInImage(
-                  height: 100,
-                  width: 180,
+                  height: 200,
+                  width: 120,
                   image: NetworkImage(widget.enterpriseModel.photo),
                   placeholder: const AssetImage(ConstantsImages.imageLoading),
                   imageErrorBuilder: (context, error, stackTrace) =>
                       Image.asset(ConstantsImages.imageError,
-                          height: 100, width: 180, fit: BoxFit.fitWidth),
+                          height: 200, width: 120, fit: BoxFit.fitWidth),
                   fit: BoxFit.fitWidth,
                 ),
               ),
