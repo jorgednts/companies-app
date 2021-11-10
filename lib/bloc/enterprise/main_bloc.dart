@@ -16,10 +16,10 @@ class MainBloc {
 
   Stream<MainViewState> getEnterpriseList(String enterpriseName,
       String accessToken, String uid, String client) async* {
-    yield LoadingState();
     try {
       final enterpriseList = await _enterpriseDataRepository.getEnterpriseList(
           enterpriseName, accessToken, uid, client);
+      yield LoadingState();
       if(enterpriseList.isNotEmpty){
         yield SuccessState(enterpriseList);
       } else {

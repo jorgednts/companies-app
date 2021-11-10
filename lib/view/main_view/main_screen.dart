@@ -29,7 +29,7 @@ class _MainScreenState extends State<MainScreen> {
   late EnterpriseRemoteDataSource _enterpriseRemoteDataSource;
   late EnterpriseDataRepository _enterpriseDataRepository;
   late MainBloc _mainBloc;
-  late StreamSubscription _streamSubscription;
+  late StreamSubscription _viewStateStreamSubscription;
 
   @override
   void initState() {
@@ -43,7 +43,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void dispose() {
     _mainBloc.dispose();
-    _streamSubscription.cancel();
+    _viewStateStreamSubscription.cancel();
     super.dispose();
   }
 
