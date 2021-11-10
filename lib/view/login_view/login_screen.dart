@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:ioasys_app/bloc/user/login_bloc.dart';
@@ -29,6 +31,8 @@ class _LoginScreenState extends State<LoginScreen> {
   late UserRemoteDataSource _userRemoteDataSource;
   late UserDataRepository _userDataRepository;
   late LoginBloc _loginBloc;
+  late StreamSubscription _viewStateStreamSubscription;
+  late StreamSubscription _isLoadingStreamSubscription;
 
   @override
   void initState() {
@@ -42,12 +46,65 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void dispose() {
     _loginBloc.dispose();
+    _viewStateStreamSubscription.cancel();
+    _isLoadingStreamSubscription.cancel();
     super.dispose();
+  }
+
+  void _showAlertDialog(String message) {
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: Text(S.of(context).alertDialogTitle),
+              content: Text(message),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text(S.of(context).alertDialogButton),
+                ),
+              ],
+            ));
   }
 
   void _setupStreams() {
     _setupStreamViewState();
     _setupStreamIsLoading();
+  }
+
+  void _setupStreamIsLoading() {
+    _isLoadingStreamSubscription = _loginBloc.isLoading.listen((isLoading) {
+      if (isLoading) {
+        showDialog(
+            context: context,
+            builder: (context) => const Center(
+                  child: CircularProgressIndicator(
+                    color: Colors.blue,
+                    backgroundColor: Colors.transparent,
+                  ),
+                ));
+      } else {
+        Navigator.pop(context);
+      }
+    });
+  }
+
+  void _setupStreamViewState() {
+    _viewStateStreamSubscription =
+        _loginBloc.loginViewState.listen((viewState) {
+      if (viewState is SuccessState) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    MainScreen(userTokens: viewState.userTokens)));
+      } else if (viewState is NetworkErrorState) {
+        _showAlertDialog(S.of(context).messageNetworkError);
+      } else if (viewState is UnauthorizedErrorState) {
+        _showAlertDialog(S.of(context).messageUnauthorizedAuth);
+      } else {
+        _showAlertDialog(S.of(context).messageGenericError);
+      }
+    });
   }
 
   @override
