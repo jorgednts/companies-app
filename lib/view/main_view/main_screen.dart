@@ -24,8 +24,6 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  final TextEditingController _enterpriseNameToSearchController =
-  TextEditingController();
   late EnterpriseRemoteDataSource _enterpriseRemoteDataSource;
   late EnterpriseDataRepository _enterpriseDataRepository;
   late MainBloc _mainBloc;
