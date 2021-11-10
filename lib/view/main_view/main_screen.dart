@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:ioasys_app/bloc/enterprise/async_snapshot_response_view.dart';
 import 'package:ioasys_app/bloc/enterprise/main_bloc.dart';
 import 'package:ioasys_app/data/remote/enterprise/remote_data_source/enterprise_remote_data_source.dart';
+import 'package:ioasys_app/data/remote/shared/view_state/main_view_state.dart';
 import 'package:ioasys_app/data/repository/enterprise_repository/enterprise_data_repository.dart';
 import 'package:ioasys_app/data/repository/enterprise_repository/enterprise_repository.dart';
 import 'package:ioasys_app/domain/user/user_tokens.dart';
@@ -22,10 +25,11 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   final TextEditingController _enterpriseNameToSearchController =
-      TextEditingController();
+  TextEditingController();
   late EnterpriseRemoteDataSource _enterpriseRemoteDataSource;
   late EnterpriseDataRepository _enterpriseDataRepository;
   late MainBloc _mainBloc;
+  late StreamSubscription _streamSubscription;
 
   @override
   void initState() {
@@ -39,6 +43,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void dispose() {
     _mainBloc.dispose();
+    _streamSubscription.cancel();
     super.dispose();
   }
 

@@ -11,8 +11,8 @@ class MainBloc {
   final EnterpriseDataRepository _enterpriseDataRepository;
 
   final _mainViewState = BehaviorSubject<MainViewState>.seeded(InitialState());
-
   Stream<MainViewState> get mainViewState => _mainViewState.stream;
+  Sink<MainViewState> get mainViewStateInput => _mainViewState.sink;
 
   Stream<MainViewState> getEnterpriseList(String enterpriseName,
       String accessToken, String uid, String client) async* {
@@ -20,7 +20,11 @@ class MainBloc {
     try {
       final enterpriseList = await _enterpriseDataRepository.getEnterpriseList(
           enterpriseName, accessToken, uid, client);
-      yield SuccessState(enterpriseList);
+      if(enterpriseList.isNotEmpty){
+        yield SuccessState(enterpriseList);
+      } else {
+        yield NoResult();
+      }
     } on GenericErrorStatusCodeException {
       yield GenericErrorState();
     } catch (e) {
