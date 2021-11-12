@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:ioasys_app/domain/enterprise/enterprise_type_model.dart';
+import 'package:ioasys_app/data/cache_model/enterprise/model/enterprise_type_cm.dart';
 
 part 'enterprise_cm.g.dart';
 
@@ -23,7 +23,7 @@ class EnterpriseCM {
   @HiveField(3)
   final String country;
   @HiveField(4)
-  final EnterpriseTypeModel enterpriseType;
+  final EnterpriseTypeCM enterpriseType;
   @HiveField(5)
   final int id;
 }

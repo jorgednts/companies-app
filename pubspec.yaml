@@ -35,6 +35,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   hive: ^2.0.4
+  path_provider: ^2.0.4
 
 dev_dependencies:
   flutter_test:

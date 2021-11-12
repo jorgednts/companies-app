@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:ioasys_app/bloc/enterprise/async_snapshot_response_view.dart';
 import 'package:ioasys_app/bloc/enterprise/main_bloc.dart';
+import 'package:ioasys_app/data/cache_model/enterprise/cache_data_source/enterprise_cache_data_source.dart';
 import 'package:ioasys_app/data/remote/enterprise/remote_data_source/enterprise_remote_data_source.dart';
 import 'package:ioasys_app/data/remote/shared/view_state/main_view_state.dart';
 import 'package:ioasys_app/data/repository/enterprise_repository/enterprise_data_repository.dart';
@@ -25,6 +26,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   late EnterpriseRemoteDataSource _enterpriseRemoteDataSource;
+  late EnterpriseCacheDataSource _enterpriseCacheDataSource;
   late EnterpriseDataRepository _enterpriseDataRepository;
   late MainBloc _mainBloc;
   late StreamSubscription _viewStateStreamSubscription;
@@ -33,8 +35,9 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     _enterpriseRemoteDataSource = EnterpriseRemoteDataSource(Dio());
-    _enterpriseDataRepository =
-        EnterpriseRepository(_enterpriseRemoteDataSource);
+    _enterpriseCacheDataSource = EnterpriseCacheDataSource();
+    _enterpriseDataRepository = EnterpriseRepository(
+        _enterpriseRemoteDataSource, _enterpriseCacheDataSource);
     _mainBloc = MainBloc(_enterpriseDataRepository);
   }
 
@@ -51,7 +54,14 @@ class _MainScreenState extends State<MainScreen> {
       appBar: AppBar(
         backgroundColor: const Color(0xffee4c77),
         title: TextField(
-          controller: _enterpriseNameToSearchController,
+          onChanged: (typedText) {
+            _viewStateStreamSubscription = _mainBloc
+                .getEnterpriseList(typedText, widget.userTokens.accessToken,
+                    widget.userTokens.uid, widget.userTokens.client)
+                .listen((viewState) {
+              _mainBloc.mainViewStateInput.add(viewState);
+            });
+          },
           decoration: InputDecoration(
             hintText: S.of(context).mainScreenHintTextAppBar,
             hintStyle: const TextStyle(color: Colors.black26),
@@ -67,24 +77,14 @@ class _MainScreenState extends State<MainScreen> {
                 Icons.search,
                 color: Colors.white,
               ),
-              onPressed: () {
-                final typedEnterpriseName =
-                    _enterpriseNameToSearchController.text.toString();
-                if (typedEnterpriseName.isNotEmpty) {
-                  _mainBloc.getEnterpriseList(
-                      typedEnterpriseName,
-                      widget.userTokens.accessToken,
-                      widget.userTokens.uid,
-                      widget.userTokens.client);
-                }
-              },
+              onPressed: () {},
             ),
           ),
         ),
       ),
       body: StreamBuilder<MainViewState>(
         stream: _mainBloc.mainViewState,
-        initialData: InitialState(),
+        initialData: LoadingState(),
         builder: (context, snapshot) => AsyncSnapshotResponseView<
             LoadingState,
             GenericErrorState,

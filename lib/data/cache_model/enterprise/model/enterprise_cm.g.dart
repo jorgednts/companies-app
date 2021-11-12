@@ -21,14 +21,15 @@ class EnterpriseCMAdapter extends TypeAdapter<EnterpriseCM> {
       fields[1] as String,
       fields[2] as String,
       fields[3] as String,
-      fields[4] as EnterpriseTypeModel,
+      fields[4] as EnterpriseTypeCM,
+      fields[5] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, EnterpriseCM obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.enterpriseName)
       ..writeByte(1)
@@ -38,7 +39,9 @@ class EnterpriseCMAdapter extends TypeAdapter<EnterpriseCM> {
       ..writeByte(3)
       ..write(obj.country)
       ..writeByte(4)
-      ..write(obj.enterpriseType);
+      ..write(obj.enterpriseType)
+      ..writeByte(5)
+      ..write(obj.id);
   }
 
   @override

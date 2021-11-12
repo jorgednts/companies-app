@@ -6,12 +6,12 @@ import 'package:ioasys_app/domain/user/user_tokens.dart';
 
 class UserRepository implements UserDataRepository {
   UserRepository(
-    this._userRemoteDataSource,
+    this.userRemoteDataSource,
   );
 
-  final UserRemoteDataSource _userRemoteDataSource;
+  final UserRemoteDataSource userRemoteDataSource;
 
   @override
   Future<UserTokens> doLogin(UserModel userModel) async =>
-      _userRemoteDataSource.doLogin(userModel.toUserRequest());
+      userRemoteDataSource.doLogin(userModel.toUserRequest());
 }

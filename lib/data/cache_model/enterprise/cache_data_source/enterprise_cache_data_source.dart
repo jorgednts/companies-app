@@ -1,19 +1,19 @@
 import 'package:hive/hive.dart';
+import 'package:ioasys_app/constants/constants_cache_data_source.dart';
 import 'package:ioasys_app/data/cache_model/enterprise/model/enterprise_cm.dart';
 
 class EnterpriseCacheDataSource {
-  Future<List<EnterpriseCM>> getEnterpriseList(String enterpriseName) async {
-    final box = await Hive.openBox('enterpriseList');
-    final enterpriseListCM = List<EnterpriseCM>.from(box.get(1));
-    return enterpriseListCM
-        .where((element) => element.enterpriseName.contains(enterpriseName))
-        .toList();
+  Future<EnterpriseCM?> getEnterprise(int id) async {
+    final enterpriseCM = await Hive.openBox<EnterpriseCM>(
+            ConstantsCacheDataSource.keyEnterpriseCM)
+        .then(
+      (value) => value.get(id),
+    );
+    return enterpriseCM;
   }
 
-  Future<void> saveEnterpriseList(List<EnterpriseCM> enterpriseListCM) async {
-    final box = await Hive.openBox('enterpriseList');
-    enterpriseListCM.forEach((enterpriseCM) async {
-      await box.put(enterpriseCM.id, enterpriseCM);
-    });
+  Future<void> saveEnterprise(EnterpriseCM enterpriseCM) async {
+    final box = await Hive.openBox(ConstantsCacheDataSource.keyEnterpriseCM);
+    await box.put(enterpriseCM.id, enterpriseCM);
   }
 }
