@@ -1,60 +1,63 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:ioasys_app/constants/constants_images.dart';
-import 'package:ioasys_app/domain/enterprise/enterprise_model.dart';
+import 'package:ioasys_app/bloc/async_snapshot_response_view/async_snapshot_response_result_view.dart';
+import 'package:ioasys_app/bloc/result_bloc/result_bloc.dart';
+import 'package:ioasys_app/data/cache_model/enterprise/cache_data_source/enterprise_cache_data_source.dart';
+import 'package:ioasys_app/data/remote/enterprise/remote_data_source/enterprise_remote_data_source.dart';
+import 'package:ioasys_app/data/remote/shared/view_state/result_view_state.dart';
+import 'package:ioasys_app/data/repository/enterprise_repository/enterprise_data_repository.dart';
+import 'package:ioasys_app/data/repository/enterprise_repository/enterprise_repository.dart';
+import 'package:ioasys_app/domain/user/user_tokens.dart';
+import 'package:ioasys_app/view/result_view/widgets/enterprise.dart';
 
 class ResultScreen extends StatefulWidget {
   const ResultScreen({
-    required this.enterpriseModel,
+    required this.enterpriseId,
+    required this.userTokens,
     Key? key,
   }) : super(key: key);
-  final EnterpriseModel enterpriseModel;
+  final int enterpriseId;
+  final UserTokens userTokens;
 
   @override
   _ResultScreenState createState() => _ResultScreenState();
 }
 
 class _ResultScreenState extends State<ResultScreen> {
+  late EnterpriseRemoteDataSource _enterpriseRemoteDataSource;
+  late EnterpriseCacheDataSource _enterpriseCacheDataSource;
+  late EnterpriseDataRepository _enterpriseDataRepository;
+  late ResultBloc _resultBloc;
+
   @override
-  Widget build(BuildContext context) => Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: const Color(0xffee4c77),
-          title: Text(widget.enterpriseModel.enterpriseName),
+  void initState() {
+    super.initState();
+    _enterpriseRemoteDataSource = EnterpriseRemoteDataSource(Dio());
+    _enterpriseCacheDataSource = EnterpriseCacheDataSource();
+    _enterpriseDataRepository = EnterpriseRepository(
+        _enterpriseRemoteDataSource, _enterpriseCacheDataSource);
+    _resultBloc = ResultBloc(_enterpriseDataRepository);
+  }
+
+  @override
+  void dispose() {
+    _resultBloc.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => StreamBuilder<ResultViewState>(
+        stream: _resultBloc.resultViewState,
+        initialData: LoadingState(),
+        builder: (context, snapshot) => AsyncSnapshotResponseResultView<
+            LoadingState, GenericErrorState, NetworkErrorState, SuccessState>(
+          snapshot: snapshot,
+          successWidgetBuilder: (context, successState) {
+            final enterprise = successState.enterprise;
+            return Enterprise(
+              enterprise: enterprise,
+            );
+          },
         ),
-        body: SingleChildScrollView(
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 20, left: 20),
-                  child: FadeInImage(
-                    height: 200,
-                    width: 120,
-                    image: NetworkImage(widget.enterpriseModel.photo),
-                    placeholder: const AssetImage(ConstantsImages.imageLoading),
-                    imageErrorBuilder: (context, error, stackTrace) =>
-                        Image.asset(ConstantsImages.imageError,
-                            height: 200, width: 120, fit: BoxFit.fitWidth),
-                    fit: BoxFit.fitWidth,
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 20, left: 20),
-                  child: Text(
-                    widget.enterpriseModel.description,
-                    style: const TextStyle(fontSize: 16),
-                    textAlign: TextAlign.justify,
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-              ],
-            )),
       );
 }

@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:ioasys_app/bloc/enterprise/async_snapshot_response_view.dart';
-import 'package:ioasys_app/bloc/enterprise/main_bloc.dart';
+import 'package:ioasys_app/bloc/async_snapshot_response_view/async_snapshot_response_main_view.dart';
+import 'package:ioasys_app/bloc/main_bloc/main_bloc.dart';
 import 'package:ioasys_app/data/cache_model/enterprise/cache_data_source/enterprise_cache_data_source.dart';
 import 'package:ioasys_app/data/remote/enterprise/remote_data_source/enterprise_remote_data_source.dart';
 import 'package:ioasys_app/data/remote/shared/view_state/main_view_state.dart';
@@ -85,7 +85,7 @@ class _MainScreenState extends State<MainScreen> {
       body: StreamBuilder<MainViewState>(
         stream: _mainBloc.mainViewState,
         initialData: LoadingState(),
-        builder: (context, snapshot) => AsyncSnapshotResponseView<
+        builder: (context, snapshot) => AsyncSnapshotResponseMainView<
             LoadingState,
             GenericErrorState,
             NetworkErrorState,
@@ -95,7 +95,10 @@ class _MainScreenState extends State<MainScreen> {
           snapshot: snapshot,
           successWidgetBuilder: (context, successState) {
             final enterpriseList = successState.enterprises;
-            return EnterpriseList(enterpriseList: enterpriseList);
+            return EnterpriseList(
+              enterpriseList: enterpriseList,
+              userTokens: widget.userTokens,
+            );
           },
         ),
       ));

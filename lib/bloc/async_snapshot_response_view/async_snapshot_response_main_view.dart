@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:ioasys_app/view/main_view/widgets/empty_enterprise_list.dart';
 import 'package:ioasys_app/generated/l10n.dart';
 
-class AsyncSnapshotResponseView<Loading, GenericError, NetworkError, NoResult,
-    Success, Initial> extends StatelessWidget {
-  AsyncSnapshotResponseView({
+class AsyncSnapshotResponseMainView<Loading, GenericError, NetworkError,
+    NoResult, Success, Initial> extends StatelessWidget {
+  AsyncSnapshotResponseMainView({
     required this.successWidgetBuilder,
     required this.snapshot,
     Key? key,

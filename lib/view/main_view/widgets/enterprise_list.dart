@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:ioasys_app/constants/constants_images.dart';
 import 'package:ioasys_app/domain/enterprise/enterprise_model.dart';
+import 'package:ioasys_app/domain/user/user_tokens.dart';
 import 'package:ioasys_app/view/result_view/result_screen.dart';
 
 class EnterpriseList extends StatelessWidget {
   const EnterpriseList({
     required this.enterpriseList,
+    required this.userTokens,
     Key? key,
   }) : super(key: key);
   final List<EnterpriseModel> enterpriseList;
+  final UserTokens userTokens;
 
   @override
   Widget build(BuildContext context) => ListView.builder(
@@ -21,7 +24,8 @@ class EnterpriseList extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                     builder: (context) => ResultScreen(
-                          enterpriseModel: enterpriseList[index],
+                          enterpriseId: enterpriseList[index].id,
+                          userTokens: userTokens,
                         )),
               );
             },
