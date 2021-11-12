@@ -1,8 +1,11 @@
 import 'package:ioasys_app/data/cache_model/enterprise/cache_data_source/enterprise_cache_data_source.dart';
 import 'package:ioasys_app/data/remote/enterprise/remote_data_source/enterprise_remote_data_source.dart';
+import 'package:ioasys_app/data/remote/shared/exception/empty_enterprise_exception.dart';
 import 'package:ioasys_app/data/repository/enterprise_repository/enterprise_data_repository.dart';
 import 'package:ioasys_app/domain/enterprise/enterprise_model.dart';
 import 'package:ioasys_app/data/mapper/remote_to_model.dart';
+import 'package:ioasys_app/data/mapper/model_to_cache.dart';
+import 'package:ioasys_app/data/mapper/cache_to_model.dart';
 
 class EnterpriseRepository implements EnterpriseDataRepository {
   EnterpriseRepository(
@@ -22,8 +25,27 @@ class EnterpriseRepository implements EnterpriseDataRepository {
   }
 
   @override
-  Future<EnterpriseModel> getEnterprise(int id, String enterpriseName,
-      String accessToken, String uid, String client) {
-    throw UnimplementedError();
+  Future<EnterpriseModel> getEnterprise(
+      int id, String accessToken, String uid, String client) async {
+    try {
+      final enterpriseResponse = await enterpriseRemoteDataSource.getEnterprise(
+          id, accessToken, uid, client);
+      final enterpriseModel = enterpriseResponse.toEnterpriseModel();
+      await enterpriseCacheDataSource
+          .saveEnterprise(enterpriseModel.toEnterpriseCM());
+      final enterpriseCM = await enterpriseCacheDataSource.getEnterprise(id);
+      if (enterpriseCM != null) {
+        return enterpriseCM.toEnterpriseModel();
+      } else {
+        throw EmptyEnterpriseException();
+      }
+    } on Exception {
+      final enterpriseCM = await enterpriseCacheDataSource.getEnterprise(id);
+      if (enterpriseCM != null) {
+        return enterpriseCM.toEnterpriseModel();
+      } else {
+        throw EmptyEnterpriseException();
+      }
+    }
   }
 }

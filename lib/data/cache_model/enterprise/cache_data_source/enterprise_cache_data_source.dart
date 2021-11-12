@@ -7,7 +7,7 @@ class EnterpriseCacheDataSource {
     final enterpriseCM = await Hive.openBox<EnterpriseCM>(
             ConstantsCacheDataSource.keyEnterpriseCM)
         .then(
-      (value) => value.get(id),
+      (box) => box.get(id),
     );
     return enterpriseCM;
   }

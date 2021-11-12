@@ -1,0 +1,1 @@
+class EmptyEnterpriseException implements Exception {}
