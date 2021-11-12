@@ -1,11 +1,10 @@
 import 'package:ioasys_app/data/cache_model/enterprise/cache_data_source/enterprise_cache_data_source.dart';
+import 'package:ioasys_app/data/mapper/cache_to_model.dart';
+import 'package:ioasys_app/data/mapper/model_to_cache.dart';
+import 'package:ioasys_app/data/mapper/remote_to_model.dart';
 import 'package:ioasys_app/data/remote/enterprise/remote_data_source/enterprise_remote_data_source.dart';
-import 'package:ioasys_app/data/remote/shared/exception/empty_enterprise_exception.dart';
 import 'package:ioasys_app/data/repository/enterprise_repository/enterprise_data_repository.dart';
 import 'package:ioasys_app/domain/enterprise/enterprise_model.dart';
-import 'package:ioasys_app/data/mapper/remote_to_model.dart';
-import 'package:ioasys_app/data/mapper/model_to_cache.dart';
-import 'package:ioasys_app/data/mapper/cache_to_model.dart';
 
 class EnterpriseRepository implements EnterpriseDataRepository {
   EnterpriseRepository(
@@ -34,18 +33,10 @@ class EnterpriseRepository implements EnterpriseDataRepository {
       await enterpriseCacheDataSource
           .saveEnterprise(enterpriseModel.toEnterpriseCM());
       final enterpriseCM = await enterpriseCacheDataSource.getEnterprise(id);
-      if (enterpriseCM != null) {
-        return enterpriseCM.toEnterpriseModel();
-      } else {
-        throw EmptyEnterpriseException();
-      }
+      return enterpriseCM.toEnterpriseModel();
     } on Exception {
       final enterpriseCM = await enterpriseCacheDataSource.getEnterprise(id);
-      if (enterpriseCM != null) {
-        return enterpriseCM.toEnterpriseModel();
-      } else {
-        throw EmptyEnterpriseException();
-      }
+      return enterpriseCM.toEnterpriseModel();
     }
   }
 }
