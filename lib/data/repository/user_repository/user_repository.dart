@@ -12,8 +12,6 @@ class UserRepository implements UserDataRepository {
   final UserRemoteDataSource _userRemoteDataSource;
 
   @override
-  Future<UserTokens> doLogin(UserModel userModel) async {
-    final userRequest = userModel.toUserRequest();
-    return _userRemoteDataSource.doLogin(userRequest);
-  }
+  Future<UserTokens> doLogin(UserModel userModel) async =>
+      _userRemoteDataSource.doLogin(userModel.toUserRequest());
 }
