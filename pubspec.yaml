@@ -92,4 +92,5 @@ flutter:
 flutter_intl:
     main_locale: en_US
     enabled: true
+    habilitado: true
 

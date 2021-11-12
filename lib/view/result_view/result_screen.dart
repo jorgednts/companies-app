@@ -37,6 +37,12 @@ class _ResultScreenState extends State<ResultScreen> {
     _enterpriseDataRepository = EnterpriseRepository(
         _enterpriseRemoteDataSource, _enterpriseCacheDataSource);
     _resultBloc = ResultBloc(_enterpriseDataRepository);
+    _resultBloc
+        .getEnterprise(widget.enterpriseId, widget.userTokens.accessToken,
+            widget.userTokens.uid, widget.userTokens.client)
+        .listen((viewState) {
+      _resultBloc.resultViewStateInput.add(viewState);
+    });
   }
 
   @override
