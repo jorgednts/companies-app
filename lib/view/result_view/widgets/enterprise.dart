@@ -17,41 +17,41 @@ class Enterprise extends StatelessWidget {
           title: Text(enterprise.enterpriseName),
         ),
         body: SingleChildScrollView(
-            child: Column(
-          children: [
-            const SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 20, left: 20),
-              child: FadeInImage(
-                height: 200,
-                width: 120,
-                image: NetworkImage(enterprise.photo),
-                placeholder: const AssetImage(ConstantsImages.imageLoading),
-                imageErrorBuilder: (context, error, stackTrace) => Image.asset(
-                    ConstantsImages.imageError,
-                    height: 200,
-                    width: 120,
-                    fit: BoxFit.fitWidth),
-                fit: BoxFit.fitWidth,
+            child: Center(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 10,
               ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 20, left: 20),
-              child: Text(
-                enterprise.description,
-                style: const TextStyle(fontSize: 16),
-                textAlign: TextAlign.justify,
+              Padding(
+                padding: const EdgeInsets.only(right: 20, left: 20),
+                child: FadeInImage(
+                  height: 200,
+                  width: 120,
+                  image: NetworkImage(enterprise.photo),
+                  placeholder: const AssetImage(ConstantsImages.imageLoading),
+                  imageErrorBuilder: (context, error, stackTrace) =>
+                      Image.asset(ConstantsImages.imageError,
+                          height: 200, width: 120, fit: BoxFit.fitWidth),
+                  fit: BoxFit.fitWidth,
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-          ],
+              const SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 20, left: 20),
+                child: Text(
+                  enterprise.description,
+                  style: const TextStyle(fontSize: 16),
+                  textAlign: TextAlign.justify,
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+            ],
+          ),
         )),
       );
 }

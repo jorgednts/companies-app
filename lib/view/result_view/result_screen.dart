@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:ioasys_app/bloc/async_snapshot_response_view/async_snapshot_response_result_view.dart';
@@ -28,6 +30,7 @@ class _ResultScreenState extends State<ResultScreen> {
   late EnterpriseCacheDataSource _enterpriseCacheDataSource;
   late EnterpriseDataRepository _enterpriseDataRepository;
   late ResultBloc _resultBloc;
+  late StreamSubscription _viewStateStreamSubscription;
 
   @override
   void initState() {
@@ -37,7 +40,7 @@ class _ResultScreenState extends State<ResultScreen> {
     _enterpriseDataRepository = EnterpriseRepository(
         _enterpriseRemoteDataSource, _enterpriseCacheDataSource);
     _resultBloc = ResultBloc(_enterpriseDataRepository);
-    _resultBloc
+    _viewStateStreamSubscription = _resultBloc
         .getEnterprise(widget.enterpriseId, widget.userTokens.accessToken,
             widget.userTokens.uid, widget.userTokens.client)
         .listen((viewState) {
@@ -48,6 +51,7 @@ class _ResultScreenState extends State<ResultScreen> {
   @override
   void dispose() {
     _resultBloc.dispose();
+    _viewStateStreamSubscription.cancel();
     super.dispose();
   }
 

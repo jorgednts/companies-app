@@ -18,7 +18,8 @@ class EnterpriseCacheDataSource {
   }
 
   Future<void> saveEnterprise(EnterpriseCM enterpriseCM) async {
-    final box = await Hive.openBox(ConstantsCacheDataSource.keyEnterpriseCM);
+    final box = await Hive.openBox<EnterpriseCM>(
+        ConstantsCacheDataSource.keyEnterpriseCM);
     await box.put(enterpriseCM.id, enterpriseCM);
   }
 }

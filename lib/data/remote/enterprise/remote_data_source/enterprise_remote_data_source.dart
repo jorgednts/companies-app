@@ -10,13 +10,14 @@ class EnterpriseRemoteDataSource {
   );
 
   final Dio _dio;
-  static const String _baseUrl = 'https://empresas.ioasys.com.br/api/v1/';
+  static const String _baseUrl =
+      'https://empresas.ioasys.com.br/api/v1/enterprises/';
 
   Future<EnterpriseListResponse> getEnterpriseList(String enterpriseName,
       String accessToken, String uid, String client) async {
     try {
       final response = await _dio.get(
-        '${_baseUrl}enterprises',
+        '$_baseUrl',
         queryParameters: {'name': enterpriseName},
         options: Options(
           headers: {
