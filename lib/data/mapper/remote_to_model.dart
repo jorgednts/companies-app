@@ -10,6 +10,7 @@ extension EntepriseListResponseToEnterpriseListModel on EnterpriseListResponse {
           item.description ?? '-',
           item.country ?? '-',
           EnterpriseTypeModel(
-              item.enterpriseTypeResponse?.enterpriseTypeName ?? '-')))
+              item.enterpriseTypeResponse?.enterpriseTypeName ?? '-'),
+          item.id ?? -1))
       .toList();
 }

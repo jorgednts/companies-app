@@ -16,6 +16,7 @@ EnterpriseResponse _$EnterpriseResponseFromJson(Map<String, dynamic> json) {
         ? null
         : EnterpriseTypeResponse.fromJson(
             json['enterprise_type_response'] as Map<String, dynamic>),
+    json['id'] as int?,
   );
 }
 
@@ -26,4 +27,5 @@ Map<String, dynamic> _$EnterpriseResponseToJson(EnterpriseResponse instance) =>
       'description': instance.description,
       'country': instance.country,
       'enterprise_type_response': instance.enterpriseTypeResponse,
+      'id': instance.id,
     };

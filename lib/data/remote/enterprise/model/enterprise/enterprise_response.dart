@@ -11,6 +11,7 @@ class EnterpriseResponse {
     this.description,
     this.country,
     this.enterpriseTypeResponse,
+    this.id,
   );
 
   factory EnterpriseResponse.fromJson(Map<String, dynamic> json) =>
@@ -21,6 +22,7 @@ class EnterpriseResponse {
   final String? description;
   final String? country;
   final EnterpriseTypeResponse? enterpriseTypeResponse;
+  final int? id;
 
   Map<String, dynamic> toJson() => _$EnterpriseResponseToJson(this);
 }

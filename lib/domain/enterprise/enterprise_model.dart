@@ -7,6 +7,7 @@ class EnterpriseModel {
     this.description,
     this.country,
     this.enterpriseType,
+    this.id,
   );
 
   final String enterpriseName;
@@ -14,4 +15,5 @@ class EnterpriseModel {
   final String description;
   final String country;
   final EnterpriseTypeModel enterpriseType;
+  final int id;
 }
