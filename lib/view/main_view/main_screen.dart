@@ -1,49 +1,51 @@
 import 'dart:async';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:ioasys_app/bloc/async_snapshot_response_view/async_snapshot_response_main_view.dart';
 import 'package:ioasys_app/bloc/main_bloc/main_bloc.dart';
-import 'package:ioasys_app/data/cache_model/enterprise/cache_data_source/enterprise_cache_data_source.dart';
-import 'package:ioasys_app/data/remote/enterprise/remote_data_source/enterprise_remote_data_source.dart';
 import 'package:ioasys_app/data/remote/shared/view_state/main_view_state.dart';
 import 'package:ioasys_app/data/repository/enterprise_repository/enterprise_data_repository.dart';
-import 'package:ioasys_app/data/repository/enterprise_repository/enterprise_repository.dart';
 import 'package:ioasys_app/domain/user/user_tokens.dart';
 import 'package:ioasys_app/generated/l10n.dart';
 import 'package:ioasys_app/view/main_view/widgets/enterprise_list.dart';
+import 'package:provider/provider.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({
     required this.userTokens,
+    required this.mainBloc,
     Key? key,
   }) : super(key: key);
   final UserTokens userTokens;
+  final MainBloc mainBloc;
+
+  static Widget create(BuildContext context, UserTokens userTokens) =>
+      ProxyProvider<EnterpriseDataRepository, MainBloc>(
+        update: (context, repository, bloc) => bloc ?? MainBloc(repository),
+        dispose: (context, bloc) => bloc.dispose(),
+        child: Consumer<MainBloc>(
+          builder: (context, bloc, _) => MainScreen(
+            userTokens: userTokens,
+            mainBloc: bloc,
+          ),
+        ),
+      );
 
   @override
   _MainScreenState createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
-  late EnterpriseRemoteDataSource _enterpriseRemoteDataSource;
-  late EnterpriseCacheDataSource _enterpriseCacheDataSource;
-  late EnterpriseDataRepository _enterpriseDataRepository;
-  late MainBloc _mainBloc;
   late StreamSubscription _viewStateStreamSubscription;
 
   @override
   void initState() {
     super.initState();
-    _enterpriseRemoteDataSource = EnterpriseRemoteDataSource(Dio());
-    _enterpriseCacheDataSource = EnterpriseCacheDataSource();
-    _enterpriseDataRepository = EnterpriseRepository(
-        _enterpriseRemoteDataSource, _enterpriseCacheDataSource);
-    _mainBloc = MainBloc(_enterpriseDataRepository);
   }
 
   @override
   void dispose() {
-    _mainBloc.dispose();
+    widget.mainBloc.dispose();
     _viewStateStreamSubscription.cancel();
     super.dispose();
   }
@@ -55,11 +57,11 @@ class _MainScreenState extends State<MainScreen> {
         backgroundColor: const Color(0xffee4c77),
         title: TextField(
           onChanged: (typedText) {
-            _viewStateStreamSubscription = _mainBloc
+            _viewStateStreamSubscription = widget.mainBloc
                 .getEnterpriseList(typedText, widget.userTokens.accessToken,
                     widget.userTokens.uid, widget.userTokens.client)
                 .listen((viewState) {
-              _mainBloc.mainViewStateInput.add(viewState);
+              widget.mainBloc.mainViewStateInput.add(viewState);
             });
           },
           decoration: InputDecoration(
@@ -83,7 +85,7 @@ class _MainScreenState extends State<MainScreen> {
         ),
       ),
       body: StreamBuilder<MainViewState>(
-        stream: _mainBloc.mainViewState,
+        stream: widget.mainBloc.mainViewState,
         initialData: LoadingState(),
         builder: (context, snapshot) => AsyncSnapshotResponseMainView<
             LoadingState,

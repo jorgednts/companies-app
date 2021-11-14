@@ -1,21 +1,33 @@
 import 'dart:async';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:ioasys_app/bloc/login_bloc/login_bloc.dart';
 import 'package:ioasys_app/constants/constants_images.dart';
 import 'package:ioasys_app/data/remote/shared/view_state/login_view_state.dart';
-import 'package:ioasys_app/data/remote/user/remote_data_source/user_remote_data_source.dart';
 import 'package:ioasys_app/data/repository/user_repository/user_data_repository.dart';
-import 'package:ioasys_app/data/repository/user_repository/user_repository.dart';
 import 'package:ioasys_app/domain/user/email_status.dart';
 import 'package:ioasys_app/domain/user/password_status.dart';
 import 'package:ioasys_app/domain/user/user_model.dart';
 import 'package:ioasys_app/generated/l10n.dart';
-import 'package:ioasys_app/view/main_view/main_screen.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({
+    required this.loginBloc,
+    Key? key,
+  }) : super(key: key);
+  final LoginBloc loginBloc;
+
+  static Widget create(BuildContext context) =>
+      ProxyProvider<UserDataRepository, LoginBloc>(
+        update: (context, repository, bloc) => bloc ?? LoginBloc(repository),
+        dispose: (context, bloc) => bloc.dispose(),
+        child: Consumer<LoginBloc>(
+          builder: (context, bloc, _) => LoginScreen(
+            loginBloc: bloc,
+          ),
+        ),
+      );
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -28,24 +40,18 @@ class _LoginScreenState extends State<LoginScreen> {
       TextEditingController();
   final _formKeyEmail = GlobalKey<FormState>();
   final _formKeyPassword = GlobalKey<FormState>();
-  late UserRemoteDataSource _userRemoteDataSource;
-  late UserDataRepository _userDataRepository;
-  late LoginBloc _loginBloc;
   late StreamSubscription _viewStateStreamSubscription;
   late StreamSubscription _isLoadingStreamSubscription;
 
   @override
   void initState() {
     super.initState();
-    _userRemoteDataSource = UserRemoteDataSource(Dio());
-    _userDataRepository = UserRepository(_userRemoteDataSource);
-    _loginBloc = LoginBloc(_userDataRepository);
     _setupStreams();
   }
 
   @override
   void dispose() {
-    _loginBloc.dispose();
+    widget.loginBloc.dispose();
     _viewStateStreamSubscription.cancel();
     _isLoadingStreamSubscription.cancel();
     super.dispose();
@@ -72,7 +78,8 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _setupStreamIsLoading() {
-    _isLoadingStreamSubscription = _loginBloc.isLoading.listen((isLoading) {
+    _isLoadingStreamSubscription =
+        widget.loginBloc.isLoading.listen((isLoading) {
       if (isLoading) {
         showDialog(
             context: context,
@@ -90,13 +97,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _setupStreamViewState() {
     _viewStateStreamSubscription =
-        _loginBloc.loginViewState.listen((viewState) {
+        widget.loginBloc.loginViewState.listen((viewState) {
       if (viewState is SuccessState) {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    MainScreen(userTokens: viewState.userTokens)));
+        Navigator.of(context).pushNamed('main-screen/${viewState.userTokens}');
       } else if (viewState is NetworkErrorState) {
         _showAlertDialog(S.of(context).messageNetworkError);
       } else if (viewState is UnauthorizedErrorState) {
@@ -156,7 +159,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       controller: _userEmailInputController,
                       validator: (typedEmail) {
                         final emailStatus =
-                            _loginBloc.validateEmail(typedEmail);
+                            widget.loginBloc.validateEmail(typedEmail);
                         if (emailStatus == EmailStatus.invalid) {
                           return S.of(context).loginScreenFormInvalidEmail;
                         } else if (emailStatus == EmailStatus.empty) {
@@ -194,7 +197,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       controller: _userPasswordInputController,
                       validator: (typedPassword) {
                         final passwordStatus =
-                            _loginBloc.validatePassword(typedPassword);
+                            widget.loginBloc.validatePassword(typedPassword);
                         switch (passwordStatus) {
                           case PasswordStatus.valid:
                             return null;
@@ -238,7 +241,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         final userModel = UserModel(
                             _userEmailInputController.text.toString(),
                             _userPasswordInputController.text.toString());
-                        _loginBloc.doLogin(userModel);
+                        widget.loginBloc.doLogin(userModel);
                       }
                     },
                     style: ElevatedButton.styleFrom(

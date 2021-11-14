@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:ioasys_app/constants/constants_images.dart';
 import 'package:ioasys_app/domain/enterprise/enterprise_model.dart';
 import 'package:ioasys_app/domain/user/user_tokens.dart';
-import 'package:ioasys_app/view/result_view/result_screen.dart';
 
 class EnterpriseList extends StatelessWidget {
   const EnterpriseList({
@@ -20,14 +19,8 @@ class EnterpriseList extends StatelessWidget {
           padding: const EdgeInsets.all(4),
           child: GestureDetector(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => ResultScreen(
-                          enterpriseId: enterpriseList[index].id,
-                          userTokens: userTokens,
-                        )),
-              );
+              Navigator.of(context).pushNamed(
+                  'result-screen/${enterpriseList[index].id}/$userTokens');
             },
             child: Card(
               color: Colors.white,

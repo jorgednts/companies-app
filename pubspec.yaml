@@ -36,6 +36,9 @@ dependencies:
     sdk: flutter
   hive: ^2.0.4
   path_provider: ^2.0.4
+  fluro: ^2.0.3
+  provider: ^6.0.1
+
 
 dev_dependencies:
   flutter_test:
