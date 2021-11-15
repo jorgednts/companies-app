@@ -1,3 +1,4 @@
+import 'package:ioasys_app/constants/constants_url_api.dart';
 import 'package:ioasys_app/data/remote/enterprise/model/enterprise/enterprise_list_response.dart';
 import 'package:ioasys_app/data/remote/enterprise/model/enterprise/enterprises_response.dart';
 import 'package:ioasys_app/domain/enterprise/enterprise_model.dart';
@@ -8,7 +9,7 @@ extension EntepriseListResponseToEnterpriseListModel on EnterpriseListResponse {
       .map(
         (item) => EnterpriseModel(
           item.enterpriseName ?? '-',
-          item.photo ?? '-',
+          item.photo == null ? '-' : '${ConstantsUrlApi.baseUrl}${item.photo}',
           item.description ?? '-',
           item.country ?? '-',
           EnterpriseTypeModel(
@@ -22,7 +23,9 @@ extension EntepriseListResponseToEnterpriseListModel on EnterpriseListResponse {
 extension EnterpriseResponseToEnterpriseModel on EnterprisesResponse {
   EnterpriseModel toEnterpriseModel() => EnterpriseModel(
         enterprise.enterpriseName ?? '-',
-        enterprise.photo ?? '-',
+        enterprise.photo == null
+            ? '-'
+            : '${ConstantsUrlApi.baseUrl}${enterprise.photo}',
         enterprise.description ?? '-',
         enterprise.country ?? '-',
         EnterpriseTypeModel(
