@@ -61,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
     showDialog(
         context: context,
         builder: (context) => AlertDialog(
-              title: Text(S.of(context).alertDialogTitle),
+              title: Text(S.of(context).messageAlertTitle),
               content: Text(message),
               actions: <Widget>[
                 TextButton(

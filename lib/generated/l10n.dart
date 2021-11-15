@@ -131,10 +131,10 @@ class S {
   }
 
   /// `Ops`
-  String get alertDialogTitle {
+  String get messageAlertTitle {
     return Intl.message(
       'Ops',
-      name: 'alertDialogTitle',
+      name: 'messageAlertTitle',
       desc: '',
       args: [],
     );
@@ -205,6 +205,16 @@ class S {
     return Intl.message(
       'Click on search to start',
       name: 'mainScreenInitialStateMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Loading...`
+  String get loadingAppBarTitle {
+    return Intl.message(
+      'Loading...',
+      name: 'loadingAppBarTitle',
       desc: '',
       args: [],
     );

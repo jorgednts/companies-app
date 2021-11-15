@@ -8,12 +8,13 @@
   "loginScreenFormInvalidEmail": "Enter a valid email address. Ex: abc@abc.com.br",
   "loginScreenEmptyFormText": "Fill the field",
   "loginScreenFormInvalidPassword": "Password must contain at least 8 characters",
-  "alertDialogTitle": "Ops",
+  "messageAlertTitle": "Ops",
   "alertDialogButton": "Ok",
   "messageNetworkError": "Connection fail. Try again",
   "messageGenericError": "Occurred error. Try again",
   "messageUnauthorizedAuth": "Invalid credentials. Try again",
   "mainScreenNoEnterpriseResult": "No companies were found for a search performed.",
   "mainScreenHintTextAppBar": "Search",
-  "mainScreenInitialStateMessage": "Click on search to start"
+  "mainScreenInitialStateMessage": "Click on search to start",
+  "loadingAppBarTitle": "Loading..."
 }

@@ -8,12 +8,13 @@
   "loginScreenFormInvalidEmail": "Introduzca una dirección de correo electrónico válida. Ej: abc@abc.com.br\n",
   "loginScreenEmptyFormText": "Completar el campo",
   "loginScreenFormInvalidPassword": "La contraseña debe contener al menos 8 caracteres",
-  "alertDialogTitle": "Ops",
+  "messageAlertTitle": "Ops",
   "alertDialogButton": "Ok",
   "messageNetworkError": "Conexión fallida. Inténtalo de nuevo",
   "messageGenericError": "Ocurrio un error. Inténtalo de nuevo",
   "messageUnauthorizedAuth": "Credenciales no válidas. Inténtalo de nuevo",
   "mainScreenNoEnterpriseResult": "No se encontraron empresas para una búsqueda realizada.",
   "mainScreenHintTextAppBar": "Buscar",
-  "mainScreenInitialStateMessage": "Haga clic en buscar para comenzar"
+  "mainScreenInitialStateMessage": "Haga clic en buscar para comenzar",
+  "loadingAppBarTitle": "Cargando..."
 }

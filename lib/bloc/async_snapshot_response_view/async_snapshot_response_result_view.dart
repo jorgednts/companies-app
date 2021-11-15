@@ -22,7 +22,10 @@ class AsyncSnapshotResponseResultView<Loading, GenericError, NetworkError,
     final snapshotData = snapshot.data;
     if (snapshotData == null || snapshotData is Loading) {
       return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          title: Text(S.of(context).loadingAppBarTitle),
+          backgroundColor: const Color(0xffee4c77),
+        ),
         body: const Center(
           child: CircularProgressIndicator(
             color: Colors.blue,
@@ -34,7 +37,10 @@ class AsyncSnapshotResponseResultView<Loading, GenericError, NetworkError,
 
     if (snapshotData is GenericError) {
       return Scaffold(
-          appBar: AppBar(),
+          appBar: AppBar(
+            title: Text(S.of(context).messageAlertTitle),
+            backgroundColor: const Color(0xffee4c77),
+          ),
           body: Center(
             child: Text(S.of(context).messageGenericError),
           ));
@@ -42,7 +48,10 @@ class AsyncSnapshotResponseResultView<Loading, GenericError, NetworkError,
 
     if (snapshotData is NetworkError) {
       return Scaffold(
-          appBar: AppBar(),
+          appBar: AppBar(
+            title: Text(S.of(context).messageAlertTitle),
+            backgroundColor: const Color(0xffee4c77),
+          ),
           body: Center(
             child: Text(S.of(context).messageNetworkError),
           ));

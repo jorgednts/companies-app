@@ -22,7 +22,8 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "alertDialogButton": MessageLookupByLibrary.simpleMessage("Ok"),
-        "alertDialogTitle": MessageLookupByLibrary.simpleMessage("Ops"),
+        "loadingAppBarTitle":
+            MessageLookupByLibrary.simpleMessage("Carregando..."),
         "loginScreenButtonText": MessageLookupByLibrary.simpleMessage("Entrar"),
         "loginScreenEmptyFormText":
             MessageLookupByLibrary.simpleMessage("Preencha o campo"),
@@ -44,6 +45,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Clique na busca para iniciar"),
         "mainScreenNoEnterpriseResult": MessageLookupByLibrary.simpleMessage(
             "Nenhuma empresa foi encontrada para a busca realizada."),
+        "messageAlertTitle": MessageLookupByLibrary.simpleMessage("Ops"),
         "messageGenericError": MessageLookupByLibrary.simpleMessage(
             "Ocorreu um erro. Tente novamente"),
         "messageNetworkError": MessageLookupByLibrary.simpleMessage(
