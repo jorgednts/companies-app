@@ -99,7 +99,8 @@ class _LoginScreenState extends State<LoginScreen> {
     _viewStateStreamSubscription =
         widget.loginBloc.loginViewState.listen((viewState) {
       if (viewState is SuccessState) {
-        Navigator.of(context).pushNamed('main-screen/${viewState.userTokens}');
+        Navigator.of(context)
+            .pushNamed('main-screen', arguments: viewState.userTokens);
       } else if (viewState is NetworkErrorState) {
         _showAlertDialog(S.of(context).messageNetworkError);
       } else if (viewState is UnauthorizedErrorState) {

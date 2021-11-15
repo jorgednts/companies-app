@@ -1,5 +1,5 @@
 import 'package:ioasys_app/data/remote/enterprise/model/enterprise/enterprise_list_response.dart';
-import 'package:ioasys_app/data/remote/enterprise/model/enterprise/enterprise_response.dart';
+import 'package:ioasys_app/data/remote/enterprise/model/enterprise/enterprises_response.dart';
 import 'package:ioasys_app/domain/enterprise/enterprise_model.dart';
 import 'package:ioasys_app/domain/enterprise/enterprise_type_model.dart';
 
@@ -19,13 +19,14 @@ extension EntepriseListResponseToEnterpriseListModel on EnterpriseListResponse {
       .toList();
 }
 
-extension EnterpriseResponseToEnterpriseModel on EnterpriseResponse {
+extension EnterpriseResponseToEnterpriseModel on EnterprisesResponse {
   EnterpriseModel toEnterpriseModel() => EnterpriseModel(
-        enterpriseName ?? '-',
-        photo ?? '-',
-        description ?? '-',
-        country ?? '-',
-        EnterpriseTypeModel(enterpriseTypeResponse?.enterpriseTypeName ?? '-'),
-        id ?? -1,
+        enterprise.enterpriseName ?? '-',
+        enterprise.photo ?? '-',
+        enterprise.description ?? '-',
+        enterprise.country ?? '-',
+        EnterpriseTypeModel(
+            enterprise.enterpriseTypeResponse?.enterpriseTypeName ?? '-'),
+        enterprise.id ?? -1,
       );
 }

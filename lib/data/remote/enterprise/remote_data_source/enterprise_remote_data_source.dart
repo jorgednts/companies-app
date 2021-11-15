@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:ioasys_app/constants/constants_user_tokens.dart';
 import 'package:ioasys_app/data/remote/enterprise/model/enterprise/enterprise_list_response.dart';
-import 'package:ioasys_app/data/remote/enterprise/model/enterprise/enterprise_response.dart';
+import 'package:ioasys_app/data/remote/enterprise/model/enterprise/enterprises_response.dart';
 import 'package:ioasys_app/data/remote/shared/exception/gerenic_error_status_code_exception.dart';
 
 class EnterpriseRemoteDataSource {
@@ -37,7 +37,7 @@ class EnterpriseRemoteDataSource {
     }
   }
 
-  Future<EnterpriseResponse> getEnterprise(
+  Future<EnterprisesResponse> getEnterprise(
       int id, String accessToken, String uid, String client) async {
     try {
       final response = await _dio.get(
@@ -50,7 +50,7 @@ class EnterpriseRemoteDataSource {
           },
         ),
       );
-      return EnterpriseResponse.fromJson(response.data);
+      return EnterprisesResponse.fromJson(response.data);
     } on DioError catch (dioError, _) {
       if (dioError.type == DioErrorType.response) {
         throw GenericErrorStatusCodeException();

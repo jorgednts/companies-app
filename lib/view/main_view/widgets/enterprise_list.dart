@@ -20,7 +20,8 @@ class EnterpriseList extends StatelessWidget {
           child: GestureDetector(
             onTap: () {
               Navigator.of(context).pushNamed(
-                  'result-screen/${enterpriseList[index].id}/$userTokens');
+                  'result-screen/${enterpriseList[index].id}',
+                  arguments: userTokens);
             },
             child: Card(
               color: Colors.white,

@@ -28,18 +28,16 @@ Future<void> main() async {
     ..define(
       'main-screen',
       handler: Handler(handlerFunc: (context, params) {
-        final userTokens = UserTokens(
-            params['accessToken']![0], params['client']![0], params['uid']![0]);
-        return MainScreen.create(context!, userTokens);
+        final userTokens = context!.settings!.arguments as UserTokens;
+        return MainScreen.create(context, userTokens);
       }),
     )
     ..define(
-      'result-screen',
+      'result-screen/:enterpriseId',
       handler: Handler(handlerFunc: (context, params) {
         final enterpriseId = int.parse(params['enterpriseId']![0]);
-        final userTokens = UserTokens(
-            params['accessToken']![0], params['client']![0], params['uid']![0]);
-        return ResultScreen.create(context!, enterpriseId, userTokens);
+        final userTokens = context!.settings!.arguments as UserTokens;
+        return ResultScreen.create(context, enterpriseId, userTokens);
       }),
     );
 
