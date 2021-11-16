@@ -10,7 +10,7 @@ class EnterpriseResponse {
     this.photo,
     this.description,
     this.country,
-    this.enterpriseTypeResponse,
+    this.enterpriseType,
     this.id,
   );
 
@@ -21,7 +21,7 @@ class EnterpriseResponse {
   final String? photo;
   final String? description;
   final String? country;
-  final EnterpriseTypeResponse? enterpriseTypeResponse;
+  final EnterpriseTypeResponse? enterpriseType;
   final int? id;
 
   Map<String, dynamic> toJson() => _$EnterpriseResponseToJson(this);

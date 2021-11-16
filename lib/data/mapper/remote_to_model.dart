@@ -12,8 +12,7 @@ extension EntepriseListResponseToEnterpriseListModel on EnterpriseListResponse {
           item.photo == null ? '-' : '${ConstantsUrlApi.baseUrl}${item.photo}',
           item.description ?? '-',
           item.country ?? '-',
-          EnterpriseTypeModel(
-              item.enterpriseTypeResponse?.enterpriseTypeName ?? '-'),
+          EnterpriseTypeModel(item.enterpriseType?.enterpriseTypeName ?? '-'),
           item.id ?? -1,
         ),
       )
@@ -29,7 +28,7 @@ extension EnterpriseResponseToEnterpriseModel on EnterprisesResponse {
         enterprise.description ?? '-',
         enterprise.country ?? '-',
         EnterpriseTypeModel(
-            enterprise.enterpriseTypeResponse?.enterpriseTypeName ?? '-'),
+            enterprise.enterpriseType?.enterpriseTypeName ?? '-'),
         enterprise.id ?? -1,
       );
 }
