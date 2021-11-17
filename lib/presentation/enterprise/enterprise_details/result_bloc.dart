@@ -1,6 +1,6 @@
-import 'package:ioasys_app/data/remote/shared/exception/gerenic_error_status_code_exception.dart';
-import 'package:ioasys_app/data/remote/shared/view_state/result_view_state.dart';
+import 'package:ioasys_app/domain/exception/gerenic_error_status_code_exception.dart';
 import 'package:ioasys_app/domain/use_case/get_enterprise_use_case.dart';
+import 'package:ioasys_app/presentation/enterprise/enterprise_details/result_view_state.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ResultBloc {

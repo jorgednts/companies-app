@@ -1,6 +1,6 @@
-import 'package:ioasys_app/data/remote/shared/exception/gerenic_error_status_code_exception.dart';
-import 'package:ioasys_app/data/remote/shared/view_state/main_view_state.dart';
+import 'package:ioasys_app/domain/exception/gerenic_error_status_code_exception.dart';
 import 'package:ioasys_app/domain/use_case/get_enterprise_list_use_case.dart';
+import 'package:ioasys_app/presentation/enterprise/enterprise_list/main_view_state.dart';
 import 'package:rxdart/rxdart.dart';
 
 class MainBloc {

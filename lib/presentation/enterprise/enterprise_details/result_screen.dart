@@ -3,10 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:ioasys_app/domain/model/user/user_tokens.dart';
 import 'package:ioasys_app/domain/use_case/get_enterprise_use_case.dart';
-import 'package:ioasys_app/presentation/common/async_snapshot_response_result_view.dart';
-import 'package:ioasys_app/presentation/enterprise/enterprise.dart';
-import 'package:ioasys_app/presentation/enterprise/result_bloc.dart';
-import 'package:ioasys_app/data/remote/shared/view_state/result_view_state.dart';
+import 'package:ioasys_app/presentation/enterprise/enterprise_details/async_snapshot_response_result_view.dart';
+import 'package:ioasys_app/presentation/enterprise/enterprise_details/enterprise.dart';
+import 'package:ioasys_app/presentation/enterprise/enterprise_details/result_bloc.dart';
+import 'package:ioasys_app/presentation/enterprise/enterprise_details/result_view_state.dart';
 import 'package:provider/provider.dart';
 
 class ResultScreen extends StatefulWidget {

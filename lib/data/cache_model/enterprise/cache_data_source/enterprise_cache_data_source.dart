@@ -1,7 +1,7 @@
 import 'package:hive/hive.dart';
 import 'package:ioasys_app/constants/constants_cache_data_source.dart';
 import 'package:ioasys_app/data/cache_model/enterprise/model/enterprise_cm.dart';
-import 'package:ioasys_app/data/remote/shared/exception/empty_enterprise_exception.dart';
+import 'package:ioasys_app/domain/exception/empty_enterprise_exception.dart';
 
 class EnterpriseCacheDataSource {
   Future<EnterpriseCM> getEnterprise(int id) async {

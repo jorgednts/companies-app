@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:ioasys_app/constants/constants_user_tokens.dart';
 import 'package:ioasys_app/data/remote/enterprise/model/enterprise/enterprise_list_response.dart';
 import 'package:ioasys_app/data/remote/enterprise/model/enterprise/enterprises_response.dart';
-import 'package:ioasys_app/data/remote/shared/exception/gerenic_error_status_code_exception.dart';
+import 'package:ioasys_app/domain/exception/gerenic_error_status_code_exception.dart';
 
 class EnterpriseRemoteDataSource {
   EnterpriseRemoteDataSource(

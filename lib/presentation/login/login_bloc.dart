@@ -1,6 +1,6 @@
-import 'package:ioasys_app/data/remote/shared/exception/gerenic_error_status_code_exception.dart';
-import 'package:ioasys_app/data/remote/shared/exception/unauthorized_status_code_exception.dart';
-import 'package:ioasys_app/data/remote/shared/view_state/login_view_state.dart';
+import 'package:ioasys_app/domain/exception/gerenic_error_status_code_exception.dart';
+import 'package:ioasys_app/domain/exception/unauthorized_status_code_exception.dart';
+import 'package:ioasys_app/presentation/login/login_view_state.dart';
 import 'package:ioasys_app/domain/model/user/email_status.dart';
 import 'package:ioasys_app/domain/model/user/password_status.dart';
 import 'package:ioasys_app/domain/model/user/user_model.dart';

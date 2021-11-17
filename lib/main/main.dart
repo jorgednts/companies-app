@@ -5,9 +5,9 @@ import 'package:ioasys_app/data/cache_model/enterprise/model/enterprise_cm.dart'
 import 'package:ioasys_app/data/cache_model/enterprise/model/enterprise_type_cm.dart';
 import 'package:ioasys_app/domain/model/user/user_tokens.dart';
 import 'package:ioasys_app/main/my_app.dart';
-import 'package:ioasys_app/presentation/enterprise/result_screen.dart';
+import 'package:ioasys_app/presentation/enterprise/enterprise_details/result_screen.dart';
 import 'package:ioasys_app/presentation/login/login_screen.dart';
-import 'package:ioasys_app/presentation/enterprise/main_screen.dart';
+import 'package:ioasys_app/presentation/enterprise/enterprise_list/main_screen.dart';
 import 'package:path_provider/path_provider.dart';
 
 Future<void> main() async {

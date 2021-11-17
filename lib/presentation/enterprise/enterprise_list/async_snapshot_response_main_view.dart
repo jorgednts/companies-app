@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ioasys_app/presentation/enterprise/empty_enterprise_list.dart';
+import 'package:ioasys_app/presentation/enterprise/enterprise_list/empty_enterprise_list.dart';
 import 'package:ioasys_app/generated/l10n.dart';
 
 class AsyncSnapshotResponseMainView<Loading, GenericError, NetworkError,

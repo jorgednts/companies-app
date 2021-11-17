@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:ioasys_app/domain/model/user/user_tokens.dart';
 import 'package:ioasys_app/domain/use_case/get_enterprise_list_use_case.dart';
-import 'package:ioasys_app/presentation/common/async_snapshot_response_main_view.dart';
-import 'package:ioasys_app/presentation/enterprise/enterprise_list.dart';
-import 'package:ioasys_app/presentation/enterprise/main_bloc.dart';
-import 'package:ioasys_app/data/remote/shared/view_state/main_view_state.dart';
+import 'package:ioasys_app/presentation/enterprise/enterprise_list/async_snapshot_response_main_view.dart';
+import 'package:ioasys_app/presentation/enterprise/enterprise_list/enterprise_list.dart';
+import 'package:ioasys_app/presentation/enterprise/enterprise_list/main_bloc.dart';
 import 'package:ioasys_app/generated/l10n.dart';
+import 'package:ioasys_app/presentation/enterprise/enterprise_list/main_view_state.dart';
 import 'package:provider/provider.dart';
 
 class MainScreen extends StatefulWidget {

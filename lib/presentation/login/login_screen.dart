@@ -9,7 +9,7 @@ import 'package:ioasys_app/domain/use_case/validate_email_use_case.dart';
 import 'package:ioasys_app/domain/use_case/validate_password_use_case.dart';
 import 'package:ioasys_app/presentation/login/login_bloc.dart';
 import 'package:ioasys_app/constants/constants_images.dart';
-import 'package:ioasys_app/data/remote/shared/view_state/login_view_state.dart';
+import 'package:ioasys_app/presentation/login/login_view_state.dart';
 import 'package:ioasys_app/generated/l10n.dart';
 import 'package:provider/provider.dart';
 
