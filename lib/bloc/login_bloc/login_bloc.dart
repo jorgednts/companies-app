@@ -43,7 +43,8 @@ class LoginBloc {
         isValidatePassword == PasswordStatus.valid) {
       _loading.add(true);
       try {
-        final userTokens = await doLoginUseCase.doLogin(userModel);
+        final userTokens = await doLoginUseCase.getFuture(
+            params: DoLoginUseCaseParams(userModel));
         _loading.add(false);
         _loginViewState.add(SuccessState(userTokens));
       } on UnauthorizedStatusCodeException {

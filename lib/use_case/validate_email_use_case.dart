@@ -1,16 +1,18 @@
 import 'package:ioasys_app/domain/user/email_status.dart';
-import 'package:ioasys_app/domain/user/user_model.dart';
 
 class ValidateEmailUseCase {
+  final regex = RegExp(
+      r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\'
+      r'[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.'
+      r')+[a-zA-Z]{2,}))$');
+
   EmailStatus validateEmail(String? email) {
-    final emailStatus = UserModel.validateUserEmail(email);
-    switch (emailStatus) {
-      case EmailStatus.valid:
-        return EmailStatus.valid;
-      case EmailStatus.invalid:
-        return EmailStatus.invalid;
-      case EmailStatus.empty:
-        return EmailStatus.empty;
+    if (email?.isEmpty ?? true) {
+      return EmailStatus.empty;
+    } else if (!regex.hasMatch(email ?? '')) {
+      return EmailStatus.invalid;
+    } else {
+      return EmailStatus.valid;
     }
   }
 }
