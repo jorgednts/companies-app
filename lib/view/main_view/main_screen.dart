@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:ioasys_app/bloc/async_snapshot_response_view/async_snapshot_response_main_view.dart';
 import 'package:ioasys_app/bloc/main_bloc/main_bloc.dart';
 import 'package:ioasys_app/data/remote/shared/view_state/main_view_state.dart';
-import 'package:ioasys_app/data/repository/enterprise_repository/enterprise_data_repository.dart';
 import 'package:ioasys_app/domain/user/user_tokens.dart';
 import 'package:ioasys_app/generated/l10n.dart';
+import 'package:ioasys_app/use_case/get_enterprise_list_use_case.dart';
 import 'package:ioasys_app/view/main_view/widgets/enterprise_list.dart';
 import 'package:provider/provider.dart';
 
@@ -20,8 +20,9 @@ class MainScreen extends StatefulWidget {
   final MainBloc mainBloc;
 
   static Widget create(BuildContext context, UserTokens userTokens) =>
-      ProxyProvider<EnterpriseDataRepository, MainBloc>(
-        update: (context, repository, bloc) => bloc ?? MainBloc(repository),
+      ProxyProvider<GetEnterpriseListUseCase, MainBloc>(
+        update: (context, getEnterpriseListUseCase, bloc) =>
+            bloc ?? MainBloc(getEnterpriseListUseCase),
         dispose: (context, bloc) => bloc.dispose(),
         child: Consumer<MainBloc>(
           builder: (context, bloc, _) => MainScreen(

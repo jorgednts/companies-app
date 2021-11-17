@@ -1,26 +1,29 @@
 import 'package:ioasys_app/data/remote/shared/exception/gerenic_error_status_code_exception.dart';
 import 'package:ioasys_app/data/remote/shared/view_state/main_view_state.dart';
-import 'package:ioasys_app/data/repository/enterprise_repository/enterprise_data_repository.dart';
+import 'package:ioasys_app/use_case/get_enterprise_list_use_case.dart';
 import 'package:rxdart/rxdart.dart';
 
 class MainBloc {
   MainBloc(
-    this._enterpriseDataRepository,
+    this.getEnterpriseListUseCase,
   );
 
-  final EnterpriseDataRepository _enterpriseDataRepository;
+  final GetEnterpriseListUseCase getEnterpriseListUseCase;
 
   final _mainViewState = BehaviorSubject<MainViewState>.seeded(InitialState());
+
   Stream<MainViewState> get mainViewState => _mainViewState.stream;
+
   Sink<MainViewState> get mainViewStateInput => _mainViewState.sink;
 
   Stream<MainViewState> getEnterpriseList(String enterpriseName,
       String accessToken, String uid, String client) async* {
     try {
-      final enterpriseList = await _enterpriseDataRepository.getEnterpriseList(
-          enterpriseName, accessToken, uid, client);
+      final enterpriseList = await getEnterpriseListUseCase.getFuture(
+          params: GetEnterpriseListUseCaseParams(
+              enterpriseName, accessToken, uid, client));
       yield LoadingState();
-      if(enterpriseList.isNotEmpty){
+      if (enterpriseList.isNotEmpty) {
         yield SuccessState(enterpriseList);
       } else {
         yield NoResult();

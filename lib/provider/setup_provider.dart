@@ -7,6 +7,7 @@ import 'package:ioasys_app/data/repository/enterprise_repository/enterprise_repo
 import 'package:ioasys_app/data/repository/user_repository/user_data_repository.dart';
 import 'package:ioasys_app/data/repository/user_repository/user_repository.dart';
 import 'package:ioasys_app/use_case/do_login_use_case.dart';
+import 'package:ioasys_app/use_case/get_enterprise_list_use_case.dart';
 import 'package:ioasys_app/use_case/validate_email_use_case.dart';
 import 'package:ioasys_app/use_case/validate_password_use_case.dart';
 import 'package:provider/provider.dart';
@@ -43,5 +44,9 @@ List<SingleChildWidget> dependentServices = [
   ),
   ProxyProvider<UserDataRepository, DoLoginUseCase>(
     update: (_, userDataRepository, __) => DoLoginUseCase(userDataRepository),
-  )
+  ),
+  ProxyProvider<EnterpriseDataRepository, GetEnterpriseListUseCase>(
+    update: (_, enterpriseDataRepository, __) =>
+        GetEnterpriseListUseCase(enterpriseDataRepository),
+  ),
 ];
