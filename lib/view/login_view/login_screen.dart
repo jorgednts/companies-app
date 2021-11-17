@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:ioasys_app/bloc/login_bloc/login_bloc.dart';
 import 'package:ioasys_app/constants/constants_images.dart';
 import 'package:ioasys_app/data/remote/shared/view_state/login_view_state.dart';
-import 'package:ioasys_app/data/repository/user_repository/user_data_repository.dart';
 import 'package:ioasys_app/domain/user/email_status.dart';
 import 'package:ioasys_app/domain/user/password_status.dart';
 import 'package:ioasys_app/domain/user/user_model.dart';
 import 'package:ioasys_app/generated/l10n.dart';
+import 'package:ioasys_app/use_case/do_login_use_case.dart';
+import 'package:ioasys_app/use_case/validate_email_use_case.dart';
+import 'package:ioasys_app/use_case/validate_password_use_case.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -18,9 +20,19 @@ class LoginScreen extends StatefulWidget {
   }) : super(key: key);
   final LoginBloc loginBloc;
 
-  static Widget create(BuildContext context) =>
-      ProxyProvider<UserDataRepository, LoginBloc>(
-        update: (context, repository, bloc) => bloc ?? LoginBloc(repository),
+  static Widget create(BuildContext context) => ProxyProvider3<
+          ValidateEmailUseCase,
+          ValidatePasswordUseCase,
+          DoLoginUseCase,
+          LoginBloc>(
+        update: (context, validateEmailUseCase, validatePasswordUseCase,
+                doLoginUseCase, bloc) =>
+            bloc ??
+            LoginBloc(
+              validateEmailUseCase,
+              validatePasswordUseCase,
+              doLoginUseCase,
+            ),
         dispose: (context, bloc) => bloc.dispose(),
         child: Consumer<LoginBloc>(
           builder: (context, bloc, _) => LoginScreen(

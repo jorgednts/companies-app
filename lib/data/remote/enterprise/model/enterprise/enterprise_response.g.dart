@@ -12,10 +12,10 @@ EnterpriseResponse _$EnterpriseResponseFromJson(Map<String, dynamic> json) {
     json['photo'] as String?,
     json['description'] as String?,
     json['country'] as String?,
-    json['enterprise_type_response'] == null
+    json['enterprise_type'] == null
         ? null
         : EnterpriseTypeResponse.fromJson(
-            json['enterprise_type_response'] as Map<String, dynamic>),
+            json['enterprise_type'] as Map<String, dynamic>),
     json['id'] as int?,
   );
 }
@@ -26,6 +26,6 @@ Map<String, dynamic> _$EnterpriseResponseToJson(EnterpriseResponse instance) =>
       'photo': instance.photo,
       'description': instance.description,
       'country': instance.country,
-      'enterprise_type_response': instance.enterpriseTypeResponse,
+      'enterprise_type': instance.enterpriseType,
       'id': instance.id,
     };

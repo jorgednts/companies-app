@@ -1,20 +1,24 @@
-import 'package:ioasys_app/constants/constants_login.dart';
 import 'package:ioasys_app/data/remote/shared/exception/gerenic_error_status_code_exception.dart';
 import 'package:ioasys_app/data/remote/shared/exception/unauthorized_status_code_exception.dart';
 import 'package:ioasys_app/data/remote/shared/view_state/login_view_state.dart';
-import 'package:ioasys_app/data/repository/user_repository/user_data_repository.dart';
 import 'package:ioasys_app/domain/user/email_status.dart';
 import 'package:ioasys_app/domain/user/password_status.dart';
 import 'package:ioasys_app/domain/user/user_model.dart';
-import 'package:ioasys_app/extensions/string_extensions.dart';
+import 'package:ioasys_app/use_case/do_login_use_case.dart';
+import 'package:ioasys_app/use_case/validate_email_use_case.dart';
+import 'package:ioasys_app/use_case/validate_password_use_case.dart';
 import 'package:rxdart/rxdart.dart';
 
 class LoginBloc {
   LoginBloc(
-    this._userDataRepository,
+    this.validateEmailUseCase,
+    this.validatePasswordUseCase,
+    this.doLoginUseCase,
   );
 
-  final UserDataRepository _userDataRepository;
+  final ValidateEmailUseCase validateEmailUseCase;
+  final ValidatePasswordUseCase validatePasswordUseCase;
+  final DoLoginUseCase doLoginUseCase;
 
   final _isValidEmail = PublishSubject<EmailStatus>();
 
@@ -39,7 +43,7 @@ class LoginBloc {
         isValidatePassword == PasswordStatus.valid) {
       _loading.add(true);
       try {
-        final userTokens = await _userDataRepository.doLogin(userModel);
+        final userTokens = await doLoginUseCase.doLogin(userModel);
         _loading.add(false);
         _loginViewState.add(SuccessState(userTokens));
       } on UnauthorizedStatusCodeException {
@@ -55,9 +59,16 @@ class LoginBloc {
     }
   }
 
+  void dispose() {
+    _isValidEmail.close();
+    _isValidPassword.close();
+    _loading.close();
+    _loginViewState.close();
+  }
+
   EmailStatus validateEmail(String? email) {
-    final emailStatus = UserModel.validateUserEmail(email);
-    switch (emailStatus) {
+    final isValidateEmail = validateEmailUseCase.validateEmail(email);
+    switch (isValidateEmail) {
       case EmailStatus.valid:
         _isValidEmail.add(EmailStatus.valid);
         return EmailStatus.valid;
@@ -71,24 +82,18 @@ class LoginBloc {
   }
 
   PasswordStatus validatePassword(String? password) {
-    if (password == null || password.isBlank()) {
-      _isValidPassword.add(PasswordStatus.empty);
-      return PasswordStatus.empty;
-    } else {
-      if (password.length < ConstantsLogin.minimumPasswordLength) {
-        _isValidPassword.add(PasswordStatus.invalid);
-        return PasswordStatus.invalid;
-      } else {
+    final isValidatePassword =
+        validatePasswordUseCase.validatePassword(password);
+    switch (isValidatePassword) {
+      case PasswordStatus.valid:
         _isValidPassword.add(PasswordStatus.valid);
         return PasswordStatus.valid;
-      }
+      case PasswordStatus.invalid:
+        _isValidPassword.add(PasswordStatus.invalid);
+        return PasswordStatus.invalid;
+      case PasswordStatus.empty:
+        _isValidPassword.add(PasswordStatus.empty);
+        return PasswordStatus.empty;
     }
-  }
-
-  void dispose() {
-    _isValidEmail.close();
-    _isValidPassword.close();
-    _loading.close();
-    _loginViewState.close();
   }
 }
