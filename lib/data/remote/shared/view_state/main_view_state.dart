@@ -1,12 +1,12 @@
-import 'package:ioasys_app/domain/enterprise/enterprise_model.dart';
+import 'package:ioasys_app/domain/model/enterprise/enterprise_model.dart';
 
 abstract class MainViewState {}
 
-class LoadingState implements MainViewState{}
+class LoadingState implements MainViewState {}
 
-class InitialState implements MainViewState{}
+class InitialState implements MainViewState {}
 
-class NoResult implements MainViewState{}
+class NoResult implements MainViewState {}
 
 class GenericErrorState implements MainViewState {}
 

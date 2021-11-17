@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:ioasys_app/data/cache_model/enterprise/model/enterprise_cm.dart';
 import 'package:ioasys_app/data/cache_model/enterprise/model/enterprise_type_cm.dart';
-import 'package:ioasys_app/domain/user/user_tokens.dart';
+import 'package:ioasys_app/domain/model/user/user_tokens.dart';
 import 'package:ioasys_app/main/my_app.dart';
-import 'package:ioasys_app/view/login_view/login_screen.dart';
-import 'package:ioasys_app/view/main_view/main_screen.dart';
-import 'package:ioasys_app/view/result_view/result_screen.dart';
+import 'package:ioasys_app/presentation/enterprise/result_screen.dart';
+import 'package:ioasys_app/presentation/login/login_screen.dart';
+import 'package:ioasys_app/presentation/enterprise/main_screen.dart';
 import 'package:path_provider/path_provider.dart';
 
 Future<void> main() async {

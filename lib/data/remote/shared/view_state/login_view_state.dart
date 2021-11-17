@@ -1,4 +1,4 @@
-import 'package:ioasys_app/domain/user/user_tokens.dart';
+import 'package:ioasys_app/domain/model/user/user_tokens.dart';
 
 abstract class LoginViewState {}
 

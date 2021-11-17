@@ -1,4 +1,4 @@
-import 'package:ioasys_app/domain/enterprise/enterprise_model.dart';
+import 'package:ioasys_app/domain/model/enterprise/enterprise_model.dart';
 
 abstract class ResultViewState {}
 
