@@ -175,10 +175,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             widget.loginBloc.validateEmail(typedEmail);
                         if (emailStatus == EmailStatus.invalid) {
                           return S.of(context).loginScreenFormInvalidEmail;
-                        } else if (emailStatus == EmailStatus.empty) {
-                          return S.of(context).loginScreenEmptyFormText;
                         } else {
-                          return null;
+                          if (emailStatus == EmailStatus.empty) {
+                            return S.of(context).loginScreenEmptyFormText;
+                          } else {
+                            return null;
+                          }
                         }
                       },
                       keyboardType: TextInputType.emailAddress,
