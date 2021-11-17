@@ -1,14 +1,14 @@
 import 'package:ioasys_app/data/remote/shared/exception/gerenic_error_status_code_exception.dart';
 import 'package:ioasys_app/data/remote/shared/view_state/result_view_state.dart';
-import 'package:ioasys_app/data/repository/enterprise_repository/enterprise_data_repository.dart';
+import 'package:ioasys_app/use_case/get_enterprise_use_case.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ResultBloc {
   ResultBloc(
-    this._enterpriseDataRepository,
+    this.getEnterpriseUseCase,
   );
 
-  final EnterpriseDataRepository _enterpriseDataRepository;
+  final GetEnterpriseUseCase getEnterpriseUseCase;
 
   final _resultViewState =
       BehaviorSubject<ResultViewState>.seeded(LoadingState());
@@ -21,8 +21,8 @@ class ResultBloc {
       int id, String accessToken, String uid, String client) async* {
     yield LoadingState();
     try {
-      final enterprise = await _enterpriseDataRepository.getEnterprise(
-          id, accessToken, uid, client);
+      final enterprise = await getEnterpriseUseCase.getFuture(
+          params: GetEnterpriseUseCaseParams(id, accessToken, uid, client));
       yield SuccessState(enterprise);
     } on GenericErrorStatusCodeException {
       yield GenericErrorState();

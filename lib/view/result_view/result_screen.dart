@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:ioasys_app/bloc/async_snapshot_response_view/async_snapshot_response_result_view.dart';
 import 'package:ioasys_app/bloc/result_bloc/result_bloc.dart';
 import 'package:ioasys_app/data/remote/shared/view_state/result_view_state.dart';
-import 'package:ioasys_app/data/repository/enterprise_repository/enterprise_data_repository.dart';
 import 'package:ioasys_app/domain/user/user_tokens.dart';
+import 'package:ioasys_app/use_case/get_enterprise_use_case.dart';
 import 'package:ioasys_app/view/result_view/widgets/enterprise.dart';
 import 'package:provider/provider.dart';
 
@@ -22,8 +22,9 @@ class ResultScreen extends StatefulWidget {
 
   static Widget create(
           BuildContext context, int enterpriseId, UserTokens userTokens) =>
-      ProxyProvider<EnterpriseDataRepository, ResultBloc>(
-        update: (context, repository, bloc) => bloc ?? ResultBloc(repository),
+      ProxyProvider<GetEnterpriseUseCase, ResultBloc>(
+        update: (context, getEnterpriseUseCase, bloc) =>
+            bloc ?? ResultBloc(getEnterpriseUseCase),
         dispose: (context, bloc) => bloc.dispose(),
         child: Consumer<ResultBloc>(
           builder: (context, bloc, _) => ResultScreen(
