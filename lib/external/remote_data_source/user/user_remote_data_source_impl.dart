@@ -1,11 +1,12 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:ioasys_app/data/remote/user/model/user/user_request.dart';
 import 'package:ioasys_app/data/remote/user/remote_data_source/user_remote_data_source.dart';
 import 'package:ioasys_app/domain/exception/gerenic_error_status_code_exception.dart';
 import 'package:ioasys_app/domain/exception/unauthorized_status_code_exception.dart';
+import 'package:ioasys_app/domain/model/user/user_model.dart';
 import 'package:ioasys_app/domain/model/user/user_tokens.dart';
+import 'package:ioasys_app/data/mapper/model_to_remote.dart';
 
 class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   UserRemoteDataSourceImpl(
@@ -16,7 +17,8 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   static const String _baseUrl = 'https://empresas.ioasys.com.br/api/v1/';
 
   @override
-  Future<UserTokens> doLogin(UserRequest userRequest) async {
+  Future<UserTokens> doLogin(UserModel userModel) async {
+    final userRequest = userModel.toUserRequest();
     try {
       final response =
           await _dio.post('${_baseUrl}users/auth/sign_in', data: userRequest);

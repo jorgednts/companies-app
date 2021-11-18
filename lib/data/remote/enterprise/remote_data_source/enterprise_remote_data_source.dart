@@ -1,9 +1,8 @@
-import 'package:ioasys_app/data/remote/enterprise/model/enterprise/enterprise_list_response.dart';
-import 'package:ioasys_app/data/remote/enterprise/model/enterprise/enterprises_response.dart';
+import 'package:ioasys_app/domain/model/enterprise/enterprise_model.dart';
 
 abstract class EnterpriseRemoteDataSource {
-  Future<EnterpriseListResponse> getEnterpriseList(
+  Future<List<EnterpriseModel>> getEnterpriseList(
       String enterpriseName, String accessToken, String uid, String client);
-  Future<EnterprisesResponse> getEnterprise(
+  Future<EnterpriseModel> getEnterprise(
       int id, String accessToken, String uid, String client);
 }

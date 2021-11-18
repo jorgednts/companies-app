@@ -4,6 +4,8 @@ import 'package:ioasys_app/data/remote/enterprise/model/enterprise/enterprise_li
 import 'package:ioasys_app/data/remote/enterprise/model/enterprise/enterprises_response.dart';
 import 'package:ioasys_app/data/remote/enterprise/remote_data_source/enterprise_remote_data_source.dart';
 import 'package:ioasys_app/domain/exception/gerenic_error_status_code_exception.dart';
+import 'package:ioasys_app/domain/model/enterprise/enterprise_model.dart';
+import 'package:ioasys_app/data/mapper/remote_to_model.dart';
 
 class EnterpriseRemoteDataSourceImpl implements EnterpriseRemoteDataSource {
   EnterpriseRemoteDataSourceImpl(
@@ -15,7 +17,7 @@ class EnterpriseRemoteDataSourceImpl implements EnterpriseRemoteDataSource {
       'https://empresas.ioasys.com.br/api/v1/enterprises/';
 
   @override
-  Future<EnterpriseListResponse> getEnterpriseList(String enterpriseName,
+  Future<List<EnterpriseModel>> getEnterpriseList(String enterpriseName,
       String accessToken, String uid, String client) async {
     try {
       final response = await _dio.get(
@@ -29,7 +31,8 @@ class EnterpriseRemoteDataSourceImpl implements EnterpriseRemoteDataSource {
           },
         ),
       );
-      return EnterpriseListResponse.fromJson(response.data);
+      return EnterpriseListResponse.fromJson(response.data)
+          .toEnterpriseListModel();
     } on DioError catch (dioError, _) {
       if (dioError.type == DioErrorType.response) {
         throw GenericErrorStatusCodeException();
@@ -40,7 +43,7 @@ class EnterpriseRemoteDataSourceImpl implements EnterpriseRemoteDataSource {
   }
 
   @override
-  Future<EnterprisesResponse> getEnterprise(
+  Future<EnterpriseModel> getEnterprise(
       int id, String accessToken, String uid, String client) async {
     try {
       final response = await _dio.get(
@@ -53,7 +56,7 @@ class EnterpriseRemoteDataSourceImpl implements EnterpriseRemoteDataSource {
           },
         ),
       );
-      return EnterprisesResponse.fromJson(response.data);
+      return EnterprisesResponse.fromJson(response.data).toEnterpriseModel();
     } on DioError catch (dioError, _) {
       if (dioError.type == DioErrorType.response) {
         throw GenericErrorStatusCodeException();

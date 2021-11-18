@@ -1,6 +1,6 @@
-import 'package:ioasys_app/data/cache/enterprise/model/enterprise_cm.dart';
+import 'package:ioasys_app/domain/model/enterprise/enterprise_model.dart';
 
 abstract class EnterpriseCacheDataSource {
-  Future<EnterpriseCM> getEnterprise(int id);
-  Future<void> saveEnterprise(EnterpriseCM enterpriseCM);
+  Future<EnterpriseModel> getEnterprise(int id);
+  Future<void> saveEnterprise(EnterpriseModel enterpriseModel);
 }
