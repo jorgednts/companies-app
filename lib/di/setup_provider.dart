@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
-import 'package:ioasys_app/data/cache_model/enterprise/cache_data_source/enterprise_cache_data_source.dart';
-import 'package:ioasys_app/data/remote/enterprise/remote_data_source/enterprise_remote_data_source.dart';
-import 'package:ioasys_app/data/remote/user/remote_data_source/user_remote_data_source.dart';
-import 'package:ioasys_app/data/repository/enterprise/enterprise_repository.dart';
-import 'package:ioasys_app/data/repository/user/user_repository.dart';
-import 'package:ioasys_app/domain/data_repository/enterprise/enterprise_data_repository.dart';
-import 'package:ioasys_app/domain/data_repository/user/user_data_repository.dart';
+import 'package:ioasys_app/domain/repository/enterprise/enterprise_repository.dart';
+import 'package:ioasys_app/domain/repository/user/user_repository.dart';
+import 'package:ioasys_app/external/cache/enterprise/enterprise_cache_data_source_impl.dart';
+import 'package:ioasys_app/external/remote/enterprise/enterprise_remote_data_source_impl.dart';
+import 'package:ioasys_app/external/remote/user/user_remote_data_source_impl.dart';
+import 'package:ioasys_app/data/repository/enterprise/enterprise_repository_impl.dart';
+import 'package:ioasys_app/data/repository/user/user_repository_impl.dart';
 import 'package:ioasys_app/domain/use_case/do_login_use_case.dart';
 import 'package:ioasys_app/domain/use_case/get_enterprise_list_use_case.dart';
 import 'package:ioasys_app/domain/use_case/get_enterprise_use_case.dart';
@@ -22,36 +22,36 @@ List<SingleChildWidget> providers = [
 
 List<SingleChildWidget> independentServices = [
   Provider.value(value: Dio()),
-  Provider.value(value: EnterpriseCacheDataSource()),
+  Provider.value(value: EnterpriseCacheDataSourceImpl()),
   Provider.value(value: ValidateEmailUseCase()),
   Provider.value(value: ValidatePasswordUseCase())
 ];
 
 List<SingleChildWidget> dependentServices = [
-  ProxyProvider<Dio, EnterpriseRemoteDataSource>(
-    update: (_, dio, __) => EnterpriseRemoteDataSource(dio),
+  ProxyProvider<Dio, EnterpriseRemoteDataSourceImpl>(
+    update: (_, dio, __) => EnterpriseRemoteDataSourceImpl(dio),
   ),
-  ProxyProvider<Dio, UserRemoteDataSource>(
-    update: (_, dio, __) => UserRemoteDataSource(dio),
+  ProxyProvider<Dio, UserRemoteDataSourceImpl>(
+    update: (_, dio, __) => UserRemoteDataSourceImpl(dio),
   ),
-  ProxyProvider2<EnterpriseRemoteDataSource, EnterpriseCacheDataSource,
-      EnterpriseDataRepository>(
+  ProxyProvider2<EnterpriseRemoteDataSourceImpl, EnterpriseCacheDataSourceImpl,
+      EnterpriseRepository>(
     update: (_, enterpriseRemoteDataSource, enterpriseCacheDataSource, __) =>
-        EnterpriseRepository(
+        EnterpriseRepositoryImpl(
             enterpriseRemoteDataSource, enterpriseCacheDataSource),
   ),
-  ProxyProvider<UserRemoteDataSource, UserDataRepository>(
+  ProxyProvider<UserRemoteDataSourceImpl, UserRepository>(
     update: (_, userRemoteDataSource, __) =>
-        UserRepository(userRemoteDataSource),
+        UserRepositoryImpl(userRemoteDataSource),
   ),
-  ProxyProvider<UserDataRepository, DoLoginUseCase>(
+  ProxyProvider<UserRepository, DoLoginUseCase>(
     update: (_, userDataRepository, __) => DoLoginUseCase(userDataRepository),
   ),
-  ProxyProvider<EnterpriseDataRepository, GetEnterpriseListUseCase>(
+  ProxyProvider<EnterpriseRepository, GetEnterpriseListUseCase>(
     update: (_, enterpriseDataRepository, __) =>
         GetEnterpriseListUseCase(enterpriseDataRepository),
   ),
-  ProxyProvider<EnterpriseDataRepository, GetEnterpriseUseCase>(
+  ProxyProvider<EnterpriseRepository, GetEnterpriseUseCase>(
     update: (_, enterpriseDataRepository, __) =>
         GetEnterpriseUseCase(enterpriseDataRepository),
   ),

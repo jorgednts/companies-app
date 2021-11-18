@@ -1,8 +1,8 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:ioasys_app/data/cache_model/enterprise/model/enterprise_cm.dart';
-import 'package:ioasys_app/data/cache_model/enterprise/model/enterprise_type_cm.dart';
+import 'package:ioasys_app/data/cache/enterprise/model/enterprise_cm.dart';
+import 'package:ioasys_app/data/cache/enterprise/model/enterprise_type_cm.dart';
 import 'package:ioasys_app/domain/model/user/user_tokens.dart';
 import 'package:ioasys_app/main/my_app.dart';
 import 'package:ioasys_app/presentation/enterprise/enterprise_details/result_screen.dart';

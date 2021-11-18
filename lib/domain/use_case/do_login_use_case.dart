@@ -1,18 +1,18 @@
-import 'package:ioasys_app/domain/data_repository/user/user_data_repository.dart';
 import 'package:ioasys_app/domain/model/user/user_model.dart';
 import 'package:ioasys_app/domain/model/user/user_tokens.dart';
+import 'package:ioasys_app/domain/repository/user/user_repository.dart';
 import 'package:ioasys_app/domain/use_case/use_case.dart';
 
 class DoLoginUseCase extends UseCase<DoLoginUseCaseParams, UserTokens> {
   DoLoginUseCase(
-    this.userDataRepository,
+    this.userRepository,
   );
 
-  final UserDataRepository userDataRepository;
+  final UserRepository userRepository;
 
   @override
   Future<UserTokens> getRawFuture({required DoLoginUseCaseParams params}) =>
-      userDataRepository.doLogin(params.userModel);
+      userRepository.doLogin(params.userModel);
 }
 
 class DoLoginUseCaseParams {

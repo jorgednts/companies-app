@@ -1,4 +1,4 @@
-import 'package:ioasys_app/data/cache_model/enterprise/model/enterprise_cm.dart';
+import 'package:ioasys_app/data/cache/enterprise/model/enterprise_cm.dart';
 import 'package:ioasys_app/domain/model/enterprise/enterprise_model.dart';
 import 'package:ioasys_app/domain/model/enterprise/enterprise_type_model.dart';
 

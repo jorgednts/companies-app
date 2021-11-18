@@ -1,19 +1,19 @@
-import 'package:ioasys_app/domain/data_repository/enterprise/enterprise_data_repository.dart';
 import 'package:ioasys_app/domain/model/enterprise/enterprise_model.dart';
+import 'package:ioasys_app/domain/repository/enterprise/enterprise_repository.dart';
 import 'package:ioasys_app/domain/use_case/use_case.dart';
 
 class GetEnterpriseListUseCase
     extends UseCase<GetEnterpriseListUseCaseParams, List<EnterpriseModel>> {
   GetEnterpriseListUseCase(
-    this.enterpriseDataRepository,
+    this.enterpriseRepository,
   );
 
-  final EnterpriseDataRepository enterpriseDataRepository;
+  final EnterpriseRepository enterpriseRepository;
 
   @override
   Future<List<EnterpriseModel>> getRawFuture(
           {required GetEnterpriseListUseCaseParams params}) =>
-      enterpriseDataRepository.getEnterpriseList(
+      enterpriseRepository.getEnterpriseList(
           params.enterpriseName, params.accessToken, params.uid, params.client);
 }
 

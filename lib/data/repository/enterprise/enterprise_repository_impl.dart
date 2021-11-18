@@ -1,19 +1,19 @@
-import 'package:ioasys_app/data/cache_model/enterprise/cache_data_source/enterprise_cache_data_source.dart';
+import 'package:ioasys_app/domain/repository/enterprise/enterprise_repository.dart';
+import 'package:ioasys_app/external/cache/enterprise/enterprise_cache_data_source_impl.dart';
 import 'package:ioasys_app/data/mapper/cache_to_model.dart';
 import 'package:ioasys_app/data/mapper/model_to_cache.dart';
 import 'package:ioasys_app/data/mapper/remote_to_model.dart';
-import 'package:ioasys_app/data/remote/enterprise/remote_data_source/enterprise_remote_data_source.dart';
-import 'package:ioasys_app/domain/data_repository/enterprise/enterprise_data_repository.dart';
+import 'package:ioasys_app/external/remote/enterprise/enterprise_remote_data_source_impl.dart';
 import 'package:ioasys_app/domain/model/enterprise/enterprise_model.dart';
 
-class EnterpriseRepository implements EnterpriseDataRepository {
-  EnterpriseRepository(
+class EnterpriseRepositoryImpl implements EnterpriseRepository {
+  EnterpriseRepositoryImpl(
     this.enterpriseRemoteDataSource,
     this.enterpriseCacheDataSource,
   );
 
-  final EnterpriseRemoteDataSource enterpriseRemoteDataSource;
-  final EnterpriseCacheDataSource enterpriseCacheDataSource;
+  final EnterpriseRemoteDataSourceImpl enterpriseRemoteDataSource;
+  final EnterpriseCacheDataSourceImpl enterpriseCacheDataSource;
 
   @override
   Future<List<EnterpriseModel>> getEnterpriseList(String enterpriseName,
