@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
+import 'package:ioasys_app/data/repository_impl/enterprise/enterprise_repository_impl.dart';
+import 'package:ioasys_app/data/repository_impl/user/user_repository_impl.dart';
 import 'package:ioasys_app/domain/repository/enterprise/enterprise_repository.dart';
 import 'package:ioasys_app/domain/repository/user/user_repository.dart';
 import 'package:ioasys_app/external/cache/enterprise/enterprise_cache_data_source_impl.dart';
 import 'package:ioasys_app/external/remote/enterprise/enterprise_remote_data_source_impl.dart';
 import 'package:ioasys_app/external/remote/user/user_remote_data_source_impl.dart';
-import 'package:ioasys_app/data/repository/enterprise/enterprise_repository_impl.dart';
-import 'package:ioasys_app/data/repository/user/user_repository_impl.dart';
 import 'package:ioasys_app/domain/use_case/do_login_use_case.dart';
 import 'package:ioasys_app/domain/use_case/get_enterprise_list_use_case.dart';
 import 'package:ioasys_app/domain/use_case/get_enterprise_use_case.dart';
