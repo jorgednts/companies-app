@@ -27,42 +27,50 @@ class EnterpriseList extends StatelessWidget {
               color: Colors.white,
               child: Row(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: FadeInImage(
-                      height: 100,
-                      width: 80,
-                      image: NetworkImage(enterpriseList[index].photo),
-                      placeholder:
-                          const AssetImage(ConstantsImages.imageLoading),
-                      imageErrorBuilder: (context, error, stackTrace) =>
-                          Image.asset(ConstantsImages.imageError,
-                              height: 100, width: 80, fit: BoxFit.fitWidth),
-                      fit: BoxFit.fitWidth,
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: FadeInImage(
+                        image: NetworkImage(enterpriseList[index].photo),
+                        placeholder:
+                            const AssetImage(ConstantsImages.imageLoading),
+                        imageErrorBuilder: (context, error, stackTrace) =>
+                            Image.asset(
+                          ConstantsImages.imageError,
+                          fit: BoxFit.fitWidth,
+                        ),
+                        fit: BoxFit.fitWidth,
+                      ),
                     ),
                   ),
                   const SizedBox(
-                    width: 10,
+                    width: 4,
                   ),
                   Expanded(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           enterpriseList[index].enterpriseName,
                           style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 12),
-                          textAlign: TextAlign.center,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            color: Colors.black,
+                          ),
                         ),
                         const SizedBox(
-                          height: 2,
+                          height: 4,
                         ),
                         Text(
                           enterpriseList[index]
                               .enterpriseType
                               .enterpriseTypeName,
                           style: const TextStyle(
-                              fontWeight: FontWeight.normal, fontSize: 10),
+                            fontStyle: FontStyle.italic,
+                            fontSize: 12,
+                            color: Colors.grey,
+                          ),
                         ),
                         const SizedBox(
                           height: 2,
@@ -70,7 +78,10 @@ class EnterpriseList extends StatelessWidget {
                         Text(
                           enterpriseList[index].country,
                           style: const TextStyle(
-                              fontWeight: FontWeight.normal, fontSize: 10),
+                            fontStyle: FontStyle.normal,
+                            fontSize: 12,
+                            color: Colors.grey,
+                          ),
                         ),
                       ],
                     ),
