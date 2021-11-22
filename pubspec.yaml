@@ -38,6 +38,9 @@ dependencies:
   path_provider: ^2.0.4
   fluro: ^2.0.3
   provider: ^6.0.1
+  firebase_core: ^1.10.0
+  firebase_crashlytics: ^2.3.0
+  firebase_analytics: ^8.3.4
 
 
 dev_dependencies:

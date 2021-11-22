@@ -1,3 +1,5 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:ioasys_app/di/setup_provider.dart';
@@ -7,6 +9,7 @@ import 'package:provider/provider.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
+  static FirebaseAnalytics analytics = FirebaseAnalytics();
 
   @override
   Widget build(BuildContext context) => MultiProvider(
@@ -24,6 +27,9 @@ class MyApp extends StatelessWidget {
           onGenerateRoute: (settings) => FluroRouter.appRouter
               .matchRoute(context, settings.name, routeSettings: settings)
               .route,
+          navigatorObservers: [
+            FirebaseAnalyticsObserver(analytics: analytics),
+          ],
         ),
       );
 }

@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:ioasys_app/constants/constants_images.dart';
 import 'package:ioasys_app/domain/model/enterprise/enterprise_model.dart';
@@ -11,6 +12,7 @@ class EnterpriseList extends StatelessWidget {
   }) : super(key: key);
   final List<EnterpriseModel> enterpriseList;
   final UserTokens userTokens;
+  static FirebaseAnalytics analytics = FirebaseAnalytics();
 
   @override
   Widget build(BuildContext context) => ListView.builder(
@@ -19,6 +21,9 @@ class EnterpriseList extends StatelessWidget {
           padding: const EdgeInsets.all(4),
           child: GestureDetector(
             onTap: () {
+              analytics.logEvent(name: 'clicked_enterprise', parameters: {
+                'clicked_enterprise_id': enterpriseList[index].id
+              });
               Navigator.of(context).pushNamed(
                   'result-screen/${enterpriseList[index].id}',
                   arguments: userTokens);

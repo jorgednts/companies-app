@@ -9,9 +9,14 @@ import 'package:ioasys_app/presentation/enterprise/enterprise_details/result_scr
 import 'package:ioasys_app/presentation/login/login_screen.dart';
 import 'package:ioasys_app/presentation/enterprise/enterprise_list/main_screen.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp();
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
 
   Hive
     ..init((await getApplicationDocumentsDirectory()).path)
