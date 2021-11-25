@@ -8,8 +8,16 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-  static FirebaseAnalytics analytics = FirebaseAnalytics();
+  const MyApp({
+    required this.firebaseAnalytics,
+    Key? key,
+  }) : super(key: key);
+  final FirebaseAnalytics firebaseAnalytics;
+
+  static Widget create() => Provider<FirebaseAnalytics>(
+      create: (_) => FirebaseAnalytics(),
+      builder: (context, _) =>
+          MyApp(firebaseAnalytics: context.read<FirebaseAnalytics>()));
 
   @override
   Widget build(BuildContext context) => MultiProvider(
@@ -28,7 +36,7 @@ class MyApp extends StatelessWidget {
               .matchRoute(context, settings.name, routeSettings: settings)
               .route,
           navigatorObservers: [
-            FirebaseAnalyticsObserver(analytics: analytics),
+            FirebaseAnalyticsObserver(analytics: firebaseAnalytics),
           ],
         ),
       );

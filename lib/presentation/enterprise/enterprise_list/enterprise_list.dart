@@ -8,11 +8,12 @@ class EnterpriseList extends StatelessWidget {
   const EnterpriseList({
     required this.enterpriseList,
     required this.userTokens,
+    required this.firebaseAnalytics,
     Key? key,
   }) : super(key: key);
   final List<EnterpriseModel> enterpriseList;
   final UserTokens userTokens;
-  static FirebaseAnalytics analytics = FirebaseAnalytics();
+  final FirebaseAnalytics firebaseAnalytics;
 
   @override
   Widget build(BuildContext context) => ListView.builder(
@@ -21,9 +22,11 @@ class EnterpriseList extends StatelessWidget {
           padding: const EdgeInsets.all(4),
           child: GestureDetector(
             onTap: () {
-              analytics.logEvent(name: 'clicked_enterprise', parameters: {
-                'clicked_enterprise_id': enterpriseList[index].id
-              });
+              firebaseAnalytics.logEvent(
+                  name: 'clicked_enterprise',
+                  parameters: {
+                    'clicked_enterprise_id': enterpriseList[index].id
+                  });
               Navigator.of(context).pushNamed(
                   'result-screen/${enterpriseList[index].id}',
                   arguments: userTokens);

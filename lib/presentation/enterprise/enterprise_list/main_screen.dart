@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:ioasys_app/domain/model/user/user_tokens.dart';
 import 'package:ioasys_app/domain/use_case/get_enterprise_list_use_case.dart';
@@ -14,21 +15,23 @@ class MainScreen extends StatefulWidget {
   const MainScreen({
     required this.userTokens,
     required this.mainBloc,
+    required this.firebaseAnalytics,
     Key? key,
   }) : super(key: key);
   final UserTokens userTokens;
   final MainBloc mainBloc;
+  final FirebaseAnalytics firebaseAnalytics;
 
   static Widget create(BuildContext context, UserTokens userTokens) =>
-      ProxyProvider<GetEnterpriseListUseCase, MainBloc>(
-        update: (context, getEnterpriseListUseCase, bloc) =>
+      ProxyProvider2<FirebaseAnalytics, GetEnterpriseListUseCase, MainBloc>(
+        update: (context, analytics, getEnterpriseListUseCase, bloc) =>
             bloc ?? MainBloc(getEnterpriseListUseCase),
         dispose: (context, bloc) => bloc.dispose(),
-        child: Consumer<MainBloc>(
-          builder: (context, bloc, _) => MainScreen(
-            userTokens: userTokens,
-            mainBloc: bloc,
-          ),
+        child: Consumer2<FirebaseAnalytics, MainBloc>(
+          builder: (context, analytics, bloc, _) => MainScreen(
+              userTokens: userTokens,
+              mainBloc: bloc,
+              firebaseAnalytics: analytics),
         ),
       );
 
@@ -101,6 +104,7 @@ class _MainScreenState extends State<MainScreen> {
             return EnterpriseList(
               enterpriseList: enterpriseList,
               userTokens: widget.userTokens,
+              firebaseAnalytics: widget.firebaseAnalytics,
             );
           },
         ),
