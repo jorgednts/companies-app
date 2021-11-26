@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:ioasys_app/data/cache/enterprise/cache_data_source/enterprise_cache_data_source.dart';
 import 'package:ioasys_app/data/remote/enterprise/remote_data_source/enterprise_remote_data_source.dart';
 import 'package:ioasys_app/data/remote/user/remote_data_source/user_remote_data_source.dart';
@@ -15,7 +14,6 @@ import 'package:ioasys_app/domain/use_case/validate_password_use_case.dart';
 import 'package:ioasys_app/external/cache_data_source/enterprise/enterprise_cache_data_source_impl.dart';
 import 'package:ioasys_app/external/remote_data_source/enterprise/enterprise_remote_data_source_impl.dart';
 import 'package:ioasys_app/external/remote_data_source/user/user_remote_data_source_impl.dart';
-
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -28,7 +26,6 @@ List<SingleChildWidget> independentServices = [
   Provider.value(value: Dio()),
   Provider.value(value: ValidateEmailUseCase()),
   Provider.value(value: ValidatePasswordUseCase()),
-  Provider.value(value: FirebaseAnalytics())
 ];
 
 List<SingleChildWidget> dependentServices = [
