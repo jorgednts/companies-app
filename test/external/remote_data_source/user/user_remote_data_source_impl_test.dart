@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
-import 'package:ioasys_app/data/remote/user/model/user/user_request.dart';
 import 'package:ioasys_app/domain/model/user/user_model.dart';
 import 'package:ioasys_app/domain/model/user/user_tokens.dart';
 import 'package:ioasys_app/external/remote_data_source/user/user_remote_data_source_impl.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
+
 import '../../../utils/json_extensions.dart';
 import 'user_remote_data_source_impl_test.mocks.dart';
 
@@ -14,7 +14,7 @@ void main() {
   late MockDio mockDio;
   late UserRemoteDataSourceImpl userRemoteDataSourceImpl;
   const baseUrl = 'https://empresas.ioasys.com.br/api/v1/';
-  const doLoginSuccessResponse =
+  const doLoginSuccessResponsePath =
       'test_resources/do_login_success_response.json';
   setUpAll(() {
     mockDio = MockDio();
@@ -25,28 +25,52 @@ void main() {
   });
   group('doLogin', () {
     test('verify if base url is called', () async {
-      final json = await doLoginSuccessResponse.getJsonFromPath();
-      when(mockDio.post(any, data: _getUserRequestMock)).thenAnswer(
+      final json = await doLoginSuccessResponsePath.getJsonFromPath();
+      when(mockDio.post(any, data: anyNamed('data'))).thenAnswer(
         (_) async => _getResponseMock(json),
       );
       await userRemoteDataSourceImpl.doLogin(_getUserModelMock());
       verify(mockDio.post('${baseUrl}users/auth/sign_in',
-              data: _getUserRequestMock))
+              data: anyNamed('data')))
           .called(1);
+    });
+
+    test('it should return an UserTokens', () async {
+      final json = await doLoginSuccessResponsePath.getJsonFromPath();
+      when(mockDio.post(
+        any,
+        data: anyNamed('data'),
+      )).thenAnswer(
+        (_) async => _getResponseMock(json),
+      );
+      final userTokens =
+          await userRemoteDataSourceImpl.doLogin(_getUserModelMock());
+      final userTokensExpected = _getUserTokensMock();
+      expect(userTokens, equals(userTokensExpected));
     });
   });
 }
 
-UserTokens _getUserTokensMock() => UserTokens('access-token', 'client', 'uid');
-
 Response<dynamic> _getResponseMock(json) => Response(
       data: json,
       statusCode: 200,
-      requestOptions: RequestOptions(path: ''),
+      requestOptions: RequestOptions(
+        path: '',
+      ),
+      headers: Headers.fromMap({
+        'access-token': ['1234'],
+        'client': ['1145'],
+        'uid': ['1253']
+      }),
     );
 
-UserModel _getUserModelMock() =>
-    UserModel('testeapple@ioasys.com.br', '12341234');
+UserTokens _getUserTokensMock() => const UserTokens(
+      '1234',
+      '1145',
+      '1253',
+    );
 
-UserRequest _getUserRequestMock() =>
-    UserRequest('testeapple@ioasys.com.br', '12341234');
+UserModel _getUserModelMock() => UserModel(
+      'testeapple@ioasys.com.br',
+      '12341234',
+    );
