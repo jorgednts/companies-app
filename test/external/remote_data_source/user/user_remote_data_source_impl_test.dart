@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:ioasys_app/domain/exception/unauthorized_status_code_exception.dart';
 import 'package:ioasys_app/domain/model/user/user_model.dart';
 import 'package:ioasys_app/domain/model/user/user_tokens.dart';
 import 'package:ioasys_app/external/remote_data_source/user/user_remote_data_source_impl.dart';
@@ -16,6 +17,7 @@ void main() {
   const baseUrl = 'https://empresas.ioasys.com.br/api/v1/';
   const doLoginSuccessResponsePath =
       'test_resources/do_login_success_response.json';
+  const doLoginFailResponsePath = 'test_resources/do_login_fail_response.json';
   setUpAll(() {
     mockDio = MockDio();
     userRemoteDataSourceImpl = UserRemoteDataSourceImpl(mockDio);
@@ -23,35 +25,64 @@ void main() {
   setUp(() {
     reset(mockDio);
   });
-  group('doLogin', () {
-    test('verify if base url is called', () async {
+  group('given a call on doLogin', () {
+    test('then verify if base url is called', () async {
       final json = await doLoginSuccessResponsePath.getJsonFromPath();
       when(mockDio.post(any, data: anyNamed('data'))).thenAnswer(
-        (_) async => _getResponseMock(json),
+        (_) async => _getSuccessfulResponseMock(json),
       );
-      await userRemoteDataSourceImpl.doLogin(_getUserModelMock());
+      await userRemoteDataSourceImpl.doLogin(_getSuccessfulUserModelMock());
       verify(mockDio.post('${baseUrl}users/auth/sign_in',
               data: anyNamed('data')))
           .called(1);
     });
 
-    test('it should return an UserTokens', () async {
+    test(
+        'when request is successfully and the UserTokens are not null  then '
+        'it should return an UserTokens', () async {
       final json = await doLoginSuccessResponsePath.getJsonFromPath();
       when(mockDio.post(
         any,
         data: anyNamed('data'),
       )).thenAnswer(
-        (_) async => _getResponseMock(json),
+        (_) async => _getSuccessfulResponseMock(json),
       );
       final userTokens =
-          await userRemoteDataSourceImpl.doLogin(_getUserModelMock());
-      final userTokensExpected = _getUserTokensMock();
+          await userRemoteDataSourceImpl.doLogin(_getSuccessfulUserModelMock());
+      final userTokensExpected = _getSuccessfulUserTokensMock();
       expect(userTokens, equals(userTokensExpected));
+    });
+    test(
+        'when code response equals 401'
+        'it should return a UnauthorizedStatusCodeException', () async {
+      final json = await doLoginFailResponsePath.getJsonFromPath();
+      when(mockDio.post(
+        any,
+        data: anyNamed('data'),
+      )).thenThrow(
+        _getErrorResponseMock(json),
+      );
+      try {
+        await userRemoteDataSourceImpl.doLogin(_getErrorUserModelMock());
+      } catch (e) {
+        expect(e, isA<UnauthorizedStatusCodeException>());
+      }
     });
   });
 }
 
-Response<dynamic> _getResponseMock(json) => Response(
+DioError _getErrorResponseMock(json) => DioError(
+    response: Response(
+      data: json,
+      statusCode: 401,
+      requestOptions: RequestOptions(
+        path: '',
+      ),
+    ),
+    type: DioErrorType.response,
+    requestOptions: RequestOptions(path: ''));
+
+Response<dynamic> _getSuccessfulResponseMock(json) => Response(
       data: json,
       statusCode: 200,
       requestOptions: RequestOptions(
@@ -64,13 +95,18 @@ Response<dynamic> _getResponseMock(json) => Response(
       }),
     );
 
-UserTokens _getUserTokensMock() => const UserTokens(
+UserTokens _getSuccessfulUserTokensMock() => const UserTokens(
       '1234',
       '1145',
       '1253',
     );
 
-UserModel _getUserModelMock() => UserModel(
+UserModel _getSuccessfulUserModelMock() => UserModel(
       'testeapple@ioasys.com.br',
       '12341234',
+    );
+
+UserModel _getErrorUserModelMock() => UserModel(
+      'testeapple@ioasys.com.br',
+      '12341235',
     );
