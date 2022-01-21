@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:ioasys_app/constants/constants_url_api.dart';
 import 'package:ioasys_app/domain/exception/unauthorized_status_code_exception.dart';
 import 'package:ioasys_app/domain/model/user/user_model.dart';
 import 'package:ioasys_app/domain/model/user/user_tokens.dart';
@@ -14,10 +15,6 @@ import 'user_remote_data_source_impl_test.mocks.dart';
 void main() {
   late MockDio mockDio;
   late UserRemoteDataSourceImpl userRemoteDataSourceImpl;
-  const baseUrl = 'https://empresas.ioasys.com.br/api/v1/';
-  const doLoginSuccessResponsePath =
-      'test_resources/do_login_success_response.json';
-  const doLoginFailResponsePath = 'test_resources/do_login_fail_response.json';
   setUpAll(() {
     mockDio = MockDio();
     userRemoteDataSourceImpl = UserRemoteDataSourceImpl(mockDio);
@@ -25,21 +22,25 @@ void main() {
   setUp(() {
     reset(mockDio);
   });
-  group('given a call on doLogin', () {
-    test('then verify if base url is called', () async {
+  group('GIVEN a call on doLogin', () {
+    const doLoginSuccessResponsePath =
+        'test_resources/do_login_success_response.json';
+    const doLoginFailResponsePath =
+        'test_resources/do_login_fail_response.json';
+    test('THEN verify if correct url is called', () async {
       final json = await doLoginSuccessResponsePath.getJsonFromPath();
       when(mockDio.post(any, data: anyNamed('data'))).thenAnswer(
         (_) async => _getSuccessfulResponseMock(json),
       );
       await userRemoteDataSourceImpl.doLogin(_getSuccessfulUserModelMock());
-      verify(mockDio.post('${baseUrl}users/auth/sign_in',
+      verify(mockDio.post('${ConstantsUrlApi.baseUrl}users/auth/sign_in',
               data: anyNamed('data')))
           .called(1);
     });
 
     test(
-        'when request is successfully and the UserTokens are not null  then '
-        'it should return an UserTokens', () async {
+        'WHEN request is successfully and the UserTokens are not null '
+        'THEN it should return an UserTokens', () async {
       final json = await doLoginSuccessResponsePath.getJsonFromPath();
       when(mockDio.post(
         any,
@@ -53,8 +54,8 @@ void main() {
       expect(userTokens, equals(userTokensExpected));
     });
     test(
-        'when code response equals 401'
-        'it should return a UnauthorizedStatusCodeException', () async {
+        'WHEN code response equals 401 '
+        'THEN it should return a UnauthorizedStatusCodeException', () async {
       final json = await doLoginFailResponsePath.getJsonFromPath();
       when(mockDio.post(
         any,

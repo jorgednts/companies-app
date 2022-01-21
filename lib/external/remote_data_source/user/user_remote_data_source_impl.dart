@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:ioasys_app/constants/constants_url_api.dart';
 import 'package:ioasys_app/data/remote/user/remote_data_source/user_remote_data_source.dart';
 import 'package:ioasys_app/domain/exception/gerenic_error_status_code_exception.dart';
 import 'package:ioasys_app/domain/exception/unauthorized_status_code_exception.dart';
@@ -14,14 +15,14 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   );
 
   final Dio _dio;
-  static const String _baseUrl = 'https://empresas.ioasys.com.br/api/v1/';
 
   @override
   Future<UserTokens> doLogin(UserModel userModel) async {
     final userRequest = userModel.toUserRequest();
     try {
-      final response =
-          await _dio.post('${_baseUrl}users/auth/sign_in', data: userRequest);
+      final response = await _dio.post(
+          '${ConstantsUrlApi.baseUrl}users/auth/sign_in',
+          data: userRequest);
 
       final accessToken = response.headers.value('access-token');
       final uid = response.headers.value('uid');

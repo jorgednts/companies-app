@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:ioasys_app/constants/constants_url_api.dart';
 import 'package:ioasys_app/constants/constants_user_tokens.dart';
 import 'package:ioasys_app/data/remote/enterprise/model/enterprise/enterprise_list_response.dart';
 import 'package:ioasys_app/data/remote/enterprise/model/enterprise/enterprises_response.dart';
@@ -13,15 +14,13 @@ class EnterpriseRemoteDataSourceImpl implements EnterpriseRemoteDataSource {
   );
 
   final Dio _dio;
-  static const String _baseUrl =
-      'https://empresas.ioasys.com.br/api/v1/enterprises/';
 
   @override
   Future<List<EnterpriseModel>> getEnterpriseList(String enterpriseName,
       String accessToken, String uid, String client) async {
     try {
       final response = await _dio.get(
-        '$_baseUrl',
+        '${ConstantsUrlApi.baseUrl}/enterprises/',
         queryParameters: {'name': enterpriseName},
         options: Options(
           headers: {
@@ -47,7 +46,7 @@ class EnterpriseRemoteDataSourceImpl implements EnterpriseRemoteDataSource {
       int id, String accessToken, String uid, String client) async {
     try {
       final response = await _dio.get(
-        '$_baseUrl$id',
+        '${ConstantsUrlApi.baseUrl}/enterprises/$id',
         options: Options(
           headers: {
             ConstantsUserTokens.accessToken: accessToken,
