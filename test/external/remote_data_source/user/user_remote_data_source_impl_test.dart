@@ -73,15 +73,16 @@ void main() {
 }
 
 DioError _getErrorResponseMock(json) => DioError(
-    response: Response(
-      data: json,
-      statusCode: 401,
-      requestOptions: RequestOptions(
-        path: '',
+      response: Response(
+        data: json,
+        statusCode: 401,
+        requestOptions: RequestOptions(
+          path: '',
+        ),
       ),
-    ),
-    type: DioErrorType.response,
-    requestOptions: RequestOptions(path: ''));
+      type: DioErrorType.response,
+      requestOptions: RequestOptions(path: ''),
+    );
 
 Response<dynamic> _getSuccessfulResponseMock(json) => Response(
       data: json,

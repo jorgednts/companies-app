@@ -78,24 +78,51 @@ void main() {
         options: anyNamed('options'),
       )).called(1);
     });
+    test(
+        'WHEN request is successfully '
+        'THEN it should return an EnterpriseModel', () async {
+      final json = await getEnterpriseSuccessResponsePath.getJsonFromPath();
+      when(mockDio.get(
+        any,
+        queryParameters: anyNamed('queryParameters'),
+        options: anyNamed('options'),
+      )).thenAnswer(
+        (_) async => _getSuccessfulResponseMock(json),
+      );
+      final enterpriseModel = await enterpriseRemoteDataSourceImpl
+          .getEnterprise(4, 'accessToken', 'uid', 'client');
+      final enterpriseModelExpected = _getSuccessfulEnterpriseModel();
+      expect(enterpriseModel, enterpriseModelExpected);
+    });
   });
 }
 
+EnterpriseModel _getSuccessfulEnterpriseModel() => const EnterpriseModel(
+      'VendorLink',
+      '${ConstantsUrlApi.imageBaseUrl}/uploads/enterprise/photo/4/240.jpeg',
+      'description',
+      'UK',
+      EnterpriseTypeModel('IT'),
+      4,
+    );
+
 List<EnterpriseModel> _getSuccessfulEnterpriseListModel() => <EnterpriseModel>[
       const EnterpriseModel(
-          'TeamPlayerHR',
-          '${ConstantsUrlApi.imageBaseUrl}/uploads/enterprise/photo/16/240.jpeg',
-          'description',
-          'UK',
-          EnterpriseTypeModel('HR Tech'),
-          16),
+        'TeamPlayerHR',
+        '${ConstantsUrlApi.imageBaseUrl}/uploads/enterprise/photo/16/240.jpeg',
+        'description',
+        'UK',
+        EnterpriseTypeModel('HR Tech'),
+        16,
+      ),
       const EnterpriseModel(
-          'Advanced Diamond X',
-          '${ConstantsUrlApi.imageBaseUrl}/uploads/enterprise/photo/35/240.jpeg',
-          'description',
-          'UK',
-          EnterpriseTypeModel('Industry'),
-          35),
+        'Advanced Diamond X',
+        '${ConstantsUrlApi.imageBaseUrl}/uploads/enterprise/photo/35/240.jpeg',
+        'description',
+        'UK',
+        EnterpriseTypeModel('Industry'),
+        35,
+      ),
     ];
 
 Response<dynamic> _getSuccessfulResponseMock(json) => Response(
