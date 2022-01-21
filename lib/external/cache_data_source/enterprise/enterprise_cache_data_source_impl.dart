@@ -8,13 +8,19 @@ import 'package:ioasys_app/data/mapper/cache_to_model.dart';
 import 'package:ioasys_app/data/mapper/model_to_cache.dart';
 
 class EnterpriseCacheDataSourceImpl implements EnterpriseCacheDataSource {
+  EnterpriseCacheDataSourceImpl(
+    this.hive,
+  );
+
+  final HiveInterface hive;
+
   @override
   Future<EnterpriseModel> getEnterprise(int id) async {
-    final enterpriseCM = await Hive.openBox<EnterpriseCM>(
-            ConstantsCacheDataSource.keyEnterpriseCM)
+    final enterpriseCM = await hive
+        .openBox<EnterpriseCM>(ConstantsCacheDataSource.keyEnterpriseCM)
         .then(
-      (box) => box.get(id),
-    );
+          (box) => box.get(id),
+        );
     if (enterpriseCM != null) {
       return enterpriseCM.toEnterpriseModel();
     } else {
@@ -25,8 +31,8 @@ class EnterpriseCacheDataSourceImpl implements EnterpriseCacheDataSource {
   @override
   Future<void> saveEnterprise(EnterpriseModel enterpriseModel) async {
     final enterpriseCM = enterpriseModel.toEnterpriseCM();
-    final box = await Hive.openBox<EnterpriseCM>(
-        ConstantsCacheDataSource.keyEnterpriseCM);
+    final box = await hive
+        .openBox<EnterpriseCM>(ConstantsCacheDataSource.keyEnterpriseCM);
     await box.put(enterpriseCM.id, enterpriseCM);
   }
 }

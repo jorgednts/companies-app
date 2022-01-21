@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:hive/hive.dart';
 import 'package:ioasys_app/data/cache/enterprise/cache_data_source/enterprise_cache_data_source.dart';
 import 'package:ioasys_app/data/remote/enterprise/remote_data_source/enterprise_remote_data_source.dart';
 import 'package:ioasys_app/data/remote/user/remote_data_source/user_remote_data_source.dart';
@@ -24,6 +25,7 @@ List<SingleChildWidget> providers = [
 
 List<SingleChildWidget> independentServices = [
   Provider.value(value: Dio()),
+  Provider.value(value: Hive),
   Provider.value(value: ValidateEmailUseCase()),
   Provider.value(value: ValidatePasswordUseCase()),
 ];
@@ -35,8 +37,8 @@ List<SingleChildWidget> dependentServices = [
   ProxyProvider<Dio, UserRemoteDataSource>(
     update: (_, dio, __) => UserRemoteDataSourceImpl(dio),
   ),
-  Provider<EnterpriseCacheDataSource>(
-    create: (_) => EnterpriseCacheDataSourceImpl(),
+  ProxyProvider<HiveInterface, EnterpriseCacheDataSource>(
+    update: (_, hive, __) => EnterpriseCacheDataSourceImpl(hive),
   ),
   ProxyProvider2<EnterpriseRemoteDataSource, EnterpriseCacheDataSource,
       EnterpriseRepository>(
