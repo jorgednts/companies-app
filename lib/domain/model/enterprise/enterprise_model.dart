@@ -1,7 +1,8 @@
+import 'package:equatable/equatable.dart';
 import 'package:ioasys_app/domain/model/enterprise/enterprise_type_model.dart';
 
-class EnterpriseModel {
-  EnterpriseModel(
+class EnterpriseModel extends Equatable {
+  const EnterpriseModel(
     this.enterpriseName,
     this.photo,
     this.description,
@@ -16,4 +17,14 @@ class EnterpriseModel {
   final String country;
   final EnterpriseTypeModel enterpriseType;
   final int id;
+
+  @override
+  List<Object?> get props => [
+        enterpriseName,
+        photo,
+        description,
+        country,
+        enterpriseType,
+        id,
+      ];
 }

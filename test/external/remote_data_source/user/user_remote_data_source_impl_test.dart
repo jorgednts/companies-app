@@ -39,7 +39,7 @@ void main() {
     });
 
     test(
-        'WHEN request is successfully and the UserTokens are not null '
+        'WHEN request is successfully '
         'THEN it should return an UserTokens', () async {
       final json = await doLoginSuccessResponsePath.getJsonFromPath();
       when(mockDio.post(
