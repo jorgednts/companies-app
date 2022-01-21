@@ -58,7 +58,27 @@ void main() {
       expect(enterpriseListModel, enterpriseListModelExpected);
     });
   });
-  group('GIVEN a call on getEnterprise', () {});
+  group('GIVEN a call on getEnterprise', () {
+    const getEnterpriseSuccessResponsePath =
+        'test_resources/get_enterprise_success_response.json';
+    test('THEN verify if correct url is called', () async {
+      final json = await getEnterpriseSuccessResponsePath.getJsonFromPath();
+      when(mockDio.get(
+        any,
+        queryParameters: anyNamed('queryParameters'),
+        options: anyNamed('options'),
+      )).thenAnswer(
+        (_) async => _getSuccessfulResponseMock(json),
+      );
+      await enterpriseRemoteDataSourceImpl.getEnterprise(
+          4, 'accessToken', 'uid', 'client');
+      verify(mockDio.get(
+        '${ConstantsUrlApi.baseUrl}/enterprises/4',
+        queryParameters: anyNamed('queryParameters'),
+        options: anyNamed('options'),
+      )).called(1);
+    });
+  });
 }
 
 List<EnterpriseModel> _getSuccessfulEnterpriseListModel() => <EnterpriseModel>[
