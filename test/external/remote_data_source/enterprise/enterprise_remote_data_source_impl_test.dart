@@ -54,7 +54,8 @@ void main() {
       );
       final enterpriseListModel = await enterpriseRemoteDataSourceImpl
           .getEnterpriseList('am', 'accessToken', 'uid', 'client');
-      final enterpriseListModelExpected = _getSuccessfulEnterpriseListModel();
+      final enterpriseListModelExpected =
+          _getSuccessfulEnterpriseListModelMock();
       expect(enterpriseListModel, enterpriseListModelExpected);
     });
   });
@@ -91,13 +92,13 @@ void main() {
       );
       final enterpriseModel = await enterpriseRemoteDataSourceImpl
           .getEnterprise(4, 'accessToken', 'uid', 'client');
-      final enterpriseModelExpected = _getSuccessfulEnterpriseModel();
+      final enterpriseModelExpected = _getSuccessfulEnterpriseModelMock();
       expect(enterpriseModel, enterpriseModelExpected);
     });
   });
 }
 
-EnterpriseModel _getSuccessfulEnterpriseModel() => const EnterpriseModel(
+EnterpriseModel _getSuccessfulEnterpriseModelMock() => const EnterpriseModel(
       'VendorLink',
       '${ConstantsUrlApi.imageBaseUrl}/uploads/enterprise/photo/4/240.jpeg',
       'description',
@@ -106,7 +107,8 @@ EnterpriseModel _getSuccessfulEnterpriseModel() => const EnterpriseModel(
       4,
     );
 
-List<EnterpriseModel> _getSuccessfulEnterpriseListModel() => <EnterpriseModel>[
+List<EnterpriseModel> _getSuccessfulEnterpriseListModelMock() =>
+    <EnterpriseModel>[
       const EnterpriseModel(
         'TeamPlayerHR',
         '${ConstantsUrlApi.imageBaseUrl}/uploads/enterprise/photo/16/240.jpeg',
