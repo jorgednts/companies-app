@@ -18,6 +18,8 @@ void main() {
   setUp(() {
     reset(mockDio);
   });
-  group('given a call on getEnterpriseList', () {});
+  group('given a call on getEnterpriseList', () {
+    test('then verify if base url is called', () async {});
+  });
   group('given a call on getEnterprise', () {});
 }
