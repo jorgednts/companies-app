@@ -28,6 +28,16 @@ void main() {
       final userTokens =
           await userRepositoryImpl.doLogin(_getSuccessfulUserModelMock());
       expect(userTokens, equals(_getSuccessfulUserTokensMock()));
+      verify(mockUserRemoteDataSource.doLogin(_getSuccessfulUserModelMock()))
+          .called(1);
+    });
+    test(
+        'WHEN request is fail '
+        'THEN it should throw an exception', () async {
+      when(mockUserRemoteDataSource.doLogin(_getSuccessfulUserModelMock()))
+          .thenThrow(Exception());
+      expect(() => userRepositoryImpl.doLogin(_getSuccessfulUserModelMock()),
+          throwsException);
     });
   });
 }
