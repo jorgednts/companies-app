@@ -103,12 +103,12 @@ UserTokens _getSuccessfulUserTokensMock() => const UserTokens(
       '1253',
     );
 
-UserModel _getSuccessfulUserModelMock() => UserModel(
+UserModel _getSuccessfulUserModelMock() => const UserModel(
       'testeapple@ioasys.com.br',
       '12341234',
     );
 
-UserModel _getErrorUserModelMock() => UserModel(
+UserModel _getErrorUserModelMock() => const UserModel(
       'testeapple@ioasys.com.br',
       '12341235',
     );
