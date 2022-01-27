@@ -9,9 +9,14 @@ void main() {
     validateEmailUseCase = ValidateEmailUseCase();
   });
   group('GIVEN a call on validateEmail', () {
-    test('WHEN email is empty THEN it should return an EmailStatus.empty',
+    test('WHEN email is blank THEN it should return an EmailStatus.empty',
         () async {
       final emailStatus = validateEmailUseCase.validateEmail('');
+      expect(emailStatus, EmailStatus.empty);
+    });
+    test('WHEN email is null THEN it should return an EmailStatus.empty',
+        () async {
+      final emailStatus = validateEmailUseCase.validateEmail(null);
       expect(emailStatus, EmailStatus.empty);
     });
     test('WHEN email is invalid THEN it should return an EmailStatus.invalid',
