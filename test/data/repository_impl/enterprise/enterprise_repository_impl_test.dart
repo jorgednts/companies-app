@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:ioasys_app/constants/constants_url_api.dart';
 import 'package:ioasys_app/data/cache/enterprise/cache_data_source/enterprise_cache_data_source.dart';
 import 'package:ioasys_app/data/remote/enterprise/remote_data_source/enterprise_remote_data_source.dart';
@@ -64,16 +63,30 @@ void main() {
           .thenAnswer((_) async => Null);
       when(mockEnterpriseCacheDataSource.getEnterprise(4))
           .thenAnswer((_) async => _getSuccessfulEnterpriseModelMock());
-      final enterprise = await enterpriseRepositoryImpl.getEnterpriseList(
-          'am', 'accessToken', 'uid', 'client');
-      expect(enterprise, _getSuccessfulEnterpriseListModelMock());
+      final enterprise = await enterpriseRepositoryImpl.getEnterprise(
+          4, 'accessToken', 'uid', 'client');
+      expect(enterprise, _getSuccessfulEnterpriseModelMock());
       verify(mockEnterpriseRemoteDataSource.getEnterpriseList(
           'am', 'accessToken', 'uid', 'client'));
+      verify(mockEnterpriseCacheDataSource
+          .saveEnterprise(_getSuccessfulEnterpriseModelMock()));
+      verify(mockEnterpriseCacheDataSource.getEnterprise(4));
     });
     test(
         'WHEN request is fail '
-        'THEN it should throw an exception',
-        () async {});
+        'THEN it should return an Enterprise Cache', () async {
+      when(mockEnterpriseRemoteDataSource.getEnterprise(
+              4, 'accessToken', 'uid', 'client'))
+          .thenThrow(Exception());
+      when(mockEnterpriseCacheDataSource
+              .saveEnterprise(_getSuccessfulEnterpriseModelMock()))
+          .thenAnswer((_) async => Null);
+      when(mockEnterpriseCacheDataSource.getEnterprise(4))
+          .thenAnswer((_) async => _getSuccessfulEnterpriseModelMock());
+      final enterprise = await enterpriseRepositoryImpl.getEnterprise(
+          4, 'accessToken', 'uid', 'client');
+      expect(enterprise, _getSuccessfulEnterpriseModelMock());
+    });
   });
 }
 
