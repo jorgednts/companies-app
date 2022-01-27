@@ -102,6 +102,7 @@ class _MainScreenState extends State<MainScreen> {
           successWidgetBuilder: (context, successState) {
             final enterpriseList = successState.enterprises;
             return EnterpriseList(
+              key: const ValueKey('main-screen-success-state'),
               enterpriseList: enterpriseList,
               userTokens: widget.userTokens,
               firebaseAnalytics: widget.firebaseAnalytics,
