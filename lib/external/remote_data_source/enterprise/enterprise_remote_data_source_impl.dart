@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:ioasys_app/constants/constants_url_api.dart';
 import 'package:ioasys_app/constants/constants_user_tokens.dart';
+import 'package:ioasys_app/data/mapper/remote_to_model.dart';
 import 'package:ioasys_app/data/remote/enterprise/model/enterprise/enterprise_list_response.dart';
 import 'package:ioasys_app/data/remote/enterprise/model/enterprise/enterprises_response.dart';
 import 'package:ioasys_app/data/remote/enterprise/remote_data_source/enterprise_remote_data_source.dart';
 import 'package:ioasys_app/domain/exception/gerenic_error_status_code_exception.dart';
 import 'package:ioasys_app/domain/model/enterprise/enterprise_model.dart';
-import 'package:ioasys_app/data/mapper/remote_to_model.dart';
 
 class EnterpriseRemoteDataSourceImpl implements EnterpriseRemoteDataSource {
   EnterpriseRemoteDataSourceImpl(

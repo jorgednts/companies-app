@@ -16,11 +16,4 @@ Composto por 3 telas:
 
 ##
 
-<img height="480px" src="assets/images_read_me/image1.png">
-<img height="480px" src="assets/images_read_me/image2.png"> 
-<img height="480px" src="assets/images_read_me/image3.png">
-<img height="480px" src="assets/images_read_me/image4.png">
-<img height="480px" src="assets/images_read_me/image5.png">
-<img height="480px" src="assets/images_read_me/image6.png">
-<img height="480px" src="assets/images_read_me/image7.png">
-<img height="480px" src="assets/images_read_me/image8.png">
+<img height="480px" src="assets/images_read_me/image1.png"><img height="480px" src="assets/images_read_me/image2.png"><img height="480px" src="assets/images_read_me/image3.png"><img height="480px" src="assets/images_read_me/image4.png"><img height="480px" src="assets/images_read_me/image5.png"><img height="480px" src="assets/images_read_me/image6.png"><img height="480px" src="assets/images_read_me/image7.png"><img height="480px" src="assets/images_read_me/image8.png">
