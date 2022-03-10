@@ -6,11 +6,10 @@ part of 'enterprises_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-EnterprisesResponse _$EnterprisesResponseFromJson(Map<String, dynamic> json) {
-  return EnterprisesResponse(
-    EnterpriseResponse.fromJson(json['enterprise'] as Map<String, dynamic>),
-  );
-}
+EnterprisesResponse _$EnterprisesResponseFromJson(Map<String, dynamic> json) =>
+    EnterprisesResponse(
+      EnterpriseResponse.fromJson(json['enterprise'] as Map<String, dynamic>),
+    );
 
 Map<String, dynamic> _$EnterprisesResponseToJson(
         EnterprisesResponse instance) =>

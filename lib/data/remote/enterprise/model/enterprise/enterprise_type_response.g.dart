@@ -7,11 +7,10 @@ part of 'enterprise_type_response.dart';
 // **************************************************************************
 
 EnterpriseTypeResponse _$EnterpriseTypeResponseFromJson(
-    Map<String, dynamic> json) {
-  return EnterpriseTypeResponse(
-    json['enterprise_type_name'] as String?,
-  );
-}
+        Map<String, dynamic> json) =>
+    EnterpriseTypeResponse(
+      json['enterprise_type_name'] as String?,
+    );
 
 Map<String, dynamic> _$EnterpriseTypeResponseToJson(
         EnterpriseTypeResponse instance) =>

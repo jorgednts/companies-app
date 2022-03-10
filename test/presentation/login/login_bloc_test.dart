@@ -1,6 +1,5 @@
 import 'package:ioasys_app/domain/model/user/email_status.dart';
 import 'package:ioasys_app/domain/model/user/password_status.dart';
-import 'package:ioasys_app/domain/model/user/user_model.dart';
 import 'package:ioasys_app/domain/model/user/user_tokens.dart';
 import 'package:ioasys_app/domain/use_case/do_login_use_case.dart';
 import 'package:ioasys_app/domain/use_case/validate_email_use_case.dart';
