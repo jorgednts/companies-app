@@ -12,11 +12,11 @@ App do desafio da empresa ioasys (https://bitbucket.org/ioasys/empresas-android/
    tela.
 
 Principais bibliotecas utilizadas:
-- Para requisições api REST: Dio
-- Banco local: Hive
-- Injeção de dependência: Provider
-- Gerenciamento de estado: RxDart
-- Testes unitários: Mockito
+- [Dio](https://pub.dev/packages/dio)
+- [Hive](https://pub.dev/packages/hive)
+- [Provider](https://pub.dev/packages/provider/install)
+- [RxDart](https://pub.dev/packages/rxdart)
+- [Mockito](https://pub.dev/packages/mockito)
 
 ##
 
